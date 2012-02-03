@@ -19,7 +19,7 @@ public class CommandLineArguments {
     private final boolean onlyGenedefSnps;
     private final boolean debugmode;
     
-    private final gowinda.misc.GenomeRepOptimize toOptimize;
+
     private final gowinda.misc.CountingUnit cu;
     private final gowinda.misc.GeneDefinition geneDef;
     private final boolean displayHelp;
@@ -38,7 +38,7 @@ public class CommandLineArguments {
      */
     public CommandLineArguments(String outputFile, String statInputFile, String statOutputFile, String annotationFile, String snpFile, String candidateSnpFile, String goAssociationFile,
             int simulations, int threads, float significance, gowinda.misc.CountingUnit unit, gowinda.misc.GeneDefinition geneDef, 
-            gowinda.misc.GenomeRepOptimize toOptimize, boolean displayHelp, boolean debugmode, boolean  onlyGenedefSnps)
+             boolean displayHelp, boolean debugmode, boolean  onlyGenedefSnps)
     {
     	this.threads=threads;
     	this.outputFile=outputFile;
@@ -55,16 +55,12 @@ public class CommandLineArguments {
         this.geneDef=geneDef;
         this.debugmode=debugmode;
         this.onlyGenedefSnps=onlyGenedefSnps;
-        this.toOptimize=toOptimize;
+
     }
     
     public int threads()
     {
     	return this.threads;
-    }
-    public gowinda.misc.GenomeRepOptimize optimizeGenomeRep()
-    {
-    	return this.toOptimize;
     }
     public boolean debugMode()
     {
