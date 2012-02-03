@@ -7,8 +7,6 @@ package gowinda;
 
 import java.io.File;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import gowinda.io.*;
 import gowinda.analysis.*;
 
@@ -23,7 +21,6 @@ public class SimulationAnalyzer implements IAnalyze {
     private final String snpFile;
     private final String candidateSnpFile;
     private final String goAssociationFile;
-    private final String statOutputFile;
     private final int simulations;
     private final int threads;
     private final double minsignificance;
@@ -31,10 +28,9 @@ public class SimulationAnalyzer implements IAnalyze {
     private final gowinda.misc.GeneDefinition geneDefinition;
     private final boolean geneDefinitionSampling;
     private java.util.logging.Logger logger;
-    private gowinda.misc.GenomeRepOptimize toOptimize;
-    public SimulationAnalyzer(String outputFile, String annotationFile, String snpFile, String candidateSnpFile, String goAssociationFile, String statOutputFile, int simulations, 
+    public SimulationAnalyzer(String outputFile, String annotationFile, String snpFile, String candidateSnpFile, String goAssociationFile, int simulations, 
             int threads, float significance, gowinda.misc.CountingUnit unit,gowinda.misc.GeneDefinition geneDefinition, boolean geneDefinitionSampling, 
-            gowinda.misc.GenomeRepOptimize toOptimize, java.util.logging.Logger logger)
+            java.util.logging.Logger logger)
     {
         if(!new File(annotationFile).exists()){throw new IllegalArgumentException("Annotation file does not exist");}
         if(!new File(snpFile).exists()){throw new IllegalArgumentException("File with all SNPs of the species does not exist");}
@@ -52,7 +48,6 @@ public class SimulationAnalyzer implements IAnalyze {
         this.snpFile=snpFile;
         this.candidateSnpFile=candidateSnpFile;
         this.goAssociationFile=goAssociationFile;
-        this.statOutputFile=statOutputFile;
         this.simulations=simulations;
         this.minsignificance=significance;
         this.logger=java.util.logging.Logger.getAnonymousLogger();
@@ -61,7 +56,6 @@ public class SimulationAnalyzer implements IAnalyze {
         this.geneDefinition=geneDefinition;
         this.geneDefinitionSampling=geneDefinitionSampling;
         this.logger=logger;
-        this.toOptimize=toOptimize;
     }
     
 
@@ -75,7 +69,7 @@ public class SimulationAnalyzer implements IAnalyze {
         
         // PREPARATION reading files
         // Read the genome annotation
-        IGenomeRepresentation genrep=(new GenomeRepresentationBuilder(this.annotationFile,this.geneDefinition,this.toOptimize,this.logger)).getGenomeRepresentation();
+        IGenomeRepresentation genrep=(new GenomeRepresentationBuilder(this.annotationFile,this.geneDefinition,this.logger)).getGenomeRepresentation();
         // Read GO file and obtain a GO translator (geneid -> GO term)
         GOTranslator gotrans=new GOTranslator(new GOEntryBulkReader(this.goAssociationFile,this.logger),this.unit,this.logger);
         // Crosscheck GO-IDs and Geneids
@@ -96,7 +90,11 @@ public class SimulationAnalyzer implements IAnalyze {
         // estimate significance of candidates: simres.estimateSignificance(candres);
         this.logger.info("Estimating significance of the candidate SNPs");
         HashMap<GOEntry,Integer> candidateGOcategories=gotrans.translate(snptrans.translate(candidateSnps));
-        ArrayList<GOResultForCandidateSnp> significance=simres.estimateSignificance(candidateGOcategories);
+        // How to Adjust for multiple testing
+        IMultipleTestingAdjuster adj=new BonferroniAdjuster(gotrans.goEntryCount());
+        ArrayList<GOResultForCandidateSnp> significance=simres.estimateSignificance(candidateGOcategories,adj);
+    
+        // Write results to output file
         new GOResultWriter(this.outputFile,significance,this.minsignificance,this.logger).writeAll();
         this.logger.info("FINISHED - Thank you for using Gowinda");
         

@@ -52,14 +52,14 @@ public class CommandLineParser {
             {
                 gtfFile=args.remove(0);
             }
-            else if(cu.equals("--statistic-input-file"))
-            {
-                statInputFile=args.remove(0);
-            }
-            else if(cu.equals("--statistic-output-file"))
-            {
-                statOutputFile=args.remove(0);
-            }
+//            else if(cu.equals("--statistic-input-file"))
+//            {
+//                statInputFile=args.remove(0);
+//            }
+//            else if(cu.equals("--statistic-output-file"))
+//            {
+//                statOutputFile=args.remove(0);
+//            }
             else if(cu.equals("--simulations"))
             {
                 simulations=Integer.parseInt(args.remove(0));
@@ -96,10 +96,6 @@ public class CommandLineParser {
             {
             	threads=Integer.parseInt(args.remove(0));
             }
-            else if(cu.equals("--optimize"))
-            {
-            	genRepString=args.remove(0);
-            }
             else
             {
                 throw new IllegalArgumentException("Do not recognize command line option "+cu);
@@ -125,8 +121,8 @@ public class CommandLineParser {
         sb.append("--go-association-file    a file containing the association between gene-id and GO terms\n");
         sb.append("--gtf-file               a file containing the annotation of the species in the .gtf format\n");
         sb.append("                         only the gtf-entries 'CDS' and 'exon' will be used\n");
-        sb.append("--statistic-input-file   a file containing precomputed compressed simulation results\n");
-        sb.append("--statistic-output-file  compressed output file for the simulation results\n");
+//        sb.append("--statistic-input-file   a file containing precomputed compressed simulation results\n");
+//        sb.append("--statistic-output-file  compressed output file for the simulation results\n");
         sb.append("--simulations            the number of simulations\n");
         sb.append("--min-significance       the minimum significance of GO terms to report\n");
         sb.append("--unit                   the unit of the tests; gene | snp'\n");
@@ -135,7 +131,6 @@ public class CommandLineParser {
         sb.append("--gene-definition-sampling\n");
         sb.append("                         sampling of the SNPs will only be done for genic SNPs according to\n");
         sb.append("                         the '--gene-definition'\n");
-        sb.append("--optimize               opimize either the cpu demand or the memory consumption; cpu | memory");
         sb.append("--detailed-log           switch to detailed log messages");
         sb.append("--help                   Display a help message\n");
         

@@ -1,15 +1,20 @@
 package gowinda.analysis;
 
+/*
+ * Immutable container
+ */
 public class GOResultForCandidateSnp {
 	private double significance;
 	private GOEntry goe;
 	private int observedCount;
 	private double expectedCount;
-	public GOResultForCandidateSnp(GOEntry entry, double significance, int observed, double expected)
+	private double adjustedSignificance;
+	public GOResultForCandidateSnp(GOEntry entry, double significance, double adjustedSignificance,int observed, double expected)
 	{
 		this.goe=entry;
 		this.observedCount=observed;
 		this.expectedCount=expected;
+		this.adjustedSignificance=adjustedSignificance;
 		this.significance=significance;
 	}
 	
@@ -29,9 +34,10 @@ public class GOResultForCandidateSnp {
 	{
 		return this.goe;
 	}
-	@Override
-	public String toString()
+
+	public double adjustedSignificance()
 	{
-		return String.format("%s\t%.2f\t%d\t%f\t%s", goe.goID(),this.expectedCount,this.observedCount,this.significance,goe.description());
+		return this.adjustedSignificance;
 	}
+	
 }
