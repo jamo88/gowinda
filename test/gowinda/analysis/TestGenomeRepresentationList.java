@@ -1,6 +1,7 @@
-package gowinda.analysis;
+package test.gowinda.analysis;
 
 import static org.junit.Assert.*;
+import gowinda.analysis.*;
 
 
 import java.util.ArrayList;
