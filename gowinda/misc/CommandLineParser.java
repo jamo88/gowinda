@@ -130,8 +130,8 @@ public class CommandLineParser {
         sb.append("--gene-definition-sampling\n");
         sb.append("                         sampling of the SNPs will only be done for genic SNPs according to\n");
         sb.append("                         the '--gene-definition'\n");
-        sb.append("--threads                number of threads to be used");
-        sb.append("--detailed-log           switch to detailed log messages");
+        sb.append("--threads                number of threads to be used\n");
+        sb.append("--detailed-log           switch to detailed log messages\n");
         sb.append("--help                   Display a help message\n");
         
         return sb.toString();
