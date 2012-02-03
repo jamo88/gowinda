@@ -19,7 +19,6 @@ public class CommandLineParser {
         String statOutputFile="";
         String genedefstr="";
         String unitString="";
-        String genRepString="";
         String outputFile="";
         int simulations=0;
         int threads=1;
@@ -29,7 +28,7 @@ public class CommandLineParser {
         boolean debugmode=false;
         gowinda.misc.CountingUnit countunit=gowinda.misc.CountingUnit.Gene;
         gowinda.misc.GeneDefinition geneDef=gowinda.misc.GeneDefinition.Exon;
-        gowinda.misc.GenomeRepOptimize toOptimize=gowinda.misc.GenomeRepOptimize.Memory;
+
         
         // Parse the command line arguments
         // order does not matter
@@ -48,7 +47,7 @@ public class CommandLineParser {
             {
                 goFile=args.remove(0);
             }
-            else if(cu.equals("--gtf-file"))
+            else if(cu.equals("--annotation-file"))
             {
                 gtfFile=args.remove(0);
             }
@@ -102,11 +101,11 @@ public class CommandLineParser {
             }
             
         }
-        if(!genRepString.equals(""))toOptimize=getGenomeRepresentation(genRepString);
+
         if(!unitString.equals(""))countunit=getCountingUnit(unitString);
         if(!genedefstr.equals(""))geneDef=getGeneDefinition(genedefstr);
         return new CommandLineArguments(outputFile, statInputFile, statOutputFile, gtfFile,snpFile,
-        		candidateFile,goFile,simulations,threads,significance,countunit,geneDef,toOptimize,displayHelp,debugmode,onlyGenedefSnps);
+        		candidateFile,goFile,simulations,threads,significance,countunit,geneDef,displayHelp,debugmode,onlyGenedefSnps);
     }
     
     
@@ -119,7 +118,7 @@ public class CommandLineParser {
         sb.append("--snp-file               a file containing all SNPs found in the species\n");
         sb.append("--candidate-snp-file     a file containing only the candidate SNPs\n");
         sb.append("--go-association-file    a file containing the association between gene-id and GO terms\n");
-        sb.append("--gtf-file               a file containing the annotation of the species in the .gtf format\n");
+        sb.append("--annotation-file        a file containing the annotation of the species in the .gtf or .gff format\n");
         sb.append("                         only the gtf-entries 'CDS' and 'exon' will be used\n");
 //        sb.append("--statistic-input-file   a file containing precomputed compressed simulation results\n");
 //        sb.append("--statistic-output-file  compressed output file for the simulation results\n");
@@ -131,29 +130,13 @@ public class CommandLineParser {
         sb.append("--gene-definition-sampling\n");
         sb.append("                         sampling of the SNPs will only be done for genic SNPs according to\n");
         sb.append("                         the '--gene-definition'\n");
+        sb.append("--threads                number of threads to be used");
         sb.append("--detailed-log           switch to detailed log messages");
         sb.append("--help                   Display a help message\n");
         
         return sb.toString();
     }
-    
-    private static gowinda.misc.GenomeRepOptimize getGenomeRepresentation(String genrepstr)
-    {
-    	if(genrepstr.toLowerCase().equals("cpu"))
-    	{
-    		return gowinda.misc.GenomeRepOptimize.Cpu;
-    	}
-    	else if(genrepstr.toLowerCase().equals("memory"))
-    	{
-    		return gowinda.misc.GenomeRepOptimize.Memory;
-    	}
-    	else
-    	{
-    		throw new IllegalArgumentException("Do not recognise optimization " +genrepstr);
-    	}
-    	
-    }
-    
+   
     private static gowinda.misc.CountingUnit getCountingUnit(String unitString)
     {
            if((unitString.toLowerCase()).equals("gene"))
