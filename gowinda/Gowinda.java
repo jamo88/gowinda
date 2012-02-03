@@ -38,19 +38,10 @@ public class Gowinda {
         
         // Create 'The Analyzer'
         IAnalyze analyzer;
-        if(arguments.statisticInputFile().equals(""))
-        {
-            // start 'de novo' simulations
-            analyzer =new SimulationAnalyzer(arguments.outputFile(),arguments.annotationFile(),arguments.snpFile(),arguments.candidateSnpFile(),arguments.goAssociationFile(),arguments.statisticOutputFile()
-                    ,arguments.simulations(), arguments.threads(),arguments.significance(),arguments.unit(),arguments.geneDefinition(),arguments.geneDefSampling(),arguments.optimizeGenomeRep(),logger);
-        }
-        else
-        {   
-            // use a precomputed statistics file
-            analyzer=null;
-        }
-        
-        
+        // start 'de novo' simulations
+        analyzer =new SimulationAnalyzer(arguments.outputFile(),arguments.annotationFile(),arguments.snpFile(),arguments.candidateSnpFile(),arguments.goAssociationFile()
+                    ,arguments.simulations(), arguments.threads(),arguments.significance(),arguments.unit(),arguments.geneDefinition(),arguments.geneDefSampling(),logger);
+
         //Start the analysis
         analyzer.startAnalysis();
         

@@ -47,7 +47,7 @@ public class GOResultWriter {
 			for(GOResultForCandidateSnp r : this.significance)
 			{
 				if(r.significance()>minSignificance)continue; 
-				String towrite=String.format("%s\t%.2f\t%d\t%f\t%s", r.goEntry().goID(),r.expectedCount(),r.observedCount(),r.significance(),r.goEntry().description());
+				String towrite=String.format("%s\t%.3f\t%d\t%f\t%f\t%s", r.goEntry().goID(),r.expectedCount(),r.observedCount(),r.significance(),r.adjustedSignificance(),r.goEntry().description());
 				bf.write(towrite+"\n");
 			}
 			bf.close();

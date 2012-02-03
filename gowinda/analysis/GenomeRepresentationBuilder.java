@@ -7,7 +7,6 @@ package gowinda.analysis;
 
 import gowinda.misc.GeneDefinition;
 import gowinda.io.*;
-import gowinda.misc.GenomeRepOptimize;
 /**
  *
  * @author robertkofler
@@ -15,15 +14,13 @@ import gowinda.misc.GenomeRepOptimize;
 public class GenomeRepresentationBuilder {
     private final String annotationFile;
     private final GeneDefinition geneDef;
-    private final GenomeRepOptimize toOptimize;
     private java.util.logging.Logger logger;
     
-    public GenomeRepresentationBuilder(String annotationFile, GeneDefinition geneDef, GenomeRepOptimize toOptimize, java.util.logging.Logger logger)
+    public GenomeRepresentationBuilder(String annotationFile, GeneDefinition geneDef, java.util.logging.Logger logger)
     {
         this.annotationFile=annotationFile;
         this.geneDef=geneDef;
         this.logger=logger;
-        this.toOptimize=toOptimize;
     }
     
     public IGenomeRepresentation getGenomeRepresentation()
@@ -40,18 +37,9 @@ public class GenomeRepresentationBuilder {
     }
     private IGenomeRepresentation getGenomeRepresentation(IBulkAnnotationReader reader)
     {
-    	if(this.toOptimize==GenomeRepOptimize.Cpu)
-    	{
-    		return new GenomeRepresentationHash(reader,this.logger);
-    	}
-    	else if(this.toOptimize==GenomeRepOptimize.Memory)
-    	{
-    		return new GenomeRepresentationList(reader,this.logger);
-    	}
-    	else
-    	{
-    		throw new IllegalArgumentException("Do not recognize otpimiziation "+this.toOptimize);
-    	}
+
+    	return new GenomeRepresentationList(reader,this.logger);
+
     }
 
     

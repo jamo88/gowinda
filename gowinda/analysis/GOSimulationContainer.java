@@ -29,7 +29,7 @@ public class GOSimulationContainer {
 		}
 	}
 	
-	public ArrayList<GOResultForCandidateSnp> estimateSignificance(HashMap<GOEntry,Integer> candidateResults)
+	public ArrayList<GOResultForCandidateSnp> estimateSignificance(HashMap<GOEntry,Integer> candidateResults, IMultipleTestingAdjuster adjuster)
 	{
 		ArrayList<GOResultForCandidateSnp> res=new ArrayList<GOResultForCandidateSnp>();
 		
@@ -37,9 +37,9 @@ public class GOSimulationContainer {
 		{
 			double sign=singleSignificance(candGO.getValue(),this.simres.get(candGO.getKey()));
 			double expected=expectedCount(candGO.getValue(),this.simres.get(candGO.getKey()));
-			res.add(new GOResultForCandidateSnp(candGO.getKey(),sign,candGO.getValue(),expected));
+			res.add(new GOResultForCandidateSnp(candGO.getKey(),sign,1.0,candGO.getValue(),expected));
 		}
-		return res;
+		return adjuster.getAdjustedSignificance(res);
 	}
 	
 	
