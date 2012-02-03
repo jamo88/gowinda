@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gowinda.analysis;
+package test.gowinda.analysis;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

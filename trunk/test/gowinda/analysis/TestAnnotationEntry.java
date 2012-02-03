@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gowinda.analysis;
+package test.gowinda.analysis;
 
+import gowinda.analysis.AnnotationEntry;
 import gowinda.analysis.AnnotationEntry.Strand;
 import org.junit.*;
 import static org.junit.Assert.*;
