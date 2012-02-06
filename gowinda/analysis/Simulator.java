@@ -43,7 +43,10 @@ public class Simulator {
 			call.add(Executors.callable(new SingleSimulation(simres,this.gotrans,snps,this.snptrans,this.candidateCount,this.progres)));
 		}
 		
-		try{
+			
+		try
+		{	
+			// Run them all!
 			executor.invokeAll(call);	
 		}
 		catch(InterruptedException e)
@@ -52,32 +55,6 @@ public class Simulator {
 			System.exit(0);
 		}
 		
-		
-	
-		/*
-		for(int i=0; i<this.simulations; i++)
-		{
-			try
-			{
-				if(Thread.activeCount()>=this.threads) {
-					Thread.sleep(1);
-				}
-			}
-			catch(InterruptedException e)
-			{
-				e.printStackTrace();
-				System.exit(0);
-			}
-			Thread t=new Thread();
-			t.start();
-			if(i>0 && i%10000==0) logger.fine("Finished "+i+" simulations");
-			t.
-		}
-		*/
-
-		
-
-
 		
 		this.logger.info("Finished simulations");
 		return simres;
