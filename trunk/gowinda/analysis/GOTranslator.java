@@ -22,6 +22,14 @@ public class GOTranslator {
 		this.logger=logger;
 	}
 	
+	public GOTranslator(HashMap<String,ArrayList<GOEntry>> golist, gowinda.misc.CountingUnit cu)
+	{
+		goh=new HashMap<String,ArrayList<GOEntry>>(golist);
+		this.cu=cu;
+		this.logger=java.util.logging.Logger.getLogger("Gowinda Logger");
+		logger.setUseParentHandlers(false);
+	}
+	
 	
 	/*
 	 * Translates a list of geneids into counts for all GOcategories

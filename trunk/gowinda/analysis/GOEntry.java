@@ -3,10 +3,13 @@ package gowinda.analysis;
 public class GOEntry implements Comparable<GOEntry> {
 	private final String goid;
 	private final String description;
+
+	
 	public GOEntry(String goid, String description)
-	{
+	{	
 		this.goid=goid;
 		this.description=description;
+
 	}
 	public String goID()
 	{

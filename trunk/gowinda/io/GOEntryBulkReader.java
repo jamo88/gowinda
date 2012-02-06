@@ -18,18 +18,18 @@ public class GOEntryBulkReader {
 	{
 		public String goname;
 		public String description;
-		public String[] geneids;
+		public HashSet<String> geneids;
 		public GORaw(String goname, String description, String[] geneids)
 		{
 			if(geneids.length <1 )throw new IllegalArgumentException("Your GO association file may be corrupt. At least one entry is required for every Gene");
 			this.goname=goname;
 			this.description=description;
-			String[] tl=new String[geneids.length];
-			for(int i=0; i<geneids.length; i++)
+			
+			this.geneids=new HashSet<String>();
+			for(String s: geneids)
 			{
-				tl[i]=geneids[i].toLowerCase();
+				this.geneids.add(s.toLowerCase());
 			}
-			this.geneids=tl;
 		}
 
 	}
@@ -55,8 +55,9 @@ public class GOEntryBulkReader {
 		ArrayList<GORaw> ar= readGOraw();
 		this.logger.info("Finished - read "+ar.size() + " GO terms");
 		
+		
 		this.logger.fine("Starting key conversion: GOTerm -> Geneid");
-		// Every GOTerm may only occur once for every gene
+		// Converting from GO: Geneid_list to Geneid vs GOTerm_list 
 		HashMap<String,HashSet<GOEntry>> goe=new  HashMap<String,HashSet<GOEntry>>();
 		for(GORaw gr:ar)
 		{
@@ -104,7 +105,4 @@ public class GOEntryBulkReader {
 		}
 		return ar;
 	}
-	
-	
-
 }
