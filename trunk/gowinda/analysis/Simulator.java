@@ -1,6 +1,7 @@
 package gowinda.analysis;
 
 import java.util.*;
+import java.util.concurrent.*;
 
 
 public class Simulator {
@@ -11,6 +12,7 @@ public class Simulator {
 	private SnpsToGeneidTranslator snptrans;
 	private GOTranslator gotrans;
 	private java.util.logging.Logger logger;
+	private TaskCounter progres;
 	
 	public Simulator( ArrayList<Snp> snps, SnpsToGeneidTranslator snptrans, int threads, int simulations, int candidateCount, GOTranslator gotrans,
 			java.util.logging.Logger logger)
@@ -23,6 +25,7 @@ public class Simulator {
 		this.snptrans=snptrans;
 		this.gotrans=gotrans;
 		this.logger=logger;
+		this.progres=new TaskCounter(this.logger,10000);
 	}
 	
 	
@@ -31,9 +34,27 @@ public class Simulator {
 		this.logger.info("Starting " +this.simulations+ " simulations for " +this.candidateCount+ " candidate SNPs using " + this.threads +" threads");
 		this.logger.info("This may take a while. Switch to the detailed log mode if you want to see the progress");
 		GOSimulationContainer simres=new GOSimulationContainer(this.simulations);
-
-	
+		ExecutorService executor=Executors.newFixedThreadPool(this.threads);
 		
+		ArrayList<Callable<Object>> call=new ArrayList<Callable<Object>>();
+		for(int i=0; i<this.simulations; i++)
+		{
+			
+			call.add(Executors.callable(new SingleSimulation(simres,this.gotrans,snps,this.snptrans,this.candidateCount,this.progres)));
+		}
+		
+		try{
+			executor.invokeAll(call);	
+		}
+		catch(InterruptedException e)
+		{
+			e.printStackTrace();
+			System.exit(0);
+		}
+		
+		
+	
+		/*
 		for(int i=0; i<this.simulations; i++)
 		{
 			try
@@ -47,24 +68,17 @@ public class Simulator {
 				e.printStackTrace();
 				System.exit(0);
 			}
-			Thread t=new Thread(new SingleSimulation(simres,this.gotrans,snps,this.snptrans,this.candidateCount));
+			Thread t=new Thread();
 			t.start();
 			if(i>0 && i%10000==0) logger.fine("Finished "+i+" simulations");
+			t.
 		}
+		*/
 
 		
-		try
-		{
-			if(Thread.activeCount()>1) {
-				Thread.sleep(1);
-			}
-		}
-		catch(InterruptedException e)
-		{
-			e.printStackTrace();
-			System.exit(0);
-		}
 
+
+		
 		this.logger.info("Finished simulations");
 		return simres;
 	}
@@ -76,14 +90,15 @@ public class Simulator {
 
 class SingleSimulation implements Runnable
 {
-	private GOSimulationContainer gores;
-	private GOTranslator gotrans;
-	private Random randgen=new Random();
-	private ArrayList<Snp> snps;
-	private SnpsToGeneidTranslator snptrans;
-	int snpcount;
-	private int candCount;
-	public SingleSimulation(GOSimulationContainer gores,GOTranslator gotrans, ArrayList<Snp> snps, SnpsToGeneidTranslator snptrans, int candCount)
+	private final GOSimulationContainer gores;
+	private final GOTranslator gotrans;
+	private final Random randgen=new Random();
+	private final ArrayList<Snp> snps;
+	private final SnpsToGeneidTranslator snptrans;
+	private final int snpcount;
+	private final int candCount;
+	private final TaskCounter progres;
+	public SingleSimulation(GOSimulationContainer gores,GOTranslator gotrans, ArrayList<Snp> snps, SnpsToGeneidTranslator snptrans, int candCount,TaskCounter progres)
 	{
 		this.gores=gores;
 		this.gotrans=gotrans;
@@ -91,21 +106,28 @@ class SingleSimulation implements Runnable
 		this.snpcount=this.snps.size();
 		this.candCount=candCount;
 		this.snptrans=snptrans;
+		this.progres=progres;
 	}
 	
 	@Override
 	public void run()
 	{
-		// Randomly draw a number of SNPs
-		HashSet<Snp> randSnps=new HashSet<Snp>();
-		while(randSnps.size()<candCount)
+		HashSet<Integer> randSnpPos=new HashSet<Integer>();
+		while(randSnpPos.size()<candCount)
 		{
 			int index=randgen.nextInt(snpcount);
-			randSnps.add(snps.get(index));
+			randSnpPos.add(index);
 		}
 		
-		ArrayList<String> geneids=snptrans.translate(new ArrayList<Snp>(randSnps));
+		ArrayList<Snp> randSnps=new ArrayList<Snp>(randSnpPos.size());
+		for(Integer i: randSnpPos)
+		{
+			randSnps.add(snps.get(i));
+		}
+		
+		ArrayList<String> geneids=snptrans.translate(randSnps);
 		HashMap<GOEntry,Integer> gocatfound=gotrans.translate(geneids);
 		gores.addSimulation(gocatfound);
+		progres.increment();
 	}
 }

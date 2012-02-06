@@ -73,7 +73,7 @@ public class GenomeRepresentationBuilder {
         }
         else if(geneDef==GeneDefinition.ExonIntron)
         {
-        	return new ExIntDecorator(reader,this.logger);
+        	return new GeneDecorator(reader,this.logger);
         }
         else
         {

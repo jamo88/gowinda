@@ -7,17 +7,18 @@ import java.util.logging.Logger;
  * Obtains the region from the start of the first exon until the end of the last exon
  * This should contain the whole region of a gene spanning all exons and introns
  */
-public class ExIntDecorator implements IBulkAnnotationReader {
+public class GeneDecorator implements IBulkAnnotationReader {
 
 	private IBulkAnnotationReader bar;
 	private Logger logger;
-	public ExIntDecorator(IBulkAnnotationReader bar,Logger logger)
+	public GeneDecorator(IBulkAnnotationReader bar,Logger logger)
 	{
 		// Filter only for exons; 
 		//
 		this.logger=logger;
 		this.bar=new ExonDecorator(bar,logger);
 	}
+	
 	@Override
 	public ArrayList<AnnotationEntry> readAnnotation(){
 	
@@ -41,7 +42,8 @@ public class ExIntDecorator implements IBulkAnnotationReader {
 		ArrayList<AnnotationEntry> genes=new ArrayList<AnnotationEntry>();
 		for (ArrayList<AnnotationEntry> exonList:geneExons.values())
 		{
-			genes.add(getGene(exonList));
+			AnnotationEntry gene=getGene(exonList);
+			if(gene!=null)genes.add(gene);
 		}
 		// voila a list of genes
 		logger.info("Finished - obtained " + genes.size()+" 'gene' entries");
@@ -56,7 +58,8 @@ public class ExIntDecorator implements IBulkAnnotationReader {
 		int end=-1;
 		String geneID=null;
 		String chromosome=null;
-		AnnotationEntry.Strand strand=null;
+		AnnotationEntry.Strand strand=getStrand(exonList);
+		if(strand==null) return null;
 		for(AnnotationEntry e : exonList)
 		{
 			if(start==-1) start =e.start();
@@ -68,12 +71,31 @@ public class ExIntDecorator implements IBulkAnnotationReader {
 			if(e.start()<start)start=e.start();
 			if(e.end()>end)end=e.end();
 			// perform some security checks, we can not group exons from different chromosomes or genes
-			if(!geneID.equals(e.geneid())) throw new IllegalArgumentException("All exons of the same gene must have the same geneid");
-			if(!chromosome.equals(e.chromosome())) throw new IllegalArgumentException("All exons of the same gene must be on the same chromosome");
-			if(!(strand==e.strand())) throw new IllegalArgumentException("All exons of the same gene must be on the same strand");
+			if(!geneID.equals(e.geneid())) throw new IllegalArgumentException("All exons of the same gene must have the same geneid"+e.toString());
+			if(!chromosome.equals(e.chromosome())) throw new IllegalArgumentException("All exons of the same gene must be on the same chromosome:" +e.toString());
 		}
 		// Create the new Annotation entry
 		return new AnnotationEntry(chromosome,"gene",start,end,strand,null,geneID);
+	}
+	
+	/*
+	 * Thank you Annotators!! Some Genes have exons from two strands some exons are on the plus some on the minus
+	 * This should be two different genes!!! We take the majority vote..
+	 */
+	private AnnotationEntry.Strand getStrand(ArrayList<AnnotationEntry> exonList)
+	{
+		int plusCount=0;
+		int minusCount=0;
+		for(AnnotationEntry e: exonList)
+		{
+			if(e.strand()==AnnotationEntry.Strand.Minus) minusCount++;
+			else if(e.strand()==AnnotationEntry.Strand.Plus) plusCount++;
+			else throw new IllegalArgumentException("Invalid strand: "+e);
+		}
+		if(plusCount>minusCount) return AnnotationEntry.Strand.Plus;
+		else if(plusCount<minusCount) return AnnotationEntry.Strand.Minus;
+		else return null;
+		
 	}
 	
 	

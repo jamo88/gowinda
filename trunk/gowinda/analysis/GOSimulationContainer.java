@@ -23,12 +23,12 @@ public class GOSimulationContainer {
 	{
 		for(Map.Entry<GOEntry,Integer> en: singleSimulation.entrySet())
 		{
-			// update with default values
-			// Key is GO entry; value is the number of counts obtained for the given GO category
-			if(!this.simres.containsKey(en.getKey())) simres.put(en.getKey(), new HashMap<Integer,Integer>());
-			if(!this.simres.get(en.getKey()).containsKey(en.getValue())) simres.get(en.getKey()).put(en.getValue(),0);
-			// increase count
-			this.simres.get(en.getKey()).put(en.getValue(),this.simres.get(en.getKey()).get(en.getValue())+1);
+				// update with default values
+				// Key is GO entry; value is the number of counts obtained for the given GO category
+				if(!this.simres.containsKey(en.getKey())) simres.put(en.getKey(), new HashMap<Integer,Integer>());
+				if(!this.simres.get(en.getKey()).containsKey(en.getValue())) simres.get(en.getKey()).put(en.getValue(),0);
+				// increase count
+				this.simres.get(en.getKey()).put(en.getValue(),this.simres.get(en.getKey()).get(en.getValue())+1);
 		}
 	}
 	
