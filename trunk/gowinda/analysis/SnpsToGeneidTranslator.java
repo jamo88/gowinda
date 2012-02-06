@@ -2,7 +2,7 @@ package gowinda.analysis;
 import java.util.*;
 
 public class SnpsToGeneidTranslator {
-	private IGenomeRepresentation genres;
+	private final IGenomeRepresentation genres;
 	public SnpsToGeneidTranslator(IGenomeRepresentation genres)
 	{
 		this.genres=genres;

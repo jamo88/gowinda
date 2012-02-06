@@ -5,10 +5,10 @@
  */
 package gowinda;
 
-import java.io.File;
 import java.util.*;
 import gowinda.io.*;
 import gowinda.analysis.*;
+import java.io.*;
 
 /**
  *
@@ -37,9 +37,17 @@ public class SimulationAnalyzer implements IAnalyze {
         if(!new File(candidateSnpFile).exists()){throw new IllegalArgumentException("Candidate SNP file does not exist");}
         if(!new File(goAssociationFile).exists()){throw new IllegalArgumentException("GO association file does not exist");}
         if(simulations<1){throw new IllegalArgumentException("Number of simulations must be larger than 0");}
-        if(significance<0 || significance>1){throw new IllegalArgumentException("Significance must be between 0 and 1");}
+        if(significance<=0 || significance>1){throw new IllegalArgumentException("Significance must be larger than 0 and smaller or equal than 1; Provided: "+significance);}
         if(threads<1) throw new IllegalArgumentException("Number of threads needs to be larger than zero");
-
+        try{
+        	new FileWriter(outputFile);
+        }
+        catch(IOException e)
+        {
+        	throw new IllegalArgumentException("Can not create output file:" +outputFile);
+        }
+        
+        
         
         // set the variables
         this.threads=threads;
