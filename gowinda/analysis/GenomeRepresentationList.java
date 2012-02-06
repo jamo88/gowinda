@@ -12,10 +12,10 @@ import gowinda.analysis.AnnotationEntry;
  * Memory friendly implementation, but CPU demanding
  */
 public class GenomeRepresentationList implements IGenomeRepresentation {
-	private Logger logger;
-	private HashMap<String,ArrayList<AnnotationEntry>> genrep;
-	private HashMap<String,Integer> longestAnnotation;
-	private ArrayList<String> geneids;
+	private  Logger logger;
+	private  HashMap<String,ArrayList<AnnotationEntry>> genrep;
+	private  HashMap<String,Integer> longestAnnotation;
+	private  ArrayList<String> geneids;
 	
 	public static class AnnotationStartComparator implements Comparator<AnnotationEntry>
 	{

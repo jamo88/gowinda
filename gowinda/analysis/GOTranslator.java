@@ -11,9 +11,10 @@ import java.util.*;
  */
 
 public class GOTranslator {
-	private HashMap<String,ArrayList<GOEntry>> goh;
-	private gowinda.misc.CountingUnit cu;
-	private java.util.logging.Logger logger;
+	private final HashMap<String,ArrayList<GOEntry>> goh;
+	private final gowinda.misc.CountingUnit cu;
+	private final java.util.logging.Logger logger;
+	
 	public GOTranslator(GOEntryBulkReader goreader,gowinda.misc.CountingUnit cu, java.util.logging.Logger logger)
 	{
 		goh=goreader.readGOEntries();
@@ -23,7 +24,7 @@ public class GOTranslator {
 	
 	
 	/*
-	 * Translates a list of geneids into a GO category counts
+	 * Translates a list of geneids into counts for all GOcategories
 	 */
 	public HashMap<GOEntry,Integer> translate(ArrayList<String> geneids)
 	{

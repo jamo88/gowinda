@@ -1,7 +1,10 @@
 package gowinda.analysis;
 import java.util.*;
 
-
+/*
+ * Contains the results of the GO simulations. 
+ * May also be used to calculate the significance of all GO categories for a given SNP set.
+ */
 public class GOSimulationContainer {
 	private int simulations;
 	private HashMap<GOEntry,HashMap<Integer,Integer>> simres;
@@ -29,7 +32,10 @@ public class GOSimulationContainer {
 		}
 	}
 	
-	public ArrayList<GOResultForCandidateSnp> estimateSignificance(HashMap<GOEntry,Integer> candidateResults, IMultipleTestingAdjuster adjuster)
+	/*
+	 * Estimate the significance for a given Set of GOterms
+	 */
+	public synchronized ArrayList<GOResultForCandidateSnp> estimateSignificance(HashMap<GOEntry,Integer> candidateResults, IMultipleTestingAdjuster adjuster)
 	{
 		ArrayList<GOResultForCandidateSnp> res=new ArrayList<GOResultForCandidateSnp>();
 		
@@ -43,6 +49,9 @@ public class GOSimulationContainer {
 	}
 	
 	
+	/*
+	 * Calculate the average number of genes having the given go category
+	 */
 	private double expectedCount(int candCount,HashMap<Integer,Integer> candSimres)
 	{
 		int sumCount=0;
@@ -54,6 +63,9 @@ public class GOSimulationContainer {
 	}
 
 	
+	/*
+	 * Calculate the significance for a single GO category
+	 */
 	private double singleSignificance(int candCount,HashMap<Integer,Integer> candSimres)
 	{
 		if(candSimres.size()<1)return ((double)pseudocount)/((double)simulations);
