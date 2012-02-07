@@ -96,6 +96,8 @@ class SingleSimulation implements Runnable
 			randSnpPos.add(index);
 		}
 		
+		assert(randSnpPos.size()==candCount);
+		
 		ArrayList<Snp> randSnps=new ArrayList<Snp>(randSnpPos.size());
 		for(Integer i: randSnpPos)
 		{

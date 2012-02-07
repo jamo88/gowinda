@@ -9,21 +9,31 @@ import java.util.logging.Logger;
  */
 public class GeneDecorator implements IBulkAnnotationReader {
 
-	private IBulkAnnotationReader bar;
+
+	private ArrayList<AnnotationEntry> exons;
 	private Logger logger;
 	public GeneDecorator(IBulkAnnotationReader bar,Logger logger)
 	{
 		// Filter only for exons; 
 		//
 		this.logger=logger;
-		this.bar=new ExonDecorator(bar,logger);
+		ExonDecorator ed=new ExonDecorator(bar,logger);
+		this.exons=ed.readAnnotation();
 	}
+	public GeneDecorator(ArrayList<AnnotationEntry> exons)
+	{
+		this.exons=exons;
+		this.logger=java.util.logging.Logger.getLogger("Gowinda Logger");
+		logger.setUseParentHandlers(false);
+	}
+	
+
 	
 	@Override
 	public ArrayList<AnnotationEntry> readAnnotation(){
 	
 		// obtain all exons (using the ExonDecorator)
-		ArrayList<AnnotationEntry> exons=bar.readAnnotation();
+		
 		
 		logger.info("Starting to build 'gene' entries, ranging from the start position of the first exon to the end position of the last exon");
 		// group all exons with the same geneid
