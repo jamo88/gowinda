@@ -9,7 +9,8 @@ import java.io.*;
  */
 public class GOEntryBulkReader {
 	
-	private final String inputFile;
+
+	private String inputFile="";
 	private java.util.logging.Logger logger;
 	private BufferedReader bf;
 	
@@ -36,11 +37,12 @@ public class GOEntryBulkReader {
 	
 	public GOEntryBulkReader(String inputFile, java.util.logging.Logger logger)
 	{
+
 		this.inputFile=inputFile;
 		this.logger=logger;
 		try
 		{
-			this.bf=new BufferedReader(new FileReader(this.inputFile));
+			this.bf=new BufferedReader(new FileReader(inputFile));
 		}
 		catch(FileNotFoundException e)
 		{
@@ -49,15 +51,23 @@ public class GOEntryBulkReader {
 		}
 	}
 	
+	public GOEntryBulkReader(BufferedReader bf)
+	{
+		this.bf=bf;
+		this.logger=java.util.logging.Logger.getLogger("Gowinda Logger");
+		logger.setUseParentHandlers(false);
+		
+	}
+	
 	public HashMap<String,ArrayList<GOEntry>> readGOEntries()
 	{
-		this.logger.info("Starting to read GO association file");
+		this.logger.info("Starting to read GO association file: "+this.inputFile);
 		ArrayList<GORaw> ar= readGOraw();
 		this.logger.info("Finished - read "+ar.size() + " GO terms");
 		
 		
 		this.logger.fine("Starting key conversion: GOTerm -> Geneid");
-		// Converting from GO: Geneid_list to Geneid vs GOTerm_list 
+		// Converting from GO: Geneid_list to Geneid vs. GOTerm_list 
 		HashMap<String,HashSet<GOEntry>> goe=new  HashMap<String,HashSet<GOEntry>>();
 		for(GORaw gr:ar)
 		{
