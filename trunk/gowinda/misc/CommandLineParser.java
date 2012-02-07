@@ -126,7 +126,7 @@ public class CommandLineParser {
         sb.append("--min-significance       the minimum significance of GO terms to report\n");
         sb.append("--unit                   the unit of the tests; gene | snp'\n");
         sb.append("--gene-definition        this is a major feature which allows to specify how a gene should\n");
-        sb.append("		                    be defined for GO analysis: exon | cds | exonintron\n");
+        sb.append("		                    be defined for GO analysis: exon | cds | gene\n");
         sb.append("--gene-definition-sampling\n");
         sb.append("                         sampling of the SNPs will only be done for genic SNPs according to\n");
         sb.append("                         the '--gene-definition'\n");
@@ -163,9 +163,9 @@ public class CommandLineParser {
         {
             return gowinda.misc.GeneDefinition.CDS;
         }
-        else if(geneDefString.toLowerCase().equals("exonintron"))
+        else if(geneDefString.toLowerCase().equals("gene"))
         {
-            return gowinda.misc.GeneDefinition.ExonIntron;
+            return gowinda.misc.GeneDefinition.Gene;
         }
         else
         {
