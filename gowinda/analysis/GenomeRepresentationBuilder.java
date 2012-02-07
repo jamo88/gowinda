@@ -71,7 +71,7 @@ public class GenomeRepresentationBuilder {
         {
         	return new CdsDecorator(reader,this.logger);
         }
-        else if(geneDef==GeneDefinition.ExonIntron)
+        else if(geneDef==GeneDefinition.Gene)
         {
         	return new GeneDecorator(reader,this.logger);
         }

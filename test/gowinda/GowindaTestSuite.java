@@ -13,7 +13,7 @@ import org.junit.runners.Suite;
  * @author robertkofler
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({test.gowinda.analysis.SuiteAnalysis.class})
+@Suite.SuiteClasses({test.gowinda.analysis.SuiteAnalysis.class, test.gowinda.io.SuiteIO.class})
 public class GowindaTestSuite {
 
     

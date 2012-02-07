@@ -21,6 +21,11 @@ public class SnpReader implements ISnpReader{
         this.bf=new BufferedReader(new FileReader(this.inputFile));
     }
     
+    public SnpReader(BufferedReader bf)
+    {
+    	this.bf=bf;
+    }
+    
     @Override
     public Snp next() throws IOException
     {

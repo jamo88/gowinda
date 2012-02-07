@@ -11,6 +11,6 @@ package gowinda.misc;
 public enum GeneDefinition {
     Exon,
     CDS,
-    ExonIntron
+    Gene
     
 }
