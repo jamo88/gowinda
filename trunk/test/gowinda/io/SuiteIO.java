@@ -9,7 +9,8 @@ import org.junit.runners.Suite;
  * @author robertkofler
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({TestSnpIO.class,TestGeneDecorator.class,TestGOEntryBulkReader.class})
+@Suite.SuiteClasses({TestSnpIO.class,TestGeneDecorator.class,TestGOEntryBulkReader.class,
+	TestUpstreamGeneDecorator.class})
 public class SuiteIO {
 
 	

@@ -75,6 +75,18 @@ public class GenomeRepresentationBuilder {
         {
         	return new GeneDecorator(reader,this.logger);
         }
+        else if(geneDef==GeneDefinition.Upstream)
+        {
+        	return new UpstreamDecorator(reader,geneDef.getLength(),this.logger);
+        }
+        else if(geneDef==GeneDefinition.Downstream)
+        {
+        	return new DownstreamDecorator(reader,geneDef.getLength(),this.logger);
+        }
+        else if(geneDef==GeneDefinition.UpDownstream)
+        {
+        	return new UpDownstreamDecorator(reader,geneDef.getLength(),this.logger);
+        }
         else
         {
         	throw new IllegalArgumentException("Gene definition "+ geneDef + " not supported");

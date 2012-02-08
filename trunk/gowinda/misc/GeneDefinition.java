@@ -11,6 +11,20 @@ package gowinda.misc;
 public enum GeneDefinition {
     Exon,
     CDS,
-    Gene
+    Gene,
+    Upstream,
+    Downstream,
+    UpDownstream;
     
+    
+    private int length;
+    
+    public void setLength(int length)
+    {
+    	this.length=length;
+    }
+    public int getLength()
+    {
+    	return this.length;
+    }
 }
