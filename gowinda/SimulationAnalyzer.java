@@ -72,9 +72,7 @@ public class SimulationAnalyzer implements IAnalyze {
     public int startAnalysis()
     {
         
-        
-        logger.info("No file with precomputed statistics has been provided. Starting 'de novo' simulations"); 
-        
+                
         // PREPARATION reading files
         // Read the genome annotation
         IGenomeRepresentation genrep=(new GenomeRepresentationBuilder(this.annotationFile,this.geneDefinition,this.logger)).getGenomeRepresentation();

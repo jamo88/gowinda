@@ -1,6 +1,10 @@
 package gowinda.misc;
 
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.regex.*;
+
+import gowinda.misc.GeneDefinition;
 
 /**
  *
@@ -27,7 +31,7 @@ public class CommandLineParser {
         boolean onlyGenedefSnps=false;
         boolean debugmode=false;
         gowinda.misc.CountingUnit countunit=gowinda.misc.CountingUnit.Gene;
-        gowinda.misc.GeneDefinition geneDef=gowinda.misc.GeneDefinition.Exon;
+        GeneDefinition geneDef=GeneDefinition.Exon;
 
         
         // Parse the command line arguments
@@ -120,13 +124,17 @@ public class CommandLineParser {
         sb.append("--go-association-file    a file containing the association between gene-id and GO terms\n");
         sb.append("--annotation-file        a file containing the annotation of the species in the .gtf or .gff format\n");
         sb.append("                         only the gtf-entries 'CDS' and 'exon' will be used\n");
-//        sb.append("--statistic-input-file   a file containing precomputed compressed simulation results\n");
-//        sb.append("--statistic-output-file  compressed output file for the simulation results\n");
         sb.append("--simulations            the number of simulations\n");
         sb.append("--min-significance       the minimum significance of GO terms to report\n");
         sb.append("--unit                   the unit of the tests; gene | snp'\n");
-        sb.append("--gene-definition        this is a major feature which allows to specify how a gene should\n");
-        sb.append("		                    be defined for GO analysis: exon | cds | gene\n");
+        sb.append("--gene-definition        allowes to specify which feature needs to overlap with a given SNP\n");
+        sb.append("							in order to assign the SNP to a gene ID (thus later on to a GO category)");	
+        sb.append("		                    'cds' SNPs overlapping with CDS\n");
+        sb.append("							'exon' SNPs overlapping with exons\n");
+        sb.append("							'gene' SNPs overlapping with exons and introns\n");
+        sb.append("							'upstream5000; like gene plus 5000bp upstream of gene, any number may be provided");
+        sb.append("							'downsteam5000: like gene plus 5000bp downstream of gene, any number may be provided");
+        sb.append("							'updownstream5000: like gene plus 5000bp downstream and upstream of the gene, any number may be provided");
         sb.append("--gene-definition-sampling\n");
         sb.append("                         sampling of the SNPs will only be done for genic SNPs according to\n");
         sb.append("                         the '--gene-definition'\n");
@@ -153,19 +161,51 @@ public class CommandLineParser {
            }
     }
     
-    private static gowinda.misc.GeneDefinition getGeneDefinition(String geneDefString)
+    private static GeneDefinition getGeneDefinition(String geneDefString)
     {
-        if(geneDefString.toLowerCase().equals("exon"))
+    	
+    	String lowGD=geneDefString.toLowerCase();
+        if(lowGD.equals("exon"))
         {
-            return gowinda.misc.GeneDefinition.Exon;
+            return GeneDefinition.Exon;
         }
-        else if(geneDefString.toLowerCase().equals("cds"))
+        else if(lowGD.equals("cds"))
         {
-            return gowinda.misc.GeneDefinition.CDS;
+            return GeneDefinition.CDS;
         }
-        else if(geneDefString.toLowerCase().equals("gene"))
+        else if(lowGD.equals("gene"))
         {
-            return gowinda.misc.GeneDefinition.Gene;
+            return GeneDefinition.Gene;
+        }
+        else if(lowGD.startsWith("upstream"))
+        {
+        	GeneDefinition gd=GeneDefinition.Upstream;
+           	Pattern p=Pattern.compile("upstream(\\d+)");
+        	Matcher m=p.matcher(lowGD);
+        	if(!m.find()) throw new IllegalArgumentException("Please also provide the upstream distance, eg.: upstream500");
+        	int distance=Integer.parseInt(m.group(1));
+        	gd.setLength(distance);
+        	return gd;
+        }
+        else if(lowGD.startsWith("downstream"))
+        {
+        	GeneDefinition gd=GeneDefinition.Downstream;
+        	Pattern p=Pattern.compile("downstream(\\d+)");
+        	Matcher m=p.matcher(lowGD);
+        	if(!m.find()) throw new IllegalArgumentException("Please also provide the downstream distance, eg.: downstream500");
+        	int distance=Integer.parseInt(m.group(1));
+        	gd.setLength(distance);
+        	return gd;
+        }
+        else if(lowGD.startsWith("updownstream"))
+        {
+        	GeneDefinition gd=GeneDefinition.UpDownstream;
+        	Pattern p=Pattern.compile("updownstream(\\d+)");
+        	Matcher m=p.matcher(lowGD);
+          	if(!m.find()) throw new IllegalArgumentException("Please also provide the updownstream distance, eg.: updownstream500");
+        	int distance=Integer.parseInt(m.group(1));
+        	gd.setLength(distance);
+        	return gd;
         }
         else
         {
