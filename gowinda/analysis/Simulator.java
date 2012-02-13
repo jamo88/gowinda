@@ -33,14 +33,14 @@ public class Simulator {
 	{
 		this.logger.info("Starting " +this.simulations+ " simulations for " +this.candidateCount+ " candidate SNPs using " + this.threads +" threads");
 		this.logger.info("This may take a while. Switch to the detailed log mode if you want to see the progress");
-		GOSimulationContainer simres=new GOSimulationContainer(this.simulations);
+		GOSimulationContainer.GOSimulationContainerBuilder simbuilder=new GOSimulationContainer.GOSimulationContainerBuilder();
 		ExecutorService executor=Executors.newFixedThreadPool(this.threads);
 		
 		ArrayList<Callable<Object>> call=new ArrayList<Callable<Object>>();
 		for(int i=0; i<this.simulations; i++)
 		{
 			
-			call.add(Executors.callable(new SingleSimulation(simres,this.gotrans,snps,this.snptrans,this.candidateCount,this.progres)));
+			call.add(Executors.callable(new SingleSimulation(simbuilder,this.gotrans,snps,this.snptrans,this.candidateCount,this.progres)));
 		}
 		
 			
@@ -57,7 +57,7 @@ public class Simulator {
 		
 		
 		this.logger.info("Finished simulations");
-		return simres;
+		return simbuilder.getSimulationResults();
 	}
 	//Math.random() is thread safe, can be called from many threads at the same time
 	// However, if many threads require random numbers in large numbers it may be more appropriate if every thread
@@ -67,7 +67,7 @@ public class Simulator {
 
 class SingleSimulation implements Runnable
 {
-	private final GOSimulationContainer gores;
+	private final GOSimulationContainer.GOSimulationContainerBuilder simbuilder;
 	private final GOTranslator gotrans;
 	private final Random randgen=new Random();
 	private final ArrayList<Snp> snps;
@@ -75,9 +75,9 @@ class SingleSimulation implements Runnable
 	private final int snpcount;
 	private final int candCount;
 	private final TaskCounter progres;
-	public SingleSimulation(GOSimulationContainer gores,GOTranslator gotrans, ArrayList<Snp> snps, SnpsToGeneidTranslator snptrans, int candCount,TaskCounter progres)
+	public SingleSimulation(GOSimulationContainer.GOSimulationContainerBuilder simbuilder,GOTranslator gotrans, ArrayList<Snp> snps, SnpsToGeneidTranslator snptrans, int candCount,TaskCounter progres)
 	{
-		this.gores=gores;
+		this.simbuilder=simbuilder;
 		this.gotrans=gotrans;
 		this.snps=snps;
 		this.snpcount=this.snps.size();
@@ -106,7 +106,7 @@ class SingleSimulation implements Runnable
 		
 		ArrayList<String> geneids=snptrans.translate(randSnps);
 		HashMap<GOEntry,Integer> gocatfound=gotrans.translate(geneids);
-		gores.addSimulation(gocatfound);
+		simbuilder.addSimulation(gocatfound);
 		progres.increment();
 	}
 }

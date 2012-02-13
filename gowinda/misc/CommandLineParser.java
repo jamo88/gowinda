@@ -127,14 +127,15 @@ public class CommandLineParser {
         sb.append("--simulations            the number of simulations\n");
         sb.append("--min-significance       the minimum significance of GO terms to report\n");
         sb.append("--unit                   the unit of the tests; gene | snp'\n");
-        sb.append("--gene-definition        allowes to specify which feature needs to overlap with a given SNP\n");
-        sb.append("							in order to assign the SNP to a gene ID (thus later on to a GO category)");	
+        sb.append("--gene-definition        allows to specify which feature needs to overlap with a given SNP\n");
+        sb.append("							in order to assign the SNP to a gene ID (thus later on to a GO category)\n");	
         sb.append("		                    'cds' SNPs overlapping with CDS\n");
-        sb.append("							'exon' SNPs overlapping with exons\n");
-        sb.append("							'gene' SNPs overlapping with exons and introns\n");
-        sb.append("							'upstream5000; like gene plus 5000bp upstream of gene, any number may be provided");
-        sb.append("							'downsteam5000: like gene plus 5000bp downstream of gene, any number may be provided");
-        sb.append("							'updownstream5000: like gene plus 5000bp downstream and upstream of the gene, any number may be provided");
+        sb.append("							'exon' SNPs overlapping with exons (including UTRs)\n");
+        sb.append("							'utr' SNPs overlapping with UTR regions\n");
+        sb.append("							'gene' SNPs overlapping with exons and introns\n");	
+        sb.append("							'upstream5000; like gene plus 5000bp upstream of gene, any number may be provided\n");
+        sb.append("							'downsteam5000: like gene plus 5000bp downstream of gene, any number may be provided\n");
+        sb.append("							'updownstream5000: like gene plus 5000bp downstream and upstream of the gene, any number may be provided\n");
         sb.append("--gene-definition-sampling\n");
         sb.append("                         sampling of the SNPs will only be done for genic SNPs according to\n");
         sb.append("                         the '--gene-definition'\n");
@@ -176,6 +177,10 @@ public class CommandLineParser {
         else if(lowGD.equals("gene"))
         {
             return GeneDefinition.Gene;
+        }
+        else if(lowGD.equals("utr"))
+        {
+        	return GeneDefinition.UTR;
         }
         else if(lowGD.startsWith("upstream"))
         {
