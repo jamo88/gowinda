@@ -9,6 +9,23 @@ public class GOResultContainer {
 		this.gores=new ArrayList<GOResultForCandidateSnp>(gores);
 	}
 	
+	public GOResultContainer updateGeneids(HashMap<GOEntry,ArrayList<String>> genids)
+	{
+		ArrayList<GOResultForCandidateSnp> toret=new ArrayList<GOResultForCandidateSnp>();
+		
+		for(GOResultForCandidateSnp gr: this.gores)
+		{
+			ArrayList<String> geneids =new ArrayList<String>();
+			if(genids.containsKey(gr.goEntry()))
+			{
+				geneids=genids.get(gr.goEntry());
+			}
+			toret.add(gr.setGeneids(geneids));
+		}
+		return new GOResultContainer(toret);
+		
+	}
+	
 	public GOResultContainer updateMultipleTesting(IMultipleTestingAdjuster adj)
 	{
 		ArrayList<Double> pvals=new ArrayList<Double>();

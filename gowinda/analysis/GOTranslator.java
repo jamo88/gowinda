@@ -67,6 +67,26 @@ public class GOTranslator {
 		return toret;
 	}
 	
+	
+	public HashMap<GOEntry,ArrayList<String>> translateGeneids(ArrayList<String> geneids)
+	{
+		ArrayList<String> towork=new ArrayList<String>(new HashSet<String>(geneids));
+		HashMap<GOEntry,ArrayList<String>> toret=new HashMap<GOEntry,ArrayList<String>>();
+		for(String geneid: towork)
+		{
+			// CRITICAL - if no go entry is found for a given gene, an empty list will be used
+			ArrayList<GOEntry> goterms=new ArrayList<GOEntry>();
+			if(this.goh.containsKey(geneid))goterms=this.goh.get(geneid);
+			
+			for(GOEntry ge: goterms)
+			{
+				if(!toret.containsKey(ge))toret.put(ge,new ArrayList<String>());
+				toret.get(ge).add(geneid);
+			}
+		}
+		return toret;
+	}
+	
 	/*
 	 *	Checks the number of geneids for which no Go entry is found
 	 */

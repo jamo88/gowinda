@@ -46,8 +46,12 @@ public class GOResultWriter {
 		{
 			for(GOResultForCandidateSnp r : res)
 			{
-				if(r.significance()>minSignificance)continue; 
-				String towrite=String.format("%s\t%.3f\t%d\t%f\t%f\t%s", r.goEntry().goID(),r.expectedCount(),r.observedCount(),r.significance(),r.adjustedSignificance(),r.goEntry().description());
+
+				String geneids=this.join(r.geneids());
+				
+				
+				if(r.adjustedSignificance()>minSignificance)continue; 
+				String towrite=String.format("%s\t%.3f\t%d\t%f\t%f\t%s\t%s", r.goEntry().goID(),r.expectedCount(),r.observedCount(),r.significance(),r.adjustedSignificance(),r.goEntry().description(),geneids);
 				bf.write(towrite+"\n");
 			}
 			bf.close();
@@ -58,5 +62,21 @@ public class GOResultWriter {
 			System.exit(0);
 		}
 		logger.info("Finished writing to file");
+	}
+	
+	private String join(ArrayList<String> toJoin)
+	{
+		if(toJoin.size()==0) return "";
+		if(toJoin.size()==1) return toJoin.get(0);
+		
+		StringBuilder sb=new StringBuilder();
+		sb.append(toJoin.get(0));
+		for(int i=1; i<toJoin.size(); i++)
+		{
+			sb.append(",");
+			sb.append(toJoin.get(i));
+		}
+		return sb.toString();
+	
 	}
 }
