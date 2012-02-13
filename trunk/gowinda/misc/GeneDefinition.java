@@ -12,6 +12,7 @@ public enum GeneDefinition {
     Exon,
     CDS,
     Gene,
+    UTR,
     Upstream,
     Downstream,
     UpDownstream;

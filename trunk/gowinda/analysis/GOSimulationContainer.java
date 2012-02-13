@@ -6,38 +6,65 @@ import java.util.*;
  * May also be used to calculate the significance of all GO categories for a given SNP set.
  */
 public class GOSimulationContainer {
-	private int simulations;
-	private HashMap<GOEntry,HashMap<Integer,Integer>> simres;
-	private static int pseudocount=1;
-	public GOSimulationContainer(int simulations)
+	
+	
+	public static class GOSimulationContainerBuilder
 	{
-		this.simulations=simulations;
-		simres=new HashMap<GOEntry,HashMap<Integer,Integer>>();
+		private HashMap<GOEntry,HashMap<Integer,Integer>> simres;
+		private int simulations=0;
+		public GOSimulationContainerBuilder()
+		{
+			simres=new HashMap<GOEntry,HashMap<Integer,Integer>>();
+		}
+		/*
+		 * Update the simulation container with the results of a single novel simulation
+		 * Results of a single simulation are the GOEntry and the counts of significant hits
+		 */
+		public synchronized void addSimulation(HashMap<GOEntry,Integer> singleSimulation)
+		{
+			this.simulations++;
+			for(Map.Entry<GOEntry,Integer> en: singleSimulation.entrySet())
+			{
+					// update with default values
+					// Key is GO entry; value is the number of counts obtained for the given GO category
+
+					if(!this.simres.containsKey(en.getKey())) simres.put(en.getKey(), new HashMap<Integer,Integer>());
+					if(!this.simres.get(en.getKey()).containsKey(en.getValue())) simres.get(en.getKey()).put(en.getValue(),0);
+					// increase count
+					this.simres.get(en.getKey()).put(en.getValue(),this.simres.get(en.getKey()).get(en.getValue())+1);
+				
+			}
+		}
+		
+		public synchronized GOSimulationContainer getSimulationResults()
+		{
+			return new GOSimulationContainer(this.simres,this.simulations);
+		}
+		
 	}
 	
-	/*
-	 * Update the simulation container with the results of a single novel simulation
-	 * Results of a single simulation are the GOEntry and the counts of significant hits
-	 */
-	public synchronized void addSimulation(HashMap<GOEntry,Integer> singleSimulation)
-	{
-		for(Map.Entry<GOEntry,Integer> en: singleSimulation.entrySet())
-		{
-				// update with default values
-				// Key is GO entry; value is the number of counts obtained for the given GO category
+		/*	
+		 * END GOSimulationContainerBuilder
+		 */
+	
+	
+	
+	private final static int pseudocount=1;
+	private final int simulations;
+	private final HashMap<GOEntry,HashMap<Integer,Integer>> simres;
 
-				if(!this.simres.containsKey(en.getKey())) simres.put(en.getKey(), new HashMap<Integer,Integer>());
-				if(!this.simres.get(en.getKey()).containsKey(en.getValue())) simres.get(en.getKey()).put(en.getValue(),0);
-				// increase count
-				this.simres.get(en.getKey()).put(en.getValue(),this.simres.get(en.getKey()).get(en.getValue())+1);
-			
-		}
+	private GOSimulationContainer(HashMap<GOEntry,HashMap<Integer,Integer>> simres,int simulations)
+	{
+		this.simulations=simulations;
+		this.simres=simres;
 	}
+	
+
 	
 	/*
 	 * Estimate the significance for a given Set of GOterms
 	 */
-	public synchronized ArrayList<GOResultForCandidateSnp> estimateSignificance(HashMap<GOEntry,Integer> candidateResults, IMultipleTestingAdjuster adjuster)
+	public ArrayList<GOResultForCandidateSnp> estimateSignificance(HashMap<GOEntry,Integer> candidateResults)
 	{
 		ArrayList<GOResultForCandidateSnp> res=new ArrayList<GOResultForCandidateSnp>();
 		
@@ -47,7 +74,7 @@ public class GOSimulationContainer {
 			double expected=expectedCount(candGO.getValue(),this.simres.get(candGO.getKey()));
 			res.add(new GOResultForCandidateSnp(candGO.getKey(),sign,1.0,candGO.getValue(),expected));
 		}
-		return adjuster.getAdjustedSignificance(res);
+		return res;
 	}
 	
 	
@@ -77,7 +104,7 @@ public class GOSimulationContainer {
 		{
 			if(cat.getKey()>=candCount)sumCount+=cat.getValue();
 		}
-		if(sumCount==0)sumCount=1;
+		if(sumCount==0) sumCount=pseudocount;
 		return ((double)sumCount)/((double)simulations);
 	}
 

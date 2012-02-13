@@ -75,6 +75,10 @@ public class GenomeRepresentationBuilder {
         {
         	return new GeneDecorator(reader,this.logger);
         }
+        else if(geneDef==GeneDefinition.UTR)
+        {
+        	return new UtrDecorator(reader,this.logger);
+        }
         else if(geneDef==GeneDefinition.Upstream)
         {
         	return new UpstreamDecorator(reader,geneDef.getLength(),this.logger);
