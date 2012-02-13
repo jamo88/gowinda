@@ -7,6 +7,7 @@ import java.util.*;
  */
 public class BonferroniAdjuster implements IMultipleTestingAdjuster{
 	
+
 	private int goCategoryCount;
 	public BonferroniAdjuster(int goCategoryCount)
 	{
@@ -15,16 +16,17 @@ public class BonferroniAdjuster implements IMultipleTestingAdjuster{
 
 	
 	@Override
-	public ArrayList<GOResultForCandidateSnp> getAdjustedSignificance(ArrayList<GOResultForCandidateSnp> candidates)
+	public ArrayList<Double> getAdjustedSignificance(ArrayList<Double> pval)
 	{
-		ArrayList<GOResultForCandidateSnp> res=new ArrayList<GOResultForCandidateSnp>();
-		for(GOResultForCandidateSnp cand:candidates)
+
+		ArrayList<Double> toret=new ArrayList<Double>();
+		for(double f: pval)
 		{
-			double adj=cand.significance()*this.goCategoryCount;
-			if(adj>1.0) adj=1.0;
-			res.add(new GOResultForCandidateSnp(cand.goEntry(),cand.significance(),adj,cand.observedCount(),cand.expectedCount()));
+			double novel=f*goCategoryCount;
+			if(novel>1.0) novel=1.0;
+			toret.add(novel);
 		}
-		return res;
+		return toret;
 	}
 
 }

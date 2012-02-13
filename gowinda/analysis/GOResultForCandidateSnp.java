@@ -4,11 +4,11 @@ package gowinda.analysis;
  * Immutable container
  */
 public class GOResultForCandidateSnp {
-	private double significance;
-	private GOEntry goe;
-	private int observedCount;
-	private double expectedCount;
-	private double adjustedSignificance;
+	private final double significance;
+	private final GOEntry goe;
+	private final int observedCount;
+	private final double expectedCount;
+	private final double adjustedSignificance;
 	public GOResultForCandidateSnp(GOEntry entry, double significance, double adjustedSignificance,int observed, double expected)
 	{
 		this.goe=entry;
@@ -38,6 +38,11 @@ public class GOResultForCandidateSnp {
 	public double adjustedSignificance()
 	{
 		return this.adjustedSignificance;
+	}
+	
+	public GOResultForCandidateSnp setAdjustedSignificance(double adjustedSignificance)
+	{
+		return new GOResultForCandidateSnp(this.goe,this.significance,adjustedSignificance,this.observedCount,this.expectedCount);
 	}
 	
 }

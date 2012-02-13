@@ -96,14 +96,14 @@ public class SimulationAnalyzer implements IAnalyze {
         // estimate significance of candidates: simres.estimateSignificance(candres);
         this.logger.info("Estimating significance of the candidate SNPs");
         HashMap<GOEntry,Integer> candidateGOcategories=gotrans.translate(snptrans.translate(candidateSnps));
-        ArrayList<GOResultForCandidateSnp> significance=simres.estimateSignificance(candidateGOcategories);
+        GOResultContainer gores=simres.estimateSignificance(candidateGOcategories);
         // How to Adjust for multiple testing
-        IMultipleTestingAdjuster adj=new BonferroniAdjuster(gotrans.goEntryCount());
-        significance=adj.getAdjustedSignificance(significance);
+        IMultipleTestingAdjuster adj=new FdrAdjuster(gotrans.goEntryCount());
+        gores= gores.updateMultipleTesting(adj);
         
     
         // Write results to output file
-        new GOResultWriter(this.outputFile,significance,this.minsignificance,this.logger).writeAll();
+        new GOResultWriter(this.outputFile,gores,this.minsignificance,this.logger).writeAll();
         this.logger.info("FINISHED - Thank you for using Gowinda");
         
         return 1;

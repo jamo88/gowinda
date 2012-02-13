@@ -64,7 +64,7 @@ public class GOSimulationContainer {
 	/*
 	 * Estimate the significance for a given Set of GOterms
 	 */
-	public ArrayList<GOResultForCandidateSnp> estimateSignificance(HashMap<GOEntry,Integer> candidateResults)
+	public GOResultContainer estimateSignificance(HashMap<GOEntry,Integer> candidateResults)
 	{
 		ArrayList<GOResultForCandidateSnp> res=new ArrayList<GOResultForCandidateSnp>();
 		
@@ -74,7 +74,7 @@ public class GOSimulationContainer {
 			double expected=expectedCount(candGO.getValue(),this.simres.get(candGO.getKey()));
 			res.add(new GOResultForCandidateSnp(candGO.getKey(),sign,1.0,candGO.getValue(),expected));
 		}
-		return res;
+		return new GOResultContainer(res);
 	}
 	
 	
