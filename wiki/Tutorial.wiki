@@ -10,8 +10,8 @@ First obtain the sample data for the Walkthrough: http://gowinda.googlecode.com/
 After unzipping the archive you should have the following files:
   * all_snps.txt: the set of all identified SNPs
   * candidate_snps.txt: the candidate SNPs. Some previous GWAS-like analysis revealed that these SNPs are associated with a trait of interest for example wing length. They are a subset of all_snps.txt
-  * annotation.gff: Annotation of the genome in the .gff file format (obtained from FlyBase: http://flybase.org/)
-  * funcassociate_go_associations.txt: A GO annotation file obtained from the FuncAssociate2 web page (http://llama.mshri.on.ca/funcassociate_client/html/) 
+  * annotation.gff: Annotation of the genome in the .gff file format (obtained from !FlyBase: http://flybase.org/)
+  * funcassociate_go_associations.txt: A GO annotation file obtained from the !FuncAssociate2 web page (http://llama.mshri.on.ca/funcassociate_client/html/) 
 
 
 
