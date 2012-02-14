@@ -1,7 +1,10 @@
 #summary A quick tour using a small sample data set
 
+<wiki:toc max_depth="2"/>
+
 = Introduction =
-We chose a small data set in order to quickly demonstrate the main functionality of Gowinda. 
+The following section provides a quick and fast introduction into the analysis of GO enrichment of candidate SNPs using Gowinda. For the sake of this tutorial we provide a small artificial data set for _Drosophila melanogaster_ chromosome 2R.
+
 
 = Data =
 The following sample data set contains SNPs, annotation and the GO associations for _D.melanogaster_ chromosome arm 2R. 
