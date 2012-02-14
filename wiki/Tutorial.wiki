@@ -1,10 +1,10 @@
 #summary A quick tour using a small sample data set
 
 = Introduction =
-
+We chose a small data set in order to quickly demonstrate the main functionality of Gowinda. 
 
 = Data =
-The following sample data set contains SNPs, annotation and the GO associations for _D.melanogaster_ chromosome arm 2R. We chose a small data set in order to quickly demonstrate the main functionality of Gowinda. 
+The following sample data set contains SNPs, annotation and the GO associations for _D.melanogaster_ chromosome arm 2R. 
 First obtain the sample data for the Walkthrough: http://gowinda.googlecode.com/files/GowindaWalkthrough.zip
 
 After unzipping the archive you should have the following files:
