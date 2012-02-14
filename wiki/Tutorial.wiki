@@ -22,5 +22,6 @@ After unzipping the archive you should have the following files:
 
 First we test whether the candidate SNPs show any enrichment for any GO category when counting every gene only once. This means, even when a gene has more than one candidate SNP it is only counted once ({{{--unit gene}}}). Further we assign a SNP to a gene if the SNP is overlapping either with an exon or an intron ({{{--gene-defintion gene}}}).
 <code language="bash">
+java -Xmx4g -jar /Users/robertkofler/dev/PopGenTools/gowinda/Gowinda.jar --snp-file all_snps.txt --candidate-snp-file candidate_snps.txt --go-association-file funcassociate_go_associations.txt --annotation-file annotation.gff --simulations 100000 --gene-definition gene --unit gene --threads 4 --output-file go_enrich_gene.txt --min-significance 1 
 
 </code>
