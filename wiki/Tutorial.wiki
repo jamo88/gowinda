@@ -2,7 +2,18 @@
 
 = Introduction =
 
-Add your content here.
+
+= Data =
+The following sample data set contains SNPs, annotation and the GO associations for _D.melanogaster_ chromosome arm 2R. We chose a small data set in order to quickly demonstrate the main functionality of Gowinda. 
+First obtain the sample data for the Walkthrough: http://gowinda.googlecode.com/files/GowindaWalkthrough.zip
+
+After unzipping the archive you should have the following files:
+  * all_snps.txt: the set of all identified SNPs
+  * candidate_snps.txt: the candidate SNPs. Some previous GWAS-like analysis revealed that these SNPs are associated with a trait of interest for example wing length. They are a subset of all_snps.txt
+  * annotation.gff: Annotation of the genome in the .gff file format (obtained from FlyBase: http://flybase.org/)
+  * funcassociate_go_associations.txt: A GO annotation file obtained from the FuncAssociate2 web page (http://llama.mshri.on.ca/funcassociate_client/html/) 
+
+
 
 
 = Details =
