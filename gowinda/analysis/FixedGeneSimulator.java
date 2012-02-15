@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import gowinda.io.SnpGenicFilterReader;
 
 
 
@@ -18,19 +19,16 @@ public class FixedGeneSimulator implements IGOSimulator{
 	private final ArrayList<Snp> candidateSnps;
 	private java.util.logging.Logger logger;
 	
-	public FixedGeneSimulator(IGenomeRepresentation genrep, GOCategoryContainer goentries, ArrayList<Snp> snps, ArrayList<Snp> candidateSnps)
-	{
-		this.genrep=genrep;
-		this.goentries=goentries;
-		this.snps=snps;
-		this.candidateSnps=candidateSnps;
-	}
-	
-	@Override
-	public void setLogger(java.util.logging.Logger logger)
+	public FixedGeneSimulator(IGenomeRepresentation genrep, GOCategoryContainer goentries, ArrayList<Snp> snps, ArrayList<Snp> candidateSnps, java.util.logging.Logger logger)
 	{
 		this.logger=logger;
+		this.genrep=genrep;
+		this.goentries=goentries;
+		this.snps=new SnpGenicFilterReader( snps,genrep,logger).getSnps();
+		this.candidateSnps=new SnpGenicFilterReader(candidateSnps,genrep,logger).getSnps();
 	}
+	
+
 	
 	
 	@Override

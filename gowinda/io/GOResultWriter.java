@@ -51,8 +51,13 @@ public class GOResultWriter {
 				
 				
 				if(r.adjustedSignificance()>minSignificance)continue; 
-				String towrite=String.format("%s\t%.3f\t%d\t%f\t%f\t%s\t%s", r.goEntry().goID(),r.expectedCount(),r.observedCount(),r.significance(),r.adjustedSignificance(),r.goEntry().description(),geneids);
-				bf.write(towrite+"\n");
+				StringBuilder sb=new StringBuilder();//String.format("%s\t%.3f\t%d\t%f\t%f\t%s\t%s", r.goEntry().goID(),r.expectedCount(),r.observedCount(),r.significance(),r.adjustedSignificance(),r.goEntry().description(),geneids);
+				sb.append(String.format("%s\t%.3f\t%d\t", r.goEntry().goID(),r.expectedCount(),r.observedCount()));
+				sb.append(r.significance()+"\t");
+				sb.append(r.adjustedSignificance()+"\t");
+				sb.append(String.format("%s\t%s", r.goEntry().description(),geneids));
+						
+				bf.write(sb.toString()+"\n");
 			}
 			bf.close();
 		}

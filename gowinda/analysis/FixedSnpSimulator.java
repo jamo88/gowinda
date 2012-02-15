@@ -16,20 +16,14 @@ public class FixedSnpSimulator implements IGOSimulator {
 	private final ArrayList<Snp> candidateSnps;
 	private java.util.logging.Logger logger;
 	
-	public FixedSnpSimulator(IGenomeRepresentation genrep, GOCategoryContainer goentries, ArrayList<Snp> snps, ArrayList<Snp> candidateSnps)
+	public FixedSnpSimulator(IGenomeRepresentation genrep, GOCategoryContainer goentries, ArrayList<Snp> snps, ArrayList<Snp> candidateSnps, java.util.logging.Logger logger)
 	{
+		this.logger=logger;
 		this.genrep=genrep;
 		this.goentries=goentries;
 		this.snps=snps;
 		this.candidateSnps=candidateSnps;
-		this.logger=java.util.logging.Logger.getLogger("Gowinda Logger");
-		logger.setUseParentHandlers(false);
-	}
-	
-	@Override
-	public void setLogger(java.util.logging.Logger logger)
-	{
-		this.logger=logger;
+
 	}
 	
 	@Override

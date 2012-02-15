@@ -6,12 +6,12 @@ import gowinda.analysis.IGenomeRepresentation;
 
 public class SnpGenicFilterReader implements ISnpBulkReader
 {
-	private ISnpBulkReader reader;
+	private final ArrayList<Snp> toFilter;
 	private IGenomeRepresentation genrep;
 	private java.util.logging.Logger logger;
-	public SnpGenicFilterReader(ISnpBulkReader reader, IGenomeRepresentation genrep, java.util.logging.Logger logger)
+	public SnpGenicFilterReader(ArrayList<Snp> toFilter, IGenomeRepresentation genrep, java.util.logging.Logger logger)
 	{
-		this.reader=reader;
+		this.toFilter=toFilter;
 		this.genrep=genrep;
 		this.logger=logger;
 	}
@@ -19,11 +19,11 @@ public class SnpGenicFilterReader implements ISnpBulkReader
 	public ArrayList<Snp> getSnps()
 	{
 
-		ArrayList<Snp> unfiltered=reader.getSnps();
+
 		ArrayList<Snp> filtered=new ArrayList<Snp>();
 
-		logger.info("Starting to filter for 'genic' Snps; Initial SNP count: "+unfiltered.size());
-		for(Snp s :unfiltered)
+		logger.info("Starting to filter for 'genic' Snps; Initial SNP count: "+toFilter.size());
+		for(Snp s :toFilter)
 		{
 			if(genrep.getGeneidsForSnp(s).size()>0) filtered.add(s);
 		}
