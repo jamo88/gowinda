@@ -13,6 +13,7 @@ import gowinda.analysis.Snp;
 public interface IGenomeRepresentation {
     
     public abstract ArrayList<String> getGeneidsForSnp(Snp snp);
+    public abstract ArrayList<String> getGeneidsForSnps(ArrayList<Snp> snps);
     public abstract ArrayList<String> allGeneids();
     
 }

@@ -20,7 +20,7 @@ public class CommandLineArguments {
     private final boolean debugmode;
     
 
-    private final gowinda.misc.CountingUnit cu;
+    private final gowinda.misc.SimulationMode simulationMode;
     private final gowinda.misc.GeneDefinition geneDef;
     private final boolean displayHelp;
     
@@ -37,12 +37,12 @@ public class CommandLineArguments {
      * @param countunit 
      */
     public CommandLineArguments(String outputFile, String statInputFile, String statOutputFile, String annotationFile, String snpFile, String candidateSnpFile, String goAssociationFile,
-            int simulations, int threads, float significance, gowinda.misc.CountingUnit unit, gowinda.misc.GeneDefinition geneDef, 
+            int simulations, int threads, float significance, gowinda.misc.SimulationMode simulationMode, gowinda.misc.GeneDefinition geneDef, 
              boolean displayHelp, boolean debugmode, boolean  onlyGenedefSnps)
     {
     	this.threads=threads;
     	this.outputFile=outputFile;
-        this.cu=unit;
+        this.simulationMode=simulationMode;
         this.annotationFile=annotationFile;
         this.snpFile=snpFile;
         this.candidateSnpFile=candidateSnpFile;
@@ -94,9 +94,9 @@ public class CommandLineArguments {
     {
         return significance;
     }
-    public gowinda.misc.CountingUnit unit()
+    public gowinda.misc.SimulationMode simulationMode()
     {
-        return cu;
+        return simulationMode;
     }
     public gowinda.misc.GeneDefinition geneDefinition()
     {

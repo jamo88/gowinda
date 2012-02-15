@@ -2,6 +2,7 @@ package gowinda.analysis;
 
 import java.util.logging.Logger;
 import java.util.*;
+
 import gowinda.analysis.Snp;
 
 import gowinda.io.IBulkAnnotationReader;
@@ -69,6 +70,17 @@ public class GenomeRepresentationHash implements IGenomeRepresentation {
 		logger.fine("Final cache size: "+ GeneidSet.size());
 		logger.fine("Final size of genome hash: "+this.entryCount());
 		logger.info("Finished building representation of the reference genome");
+	}
+	
+	@Override
+	public ArrayList<String> getGeneidsForSnps(ArrayList<Snp> snps)
+	{
+		ArrayList<String> toret=new ArrayList<String>();
+		for(Snp s: snps)
+		{
+			toret.addAll(this.getGeneidsForSnp(s));
+		}
+		return toret;
 	}
 	
 	@Override
