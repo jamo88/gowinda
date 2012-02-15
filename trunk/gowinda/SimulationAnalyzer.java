@@ -88,8 +88,7 @@ public class SimulationAnalyzer implements IAnalyze {
         new SnpCrossValidator(snps,candidateSnps,this.logger).validate();
         
         //Simulate
-        IGOSimulator gosimulator=getGOSimulator(this.simulationMode,genrep,goentries,snps,candidateSnps);
-        gosimulator.setLogger(this.logger);
+        IGOSimulator gosimulator=getGOSimulator(this.simulationMode,genrep,goentries,snps,candidateSnps,this.logger);
         GOResultContainer gores=gosimulator.getSimulationResults(this.simulations,this.threads);
        
         
@@ -112,15 +111,16 @@ public class SimulationAnalyzer implements IAnalyze {
 
     }
     
-    private IGOSimulator getGOSimulator(gowinda.misc.SimulationMode mode, IGenomeRepresentation genrep, GOCategoryContainer goentries, ArrayList<Snp> snps, ArrayList<Snp> candidateSnps)
+    private IGOSimulator getGOSimulator(gowinda.misc.SimulationMode mode, IGenomeRepresentation genrep, GOCategoryContainer goentries, ArrayList<Snp> snps, ArrayList<Snp> candidateSnps,
+    		java.util.logging.Logger logger)
     {
     	if(mode==gowinda.misc.SimulationMode.FixGene)
     	{
-    		return new FixedGeneSimulator(genrep,goentries,snps,candidateSnps);
+    		return new FixedGeneSimulator(genrep,goentries,snps,candidateSnps,logger);
     	}
     	else if(mode==gowinda.misc.SimulationMode.FixSnp)
     	{
-    		return new FixedSnpSimulator(genrep,goentries,snps,candidateSnps);
+    		return new FixedSnpSimulator(genrep,goentries,snps,candidateSnps,logger);
     	}
     	else
     	{

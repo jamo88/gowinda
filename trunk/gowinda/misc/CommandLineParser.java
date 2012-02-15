@@ -122,7 +122,9 @@ public class CommandLineParser {
         sb.append("                         only the gtf-entries 'CDS' and 'exon' will be used\n");
         sb.append("--simulations            the number of simulations\n");
         sb.append("--min-significance       the minimum significance of GO terms to report\n");
-        sb.append("--mode                   the simulation mode; fixed_gene_count | fixed_snp_count; default: fixed_gene_count'\n");
+        sb.append("--mode                   the simulation mode; gene | snp; default: gene'\n");
+        sb.append("							'snp': the same number of SNPs as candidate SNPs will be sampled per simulation\n");
+        sb.append("							'gene': the same number of genes as genes that are overlapping with a candidate SNP will be sampled per simulation\n");
         sb.append("--gene-definition        allows to specify which feature needs to overlap with a given SNP\n");
         sb.append("							in order to assign the SNP to a gene ID (thus later on to a GO category)\n");	
         sb.append("		                    'cds' SNPs overlapping with CDS\n");
@@ -141,11 +143,11 @@ public class CommandLineParser {
    
     private static gowinda.misc.SimulationMode getMode(String unitString)
     {
-           if((unitString.toLowerCase()).equals("fixed_gene_count"))
+           if((unitString.toLowerCase()).equals("gene"))
            {
                return gowinda.misc.SimulationMode.FixGene;
            }
-           else if((unitString.toLowerCase()).equals("fixed_snp_count"))
+           else if((unitString.toLowerCase()).equals("snp"))
            {
                 return gowinda.misc.SimulationMode.FixSnp;
            }
