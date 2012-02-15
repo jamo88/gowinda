@@ -41,8 +41,8 @@ public class TestGOTranslator {
     	gs2.put("fbgn11",a1);
     	gs2.put("fbgn12",a5 );
     	gs2.put("fbgn13",a2);
-    	gt1=new GOTranslator(gs2,gowinda.misc.CountingUnit.Gene);
-    	gt2=new GOTranslator(gs2,gowinda.misc.CountingUnit.Snp);
+    	gt1=new GOTranslator(gs2,gowinda.misc.SimulationMode.Gene);
+    	gt2=new GOTranslator(gs2,gowinda.misc.SimulationMode.Snp);
 
     	
     }

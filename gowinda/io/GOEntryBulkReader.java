@@ -3,6 +3,7 @@ package gowinda.io;
 import java.util.*;
 import gowinda.analysis.GOEntry;
 import java.io.*;
+import gowinda.analysis.GOCategoryContainer;
 
 /*
  * NOTE: Geneids are converted to lowercase
@@ -59,7 +60,7 @@ public class GOEntryBulkReader {
 		
 	}
 	
-	public HashMap<String,ArrayList<GOEntry>> readGOEntries()
+	public GOCategoryContainer readGOEntries()
 	{
 		this.logger.info("Starting to read GO association file: "+this.inputFile);
 		ArrayList<GORaw> ar= readGOraw();
@@ -84,7 +85,7 @@ public class GOEntryBulkReader {
 		{
 			toret.put(en.getKey(), new ArrayList<GOEntry>(en.getValue()));
 		}
-		return toret;
+		return new GOCategoryContainer(toret);
 	}
 	
 	

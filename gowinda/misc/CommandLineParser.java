@@ -30,7 +30,7 @@ public class CommandLineParser {
         boolean displayHelp=false;
         boolean onlyGenedefSnps=false;
         boolean debugmode=false;
-        gowinda.misc.CountingUnit countunit=gowinda.misc.CountingUnit.Gene;
+        gowinda.misc.SimulationMode countunit=gowinda.misc.SimulationMode.FixGene;
         GeneDefinition geneDef=GeneDefinition.Exon;
 
         
@@ -75,17 +75,13 @@ public class CommandLineParser {
             {
                 genedefstr=args.remove(0);
             }
-            else if(cu.equals("--unit"))
+            else if(cu.equals("--mode"))
             {
                 unitString=args.remove(0);
             }
             else if(cu.equals("--help"))
             {
                displayHelp=true;
-            }
-            else if(cu.equals("--gene-definition-sampling"))
-            {
-                onlyGenedefSnps=true;
             }
             else if(cu.equals("--detailed-log"))
             {
@@ -106,7 +102,7 @@ public class CommandLineParser {
             
         }
 
-        if(!unitString.equals(""))countunit=getCountingUnit(unitString);
+        if(!unitString.equals(""))countunit=getMode(unitString);
         if(!genedefstr.equals(""))geneDef=getGeneDefinition(genedefstr);
         return new CommandLineArguments(outputFile, statInputFile, statOutputFile, gtfFile,snpFile,
         		candidateFile,goFile,simulations,threads,significance,countunit,geneDef,displayHelp,debugmode,onlyGenedefSnps);
@@ -126,7 +122,7 @@ public class CommandLineParser {
         sb.append("                         only the gtf-entries 'CDS' and 'exon' will be used\n");
         sb.append("--simulations            the number of simulations\n");
         sb.append("--min-significance       the minimum significance of GO terms to report\n");
-        sb.append("--unit                   the unit of the tests; gene | snp'\n");
+        sb.append("--mode                   the simulation mode; fixed_gene_count | fixed_snp_count; default: fixed_gene_count'\n");
         sb.append("--gene-definition        allows to specify which feature needs to overlap with a given SNP\n");
         sb.append("							in order to assign the SNP to a gene ID (thus later on to a GO category)\n");	
         sb.append("		                    'cds' SNPs overlapping with CDS\n");
@@ -136,9 +132,6 @@ public class CommandLineParser {
         sb.append("							'upstream5000; like gene plus 5000bp upstream of gene, any number may be provided\n");
         sb.append("							'downsteam5000: like gene plus 5000bp downstream of gene, any number may be provided\n");
         sb.append("							'updownstream5000: like gene plus 5000bp downstream and upstream of the gene, any number may be provided\n");
-        sb.append("--gene-definition-sampling\n");
-        sb.append("                         sampling of the SNPs will only be done for genic SNPs according to\n");
-        sb.append("                         the '--gene-definition'\n");
         sb.append("--threads                number of threads to be used\n");
         sb.append("--detailed-log           switch to detailed log messages\n");
         sb.append("--help                   Display a help message\n");
@@ -146,15 +139,15 @@ public class CommandLineParser {
         return sb.toString();
     }
    
-    private static gowinda.misc.CountingUnit getCountingUnit(String unitString)
+    private static gowinda.misc.SimulationMode getMode(String unitString)
     {
-           if((unitString.toLowerCase()).equals("gene"))
+           if((unitString.toLowerCase()).equals("fixed_gene_count"))
            {
-               return gowinda.misc.CountingUnit.Gene;
+               return gowinda.misc.SimulationMode.FixGene;
            }
-           else if((unitString.toLowerCase()).equals("snp"))
+           else if((unitString.toLowerCase()).equals("fixed_snp_count"))
            {
-                return gowinda.misc.CountingUnit.Snp;
+                return gowinda.misc.SimulationMode.FixSnp;
            }
            else
            { 

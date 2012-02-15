@@ -6,6 +6,7 @@
 package gowinda;
 
 import java.util.*;
+
 import gowinda.io.*;
 import gowinda.analysis.*;
 import java.io.*;
@@ -24,12 +25,12 @@ public class SimulationAnalyzer implements IAnalyze {
     private final int simulations;
     private final int threads;
     private final double minsignificance;
-    private final gowinda.misc.CountingUnit unit;
+    private final gowinda.misc.SimulationMode simulationMode;
     private final gowinda.misc.GeneDefinition geneDefinition;
     private final boolean geneDefinitionSampling;
     private java.util.logging.Logger logger;
     public SimulationAnalyzer(String outputFile, String annotationFile, String snpFile, String candidateSnpFile, String goAssociationFile, int simulations, 
-            int threads, float significance, gowinda.misc.CountingUnit unit,gowinda.misc.GeneDefinition geneDefinition, boolean geneDefinitionSampling, 
+            int threads, float significance, gowinda.misc.SimulationMode simulationMode,gowinda.misc.GeneDefinition geneDefinition, boolean geneDefinitionSampling, 
             java.util.logging.Logger logger)
     {
         if(!new File(annotationFile).exists()){throw new IllegalArgumentException("Annotation file does not exist");}
@@ -60,7 +61,7 @@ public class SimulationAnalyzer implements IAnalyze {
         this.minsignificance=significance;
         this.logger=java.util.logging.Logger.getAnonymousLogger();
         this.logger.setUseParentHandlers(false);
-        this.unit=unit;
+        this.simulationMode=simulationMode;
         this.geneDefinition=geneDefinition;
         this.geneDefinitionSampling=geneDefinitionSampling;
         this.logger=logger;
@@ -77,37 +78,55 @@ public class SimulationAnalyzer implements IAnalyze {
         // Read the genome annotation
         IGenomeRepresentation genrep=(new GenomeRepresentationBuilder(this.annotationFile,this.geneDefinition,this.logger)).getGenomeRepresentation();
         // Read GO file and obtain a GO translator (geneid -> GO term)
-        GOTranslator gotrans=new GOTranslator(new GOEntryBulkReader(this.goAssociationFile,this.logger),this.unit,this.logger);
-        // Crosscheck GO-IDs and Geneids
-        gotrans.validateGeneids(genrep.allGeneids());
-        
+        GOCategoryContainer goentries= new GOEntryBulkReader(this.goAssociationFile,this.logger).readGOEntries();
         // Read the SNPs
-        ISnpBulkReader allSnpReader=new SnpBulkReader(this.snpFile,this.logger);
-        ISnpBulkReader candidateSnpReader=new SnpBulkReader(this.candidateSnpFile,this.logger);
-        ArrayList<Snp> snps= geneDefinitionSampling?(new SnpGenicFilterReader(allSnpReader,genrep,this.logger)).getSnps() :allSnpReader.getSnps();
-        ArrayList<Snp> candidateSnps=geneDefinitionSampling?(new SnpGenicFilterReader(candidateSnpReader,genrep,this.logger)).getSnps():candidateSnpReader.getSnps();
+        ArrayList<Snp> snps= new SnpBulkReader(this.snpFile,this.logger).getSnps();
+        ArrayList<Snp> candidateSnps=new SnpBulkReader(this.candidateSnpFile,this.logger).getSnps();
         
-
-        // SIMULATIONS
-        // Get simulation results
-        SnpsToGeneidTranslator snptrans=new SnpsToGeneidTranslator(genrep);
-        GOSimulationContainer simres =new Simulator(snps,snptrans,this.threads,this.simulations,candidateSnps.size(),gotrans,this.logger).simulate();
+        // Validate content of the files
+        new GeneidCrossValidator(genrep,goentries,this.logger).validate();
+        new SnpCrossValidator(snps,candidateSnps,this.logger).validate();
         
-        // estimate significance of candidates: simres.estimateSignificance(candres);
-        this.logger.info("Estimating significance of the candidate SNPs");
-        ArrayList<String> candGeneids= snptrans.translate(candidateSnps);
-        HashMap<GOEntry,Integer> candidateGOcategories=gotrans.translate(candGeneids);
-        GOResultContainer gores=simres.estimateSignificance(candidateGOcategories);
-        // How to Adjust for multiple testing
-        IMultipleTestingAdjuster adj=new FdrAdjuster(gotrans.goEntryCount());
+        //Simulate
+        IGOSimulator gosimulator=getGOSimulator(this.simulationMode,genrep,goentries,snps,candidateSnps);
+        gosimulator.setLogger(this.logger);
+        GOResultContainer gores=gosimulator.getSimulationResults(this.simulations,this.threads);
+       
+        
+        //Update results with FDR and gene_ids
+        IMultipleTestingAdjuster adj=new FdrAdjuster(goentries.size());
         gores= gores.updateMultipleTesting(adj);
-        gores=gores.updateGeneids(gotrans.translateGeneids(candGeneids));
+        ArrayList<String> candGeneids=new ArrayList<String>(new HashSet<String>(genrep.getGeneidsForSnps(candidateSnps)));
+        gores=gores.updateGeneids(new GOTranslator(goentries).translateToGeneids(candGeneids));
         
         // Write results to output file
         new GOResultWriter(this.outputFile,gores,this.minsignificance,this.logger).writeAll();
         this.logger.info("FINISHED - Thank you for using Gowinda");
         
         return 1;
+        
+        
+
+
+
+
+    }
+    
+    private IGOSimulator getGOSimulator(gowinda.misc.SimulationMode mode, IGenomeRepresentation genrep, GOCategoryContainer goentries, ArrayList<Snp> snps, ArrayList<Snp> candidateSnps)
+    {
+    	if(mode==gowinda.misc.SimulationMode.FixGene)
+    	{
+    		return new FixedGeneSimulator(genrep,goentries,snps,candidateSnps);
+    	}
+    	else if(mode==gowinda.misc.SimulationMode.FixSnp)
+    	{
+    		return new FixedSnpSimulator(genrep,goentries,snps,candidateSnps);
+    	}
+    	else
+    	{
+    		throw new IllegalArgumentException("Do not recognise Gowinda simulation mode "+mode);
+    	}
+    	
     }
         
     

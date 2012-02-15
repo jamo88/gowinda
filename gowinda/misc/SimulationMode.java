@@ -8,6 +8,6 @@ package gowinda.misc;
  *
  * @author robertkofler
  */
-public enum CountingUnit {Gene,Snp}
+public enum SimulationMode {FixGene,FixSnp,FixSnpGene}
     
 

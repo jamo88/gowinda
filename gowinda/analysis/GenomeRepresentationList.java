@@ -95,6 +95,17 @@ public class GenomeRepresentationList implements IGenomeRepresentation {
 	}
 	
 	@Override
+	public ArrayList<String> getGeneidsForSnps(ArrayList<Snp> snps)
+	{
+		ArrayList<String> toret=new ArrayList<String>();
+		for(Snp s: snps)
+		{
+			toret.addAll(this.getGeneidsForSnp(s));
+		}
+		return toret;
+	}
+	
+	@Override
 	public ArrayList<String> getGeneidsForSnp(Snp s)
 	{
 		
