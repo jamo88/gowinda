@@ -7,7 +7,7 @@ import org.junit.*;
 
 import gowinda.analysis.*;
 
-public class TestSnpToGeneidTranslator {
+public class TestGenomeRepresentationListMultiSNP {
 	
 	private static AnnotationEntry a1=new AnnotationEntry("2L","exon",1,1,AnnotationEntry.Strand.Plus,null,"fbgn01");
 	private static AnnotationEntry a2=new AnnotationEntry("2L","exon",2,2,AnnotationEntry.Strand.Plus,null,"fbgn02");
@@ -21,14 +21,13 @@ public class TestSnpToGeneidTranslator {
 	private static AnnotationEntry a10=new AnnotationEntry("2L","exon",5,5,AnnotationEntry.Strand.Plus,null,"fbgn15");
 	private static AnnotationEntry a11=new AnnotationEntry("2L","exon",11,11,AnnotationEntry.Strand.Plus,null,"fbgn01");
 	private static IGenomeRepresentation genrep;
-	private static SnpsToGeneidTranslator tr;
+
 	
     @BeforeClass
     public static void setUpClass() throws Exception {
     	ArrayList<AnnotationEntry> al=new ArrayList<AnnotationEntry>();
     	al.add(a1);al.add(a2);al.add(a3);al.add(a4);al.add(a5);al.add(a6);al.add(a7); al.add(a8); al.add(a9);al.add(a10);al.add(a11);
     	genrep=new GenomeRepresentationList(al);
-    	tr=new SnpsToGeneidTranslator(genrep);
     }
     
     
@@ -37,7 +36,7 @@ public class TestSnpToGeneidTranslator {
     {
     	ArrayList<Snp> s = new ArrayList<Snp>();
     	s.add(new Snp("2L",1));
-    	ArrayList<String>res=tr.translate(s);
+    	ArrayList<String>res=genrep.getGeneidsForSnps(s);
     	assertEquals(res.get(0),"fbgn01");
     }
 
@@ -46,7 +45,7 @@ public class TestSnpToGeneidTranslator {
     {
     	ArrayList<Snp> s = new ArrayList<Snp>();
     	s.add(new Snp("2L",2));
-    	ArrayList<String>res=tr.translate(s);
+    	ArrayList<String>res=genrep.getGeneidsForSnps(s);
     	assertEquals(res.get(0),"fbgn02");
     }
     
@@ -56,7 +55,7 @@ public class TestSnpToGeneidTranslator {
     {
     	ArrayList<Snp> s = new ArrayList<Snp>();
     	s.add(new Snp("2L",5));
-    	ArrayList<String>res=tr.translate(s);
+    	ArrayList<String>res=genrep.getGeneidsForSnps(s);
     	assertEquals(res.get(0),"fbgn05");
     	assertEquals(res.size(),2);
     	assertEquals(res.get(1),"fbgn15");
@@ -68,7 +67,7 @@ public class TestSnpToGeneidTranslator {
     	ArrayList<Snp> s = new ArrayList<Snp>();
     	s.add(new Snp("2L",1));
     	s.add(new Snp("2L",9));
-    	ArrayList<String>res=tr.translate(s);
+    	ArrayList<String>res=genrep.getGeneidsForSnps(s);
     	assertEquals(res.get(0),"fbgn01");
     	assertEquals(res.size(),2);
     	assertEquals(res.get(1),"fbgn09");
@@ -81,7 +80,7 @@ public class TestSnpToGeneidTranslator {
     	s.add(new Snp("2L",1));
     	s.add(new Snp("2L",5));
     	s.add(new Snp("2L",9));
-    	ArrayList<String>res=tr.translate(s);
+    	ArrayList<String>res=genrep.getGeneidsForSnps(s);
     	assertEquals(res.size(),4);
     	assertEquals(res.get(0),"fbgn01");
     	assertEquals(res.get(1),"fbgn05");
@@ -95,7 +94,7 @@ public class TestSnpToGeneidTranslator {
     	ArrayList<Snp> s = new ArrayList<Snp>();
     	s.add(new Snp("2L",1));
     	s.add(new Snp("2L",11));
-    	ArrayList<String>res=tr.translate(s);
+    	ArrayList<String>res=genrep.getGeneidsForSnps(s);
     	assertEquals(res.get(0),"fbgn01");
     	assertEquals(res.size(),2);
     	assertEquals(res.get(1),"fbgn01");

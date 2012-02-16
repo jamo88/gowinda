@@ -118,12 +118,11 @@ class SingleGtfReader
         if(!m.find()){throw new IllegalArgumentException("Illegal entry in gtf file; Does not contain 'gene_id \"genename\";'");}
         String geneid=m.group(1);
       
-        return new AnnotationEntry(chromosome,feature,start,end,strand,frameshift,geneid);
+        return new AnnotationEntry(chromosome,feature,start,end,strand,frameshift,geneid.toLowerCase());
     }
     
     public void close() throws IOException
     { 
     	this.bs.close();
-    }
-                
+    }               
 }

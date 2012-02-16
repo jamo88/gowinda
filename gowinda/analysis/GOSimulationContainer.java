@@ -77,6 +77,11 @@ public class GOSimulationContainer {
 		return new GOResultContainer(res);
 	}
 	
+	public int size()
+	{
+		return this.simres.size();
+	}
+	
 	
 	/*
 	 * Calculate the average number of genes having the given go category

@@ -31,7 +31,7 @@ public class TestGOEntryBulkReader {
 	@Test
 	public void test_a() {
 		GOEntryBulkReader gr=new GOEntryBulkReader(new BufferedReader(new StringReader(inputFileFake)));
-		HashMap<String,ArrayList<GOEntry>> res=gr.readGOEntries();
+		GOCategoryContainer res=gr.readGOEntries();
 		ArrayList<GOEntry> r=res.get("fbgn1");
 		assertEquals(r.size(),1);
 		assertEquals(r.get(0).goID(),"g1");
@@ -41,7 +41,7 @@ public class TestGOEntryBulkReader {
 	@Test
 	public void test_b() {
 		GOEntryBulkReader gr=new GOEntryBulkReader(new BufferedReader(new StringReader(inputFileFake)));
-		HashMap<String,ArrayList<GOEntry>> res=gr.readGOEntries();
+		GOCategoryContainer res=gr.readGOEntries();
 		ArrayList<GOEntry> r=res.get("fbgn3");
 		assertEquals(r.size(),1);
 		assertEquals(r.get(0).goID(),"g1");
@@ -51,7 +51,7 @@ public class TestGOEntryBulkReader {
 	@Test
 	public void test_c() {
 		GOEntryBulkReader gr=new GOEntryBulkReader(new BufferedReader(new StringReader(inputFileFake)));
-		HashMap<String,ArrayList<GOEntry>> res=gr.readGOEntries();
+		GOCategoryContainer res=gr.readGOEntries();
 		ArrayList<GOEntry> r=res.get("fbgn4");
 		assertEquals(r.size(),1);
 		assertEquals(r.get(0).goID(),"g2");
@@ -61,7 +61,7 @@ public class TestGOEntryBulkReader {
 	@Test
 	public void test_d() {
 		GOEntryBulkReader gr=new GOEntryBulkReader(new BufferedReader(new StringReader(inputFileFake)));
-		HashMap<String,ArrayList<GOEntry>> res=gr.readGOEntries();
+		GOCategoryContainer res=gr.readGOEntries();
 		ArrayList<GOEntry> r=res.get("fbgn5");
 		assertEquals(r.size(),1);
 		assertEquals(r.get(0).goID(),"g3");
@@ -71,7 +71,7 @@ public class TestGOEntryBulkReader {
 	@Test
 	public void test_e() {
 		GOEntryBulkReader gr=new GOEntryBulkReader(new BufferedReader(new StringReader(inputFileFake)));
-		HashMap<String,ArrayList<GOEntry>> res=gr.readGOEntries();
+		GOCategoryContainer res=gr.readGOEntries();
 		ArrayList<GOEntry> r=res.get("fbgn2");
 		assertEquals(r.size(),3);
 

@@ -29,8 +29,6 @@ public class FixedGeneSimulator implements IGOSimulator{
 	}
 	
 
-	
-	
 	@Override
 	public GOResultContainer getSimulationResults(int simulations, int threads)
 	{
