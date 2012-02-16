@@ -27,10 +27,9 @@ public class SimulationAnalyzer implements IAnalyze {
     private final double minsignificance;
     private final gowinda.misc.SimulationMode simulationMode;
     private final gowinda.misc.GeneDefinition geneDefinition;
-    private final boolean geneDefinitionSampling;
     private java.util.logging.Logger logger;
     public SimulationAnalyzer(String outputFile, String annotationFile, String snpFile, String candidateSnpFile, String goAssociationFile, int simulations, 
-            int threads, float significance, gowinda.misc.SimulationMode simulationMode,gowinda.misc.GeneDefinition geneDefinition, boolean geneDefinitionSampling, 
+            int threads, float significance, gowinda.misc.SimulationMode simulationMode,gowinda.misc.GeneDefinition geneDefinition, 
             java.util.logging.Logger logger)
     {
         if(!new File(annotationFile).exists()){throw new IllegalArgumentException("Annotation file does not exist");}
@@ -63,7 +62,6 @@ public class SimulationAnalyzer implements IAnalyze {
         this.logger.setUseParentHandlers(false);
         this.simulationMode=simulationMode;
         this.geneDefinition=geneDefinition;
-        this.geneDefinitionSampling=geneDefinitionSampling;
         this.logger=logger;
     }
     
@@ -90,10 +88,10 @@ public class SimulationAnalyzer implements IAnalyze {
         //Simulate
         IGOSimulator gosimulator=getGOSimulator(this.simulationMode,genrep,goentries,snps,candidateSnps,this.logger);
         GOResultContainer gores=gosimulator.getSimulationResults(this.simulations,this.threads);
-       
+        logger.info("Simulations detected genes corresponding to "+gores.size() +" GO categories; FDR correction will be done with this number of GO categories");
         
         //Update results with FDR and gene_ids
-        IMultipleTestingAdjuster adj=new FdrAdjuster(goentries.size());
+        IMultipleTestingAdjuster adj=new FdrAdjuster(gores.size());
         gores= gores.updateMultipleTesting(adj);
         ArrayList<String> candGeneids=new ArrayList<String>(new HashSet<String>(genrep.getGeneidsForSnps(candidateSnps)));
         gores=gores.updateGeneids(new GOTranslator(goentries).translateToGeneids(candGeneids));

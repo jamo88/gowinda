@@ -45,18 +45,13 @@ public class GenomeRepresentationBuilder {
     
     private IBulkAnnotationReader getAnnotationFileReader()
     {
-    	this.logger.info("Estimating the file format of the annotation file (allowed extensions: .gtf and .gff)");
     	if(this.annotationFile.toLowerCase().endsWith("gtf"))
     	{
     		return new GtfReader(this.annotationFile,this.logger);
     	}	
-    	else if(this.annotationFile.toLowerCase().endsWith("gff"))
-    	{
-    		return new GffReader(this.annotationFile, this.logger);
-    	}
     	else
     	{
-    		throw new IllegalArgumentException("Do not recognise file type: "+this.annotationFile+"; valid extensions are .gtf and .gff");
+    		throw new IllegalArgumentException("Do not recognise file type: "+this.annotationFile+"; Only .gtf files may be read!");
     	}
     }
     

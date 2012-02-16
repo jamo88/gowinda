@@ -7,20 +7,21 @@ import java.util.*;
  */
 public class FdrAdjuster implements IMultipleTestingAdjuster{
 	
-	private int goCategoryCount;
+	private int n;
 	public FdrAdjuster(int goCategoryCount)
 	{
-		this.goCategoryCount=goCategoryCount;
+		this.n=goCategoryCount;
 	}
 	
 	private static class IndexPval
 	{
-		public IndexPval(double pval, int index)
+		public IndexPval(double oriPval, int index)
 		{
-			this.pval=pval;
+			this.oriPval=oriPval;
 			this.index=index;
 		}
-		public double pval;
+		public double oriPval;
+		public double adjPval;
 		public int index;
 	}
 
@@ -34,9 +35,9 @@ public class FdrAdjuster implements IMultipleTestingAdjuster{
 			tmp.add(new IndexPval(pval.get(i),i));
 		}
 		
-		tmp=computeAdjusted(tmp);
+		ArrayList<IndexPval> adj = computeAdjusted(tmp);
 		
-		Collections.sort(tmp,new Comparator<IndexPval>(){
+		Collections.sort(adj,new Comparator<IndexPval>(){
 			public int compare(IndexPval v1, IndexPval v2)
 			{
 				if(v1.index < v2.index) return -1;
@@ -46,9 +47,9 @@ public class FdrAdjuster implements IMultipleTestingAdjuster{
 		});
 		
 		ArrayList<Double> toret=new ArrayList<Double>();
-		for (IndexPval p: tmp)
+		for (IndexPval p: adj)
 		{
-			toret.add(p.pval);
+			toret.add(p.adjPval);
 		}
 		return toret;
 	}
@@ -59,8 +60,8 @@ public class FdrAdjuster implements IMultipleTestingAdjuster{
 		Collections.sort(tonip,new Comparator<IndexPval>(){
 			public int compare(IndexPval v1, IndexPval v2)
 			{
-				if(v1.pval<v2.pval) return 1;
-				if(v2.pval>v2.pval) return -1;
+				if(v1.oriPval < v2.oriPval) return 1;
+				if(v1.oriPval > v2.oriPval) return -1;
 				return 0;
 			}
 		});
@@ -68,21 +69,21 @@ public class FdrAdjuster implements IMultipleTestingAdjuster{
 		int iCounter=tonip.size();
 		for(IndexPval ip:tonip)
 		{
-			double multiplicator=((double)this.goCategoryCount)/((double)iCounter);
-			ip.pval=ip.pval*multiplicator;
+			double multiplicator=((double)this.n)/((double)iCounter);
+			ip.adjPval = ip.oriPval*multiplicator;
 			iCounter--;
 		}
 		
-		// Cummin
+		// Cummin 10 5 6 7 4 3 2 1
 		double previous=1.0;
 		for(IndexPval ip: tonip)
 		{
 			// Set largest to 1.0;
-			if(ip.pval>1.0) ip.pval=1.0;
+			if(ip.adjPval>1.0) ip.adjPval=1.0;
 		
 			// Calculate the cummulative minimum; no value 
-			if(ip.pval>previous) ip.pval=previous;
-			if(ip.pval<previous) previous=ip.pval;
+			if(ip.adjPval > previous) ip.adjPval=previous;
+			else if(ip.adjPval<previous) previous=ip.adjPval;
 		}
 		return tonip;
 	}

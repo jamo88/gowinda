@@ -13,10 +13,12 @@ public class TestFdrAdjuster {
 
 	private static FdrAdjuster a5=new FdrAdjuster(5);
 	private static FdrAdjuster a10=new FdrAdjuster(10);
+	private static FdrAdjuster a10000=new FdrAdjuster(10000);
 	private static ArrayList<Double> p5s;
 	private static ArrayList<Double> p5ns;
 	private static ArrayList<Double> p5eq;
 	private static ArrayList<Double> p10;
+	private static ArrayList<Double> p5rs;
 	
 	@BeforeClass
 	public static void ini()
@@ -31,6 +33,9 @@ public class TestFdrAdjuster {
 		
 		Double[] d4={0.01, 0.1 ,0.2 ,0.02 ,0.03 ,0.0004 ,0.0001, 0.01, 1.0, 0.5};
 		p10=new ArrayList<Double>(Arrays.asList(d4));
+	
+		Double[] d5={0.1, 0.01, 0.001, 0.0001, 0.00001};
+		p5rs=new ArrayList<Double>(Arrays.asList(d5));
 	}
 	
 	@Test
@@ -96,6 +101,26 @@ public class TestFdrAdjuster {
 		assertEquals(res.get(7),0.025,0.000001);
 		assertEquals(res.get(8),1.0,0.000001);
 		assertEquals(res.get(9),0.555555,0.0001);
+	}
+	
+	@Test
+	public void test_g() {
+		ArrayList<Double> res=a10000.getAdjustedSignificance(p5s);
+		assertEquals(res.get(0),0.1, 0.0000001);
+		assertEquals(res.get(1),0.5, 0.0000001);
+		assertEquals(res.get(2),1.0, 0.0000001);
+		assertEquals(res.get(3),1.0, 0.0000001);
+		assertEquals(res.get(4),1.0, 0.000001);
+	}
+	
+	@Test
+	public void test_h() {
+		ArrayList<Double> res=a5.getAdjustedSignificance(p5rs);
+		assertEquals(res.get(0),0.1,0.0000001);
+		assertEquals(res.get(1),0.0125,0.0000001);
+		assertEquals(res.get(2),0.001666666,0.0000001);
+		assertEquals(res.get(3),0.00025, 0.0000001);
+		assertEquals(res.get(4),0.00005,0.000001);
 	}
 	
 	
