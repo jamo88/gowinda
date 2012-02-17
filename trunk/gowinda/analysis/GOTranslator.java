@@ -2,11 +2,8 @@ package gowinda.analysis;
 
 import java.util.*;
 
-/*
- * Tranlsates a list of Geneids into counts of GO categories
- * Two modes, when multiple repeats of the same Geneid are present
- * a.) Counting.unit Gene: every Gene ID only counts once 
- * b.) Counitng.unit SNP: every Gene ID counts several times (the number of times being present)
+/**
+ * Tranlsates a list of gene_ids into counts of GO categories
  */
 
 public class GOTranslator {
@@ -18,8 +15,16 @@ public class GOTranslator {
 	}
 	
 	
-	/*
-	 * Translates a list of geneids into counts of GO-categories
+	/**
+	 * Translates a list of geneids into counts of GO-categories; Gene_ids being present multiple times are also considered multiple times
+	 */
+	
+	/**
+	 * Translates a list of gene_ids into counts of every GO-category.
+	 * Gene_ids being present multiple times are also considered multiple times.
+	 * Minimum count is '1', i.e.: GO categories with no corresponding genes are not considered
+	 * @param geneids a collection of gene_ids
+	 * @return
 	 */
 	public HashMap<GOEntry,Integer> translateToCount(ArrayList<String> geneids)
 	{
@@ -39,7 +44,13 @@ public class GOTranslator {
 		return toret;
 	}
 	
-	
+	/**
+	 * Assigns a list of gene_IDs to the corresponding GO categories.
+	 * If a gene_id is present multiple times, it will also be  considered multiple times.
+	 * GO categories with no associated gene will not be displayed. 
+	 * @param geneids a collection of gene_ids
+	 * @return a map from the GO category to the corresponding list of genes
+	 */
 	public HashMap<GOEntry,ArrayList<String>> translateToGeneids(ArrayList<String> geneids)
 	{
 		ArrayList<String> towork=new ArrayList<String>(new HashSet<String>(geneids));

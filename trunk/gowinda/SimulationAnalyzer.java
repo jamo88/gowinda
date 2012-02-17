@@ -9,6 +9,9 @@ import java.util.*;
 
 import gowinda.io.*;
 import gowinda.analysis.*;
+import gowinda.analysis.fixedGene.FixedGeneSimulator;
+import gowinda.analysis.fixedSnp.FixedSnpSimulator;
+
 import java.io.*;
 
 /**
@@ -84,14 +87,19 @@ public class SimulationAnalyzer implements IAnalyze {
         // Validate content of the files
         new GeneidCrossValidator(genrep,goentries,this.logger).validate();
         new SnpCrossValidator(snps,candidateSnps,this.logger).validate();
+        SnpCoverageValidator covVal=new SnpCoverageValidator(genrep,snps,goentries,this.logger);
+        covVal.validate();
+        int goCatPossible=covVal.getCoveredGOCount();
         
         //Simulate
         IGOSimulator gosimulator=getGOSimulator(this.simulationMode,genrep,goentries,snps,candidateSnps,this.logger);
-        GOResultContainer gores=gosimulator.getSimulationResults(this.simulations,this.threads);
-        logger.info("Simulations detected genes corresponding to "+gores.size() +" GO categories; FDR correction will be done with this number of GO categories");
-        
+        GOResultContainer gores  =gosimulator.getSimulationResults(this.simulations,this.threads);
+    
+        logger.info("Simulations detected SNPs in genes corresponding to "+gores.getSimulationContainer().size() +" GO categories, out of " + goCatPossible+ " possible ones (corresponding to genes having at least one SNP)");
+        logger.info("FDR correction will be done with " + gores.getSimulationContainer().size()+ " tested GO categories");
+        logger.info("Candidate SNPs show an overlap with "+ gores.size() + " GO categories");
         //Update results with FDR and gene_ids
-        IMultipleTestingAdjuster adj=new FdrAdjuster(gores.size());
+        IMultipleTestingAdjuster adj=new FdrAdjuster(covVal.getCoveredGOCount());
         gores= gores.updateMultipleTesting(adj);
         ArrayList<String> candGeneids=new ArrayList<String>(new HashSet<String>(genrep.getGeneidsForSnps(candidateSnps)));
         gores=gores.updateGeneids(new GOTranslator(goentries).translateToGeneids(candGeneids));

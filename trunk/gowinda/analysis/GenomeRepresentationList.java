@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 import java.util.logging.Logger;
 import gowinda.analysis.AnnotationEntry;
 
-/*
+/**
  * Class allowing for retrieval of the genes in which a certain SNP is located.
  * Flexible with respect to 'gene' definition
  * Memory friendly implementation, but CPU demanding
@@ -81,19 +81,29 @@ public class GenomeRepresentationList implements IGenomeRepresentation {
 		for(AnnotationEntry e : entries)
 		{
 			int eleng=e.end()-e.start()+1;
-			assert(eleng>0);
+			assert(eleng > 0);
 			if(longest==-1)longest=eleng;
 			if(eleng>longest)longest=eleng;
 		}
 		return longest;
 	}
 
+
+
+	/**
+	 * Returns a unique collection of the Gene IDs present in the genome representation
+	 */
 	@Override
 	public ArrayList<String> allGeneids()
 	{
 		return new ArrayList<String>(new HashSet<String>(this.geneids));
 	}
 	
+	
+	/**
+	 * Returns the genes overlapping with the given SNPs. 
+	 * A gene_id may be present several times if several SNPs are overlapping with the given gene
+	 */
 	@Override
 	public ArrayList<String> getGeneidsForSnps(ArrayList<Snp> snps)
 	{
@@ -105,6 +115,9 @@ public class GenomeRepresentationList implements IGenomeRepresentation {
 		return toret;
 	}
 	
+	/**
+	 * Returns the genes overlapping with the given SNP
+	 */
 	@Override
 	public ArrayList<String> getGeneidsForSnp(Snp s)
 	{

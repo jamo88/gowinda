@@ -74,13 +74,9 @@ public class GOSimulationContainer {
 			double expected=expectedCount(candGO.getValue(),this.simres.get(candGO.getKey()));
 			res.add(new GOResultForCandidateSnp(candGO.getKey(),sign,1.0,candGO.getValue(),expected));
 		}
-		return new GOResultContainer(res);
+		return new GOResultContainer(res,this);
 	}
 	
-	public int size()
-	{
-		return this.simres.size();
-	}
 	
 	
 	/*
@@ -111,6 +107,15 @@ public class GOSimulationContainer {
 		}
 		if(sumCount==0) sumCount=pseudocount;
 		return ((double)sumCount)/((double)simulations);
+	}
+	
+	/**
+	 * Returns the number of GO categories identified in the simulations 
+	 * @return
+	 */
+	public int size()
+	{
+		return simres.size();
 	}
 
 }
