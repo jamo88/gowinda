@@ -31,12 +31,12 @@ public class GOCategoryContainer {
 	 */
 	public ArrayList<GOEntry> getAllGOEntries()
 	{
-		ArrayList<GOEntry> toret=new ArrayList<GOEntry>();
+		HashSet<GOEntry> toret=new HashSet<GOEntry>();
 		for(Map.Entry<String, ArrayList<GOEntry>> me: this.goentries.entrySet())
 		{
 			toret.addAll(me.getValue());
 		}
-		return toret;
+		return new ArrayList<GOEntry>(toret);
 	}
 	
 	/*

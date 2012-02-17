@@ -4,9 +4,11 @@ import java.util.*;
 
 public class GOResultContainer {
 	private final ArrayList<GOResultForCandidateSnp> gores;
-	public GOResultContainer(ArrayList<GOResultForCandidateSnp> gores)
+	private final GOSimulationContainer gosim;
+	public GOResultContainer(ArrayList<GOResultForCandidateSnp> gores, GOSimulationContainer gosim)
 	{
 		this.gores=new ArrayList<GOResultForCandidateSnp>(gores);
+		this.gosim=gosim;
 	}
 	
 	public GOResultContainer updateGeneids(HashMap<GOEntry,ArrayList<String>> genids)
@@ -22,7 +24,7 @@ public class GOResultContainer {
 			}
 			toret.add(gr.setGeneids(geneids));
 		}
-		return new GOResultContainer(toret);
+		return new GOResultContainer(toret,this.gosim);
 		
 	}
 	
@@ -44,8 +46,9 @@ public class GOResultContainer {
 			toret.add(active.setAdjustedSignificance(adjusteP));
 			
 		}
-		return new GOResultContainer(toret);
+		return new GOResultContainer(toret,this.gosim);
 	}
+	
 	
 	public ArrayList<GOResultForCandidateSnp> getCollection()
 	{
@@ -55,6 +58,11 @@ public class GOResultContainer {
 	public int size()
 	{
 		return this.gores.size();
+	}
+	
+	public GOSimulationContainer getSimulationContainer()
+	{
+		return this.gosim;
 	}
 	
 	public GOResultForCandidateSnp get(int index)

@@ -1,9 +1,17 @@
-package gowinda.analysis;
+package gowinda.analysis.fixedSnp;
+
+import gowinda.analysis.GOCategoryContainer;
+import gowinda.analysis.GOEntry;
+import gowinda.analysis.GOResultContainer;
+import gowinda.analysis.GOSimulationContainer;
+import gowinda.analysis.GOTranslator;
+import gowinda.analysis.IGOSimulator;
+import gowinda.analysis.IGenomeRepresentation;
+import gowinda.analysis.Snp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -78,7 +86,7 @@ class SingleSimulationFixedSnp implements Runnable
 {
 	private final GOSimulationContainer.GOSimulationContainerBuilder simbuilder;
 	private final GOTranslator gotrans;
-	private final Random randgen=new Random();
+
 	private final ArrayList<Snp> snps;
 	private final IGenomeRepresentation genrep;
 	private final int snpcount;
@@ -101,7 +109,7 @@ class SingleSimulationFixedSnp implements Runnable
 		HashSet<Integer> randSnpPos=new HashSet<Integer>();
 		while(randSnpPos.size()<candCount)
 		{
-			int index=randgen.nextInt(snpcount);
+			int index=(int)(Math.random()*snpcount);
 			randSnpPos.add(index);
 		}
 		
