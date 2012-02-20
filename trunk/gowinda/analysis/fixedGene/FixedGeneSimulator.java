@@ -80,6 +80,12 @@ public class FixedGeneSimulator implements IGOSimulator{
         this.logger.info("Estimating significance of the candidate SNPs");
         HashMap<GOEntry,Integer> candidateGOcategories=gotrans.translateToCount(new ArrayList<String>(candGeneids));
         GOResultContainer gores=simcont.estimateSignificance(candidateGOcategories);
+        
+        // Max results
+        ArrayList<String> allGenes= new ArrayList<String>(new HashSet<String>(genrep.getGeneidsForSnps(snps)));
+        HashMap<GOEntry,Integer> maxGOcatCount=gotrans.translateToCount(allGenes,candidateSnps.size());
+        GOResultContainer maxres=simcont.estimateSignificance(maxGOcatCount);
+        gores.updateMaxResult(maxres);        
         return gores;
         
 	}
@@ -107,8 +113,6 @@ class SingleSimulationFixedGene implements Runnable
 		this.progReporter=progReporter;
 
 	}
-	
-
 	
 	@Override
 	public void run()

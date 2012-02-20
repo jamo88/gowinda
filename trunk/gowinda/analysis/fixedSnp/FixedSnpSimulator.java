@@ -77,6 +77,12 @@ public class FixedSnpSimulator implements IGOSimulator {
         ArrayList<String> candGeneids= genrep.getGeneidsForSnps(candidateSnps);
         HashMap<GOEntry,Integer> candidateGOcategories=gotrans.translateToCount(candGeneids);
         GOResultContainer gores=simcont.estimateSignificance(candidateGOcategories);
+        
+        // Max results
+        ArrayList<String> allGenes= genrep.getGeneidsForSnps(snps);
+        HashMap<GOEntry,Integer> maxGOcatCount=gotrans.translateToCount(allGenes,candidateCount);
+        GOResultContainer maxres=simcont.estimateSignificance(maxGOcatCount);
+        gores.updateMaxResult(maxres); 
         return gores;
 	}
 

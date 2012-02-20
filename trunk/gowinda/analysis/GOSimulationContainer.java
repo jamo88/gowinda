@@ -72,7 +72,7 @@ public class GOSimulationContainer {
 		{
 			double sign=singleSignificance(candGO.getValue(),this.simres.get(candGO.getKey()));
 			double expected=expectedCount(candGO.getValue(),this.simres.get(candGO.getKey()));
-			res.add(new GOResultForCandidateSnp(candGO.getKey(),sign,1.0,candGO.getValue(),expected));
+			res.add(new GOResultForCandidateSnp(candGO.getKey(),sign,candGO.getValue(),expected));
 		}
 		return new GOResultContainer(res,this);
 	}
@@ -84,7 +84,7 @@ public class GOSimulationContainer {
 	 */
 	private double expectedCount(int candCount,HashMap<Integer,Integer> candSimres)
 	{
-		int sumCount=0;
+		long sumCount=0;
 		for(Map.Entry<Integer, Integer> cat: candSimres.entrySet())
 		{
 			sumCount+=(cat.getKey()*cat.getValue());
@@ -100,7 +100,7 @@ public class GOSimulationContainer {
 	{
 		if(candSimres.size()<1)return ((double)pseudocount)/((double)simulations);
 		
-		int sumCount=0;
+		long sumCount=0;
 		for(Map.Entry<Integer, Integer> cat: candSimres.entrySet())
 		{
 			if(cat.getKey()>=candCount)sumCount+=cat.getValue();

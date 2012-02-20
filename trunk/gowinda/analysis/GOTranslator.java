@@ -15,10 +15,7 @@ public class GOTranslator {
 	}
 	
 	
-	/**
-	 * Translates a list of geneids into counts of GO-categories; Gene_ids being present multiple times are also considered multiple times
-	 */
-	
+
 	/**
 	 * Translates a list of gene_ids into counts of every GO-category.
 	 * Gene_ids being present multiple times are also considered multiple times.
@@ -40,6 +37,26 @@ public class GOTranslator {
 				if(!toret.containsKey(ge))toret.put(ge,0);
 				toret.put(ge, toret.get(ge)+1);
 			}
+		}
+		return toret;
+	}
+	
+	/**
+	 * Translates a list of gene_ids into counts of every GO-category while considering the maximum count
+	 * @param geneids a list of gene id's
+	 * @param maxcount the maximum count for a single go category
+	 * @return
+	 */
+	public HashMap<GOEntry,Integer> translateToCount(ArrayList<String> geneids, int maxcount)
+	{
+		HashMap<GOEntry,Integer> initial=this.translateToCount(geneids);
+		HashMap<GOEntry,Integer> toret=new HashMap<GOEntry,Integer>();
+
+		for(Map.Entry<GOEntry, Integer> me: initial.entrySet())
+		{
+			int val=me.getValue();
+			if(val>maxcount) val=maxcount;
+			toret.put(me.getKey(), val);
 		}
 		return toret;
 	}

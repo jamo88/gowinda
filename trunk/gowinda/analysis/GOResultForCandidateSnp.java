@@ -5,27 +5,29 @@ import java.util.*;
  * Immutable container
  */
 public class GOResultForCandidateSnp {
-	private final double significance;
-	private final GOEntry goe;
-	private final int observedCount;
-	private final double expectedCount;
-	private final double adjustedSignificance;
-	private final ArrayList<String> geneids;
-	public GOResultForCandidateSnp(GOEntry entry, double significance, double adjustedSignificance,int observed, double expected)
-	{
-		this(entry,significance,adjustedSignificance,observed,expected,new ArrayList<String>());
-	}
+
+	private GOEntry goe;
+	private int maxCount;
+	private double expectedCount;
+	private int observedCount;
+	private double significance;
+	private double adjustedSignificance=1.0;
+	private double minSignificance;
+	private ArrayList<String> geneids;
+	private ArrayList<String> maxGeneids;
 	
-	public GOResultForCandidateSnp(GOEntry entry, double significance, double adjustedSignificance,int observed, double expected,ArrayList<String> geneids)
+	public GOResultForCandidateSnp(GOEntry entry, double significance, int observedCount, double expectedCount)
 	{
-		this.geneids=new ArrayList<String>(geneids);
 		this.goe=entry;
-		this.observedCount=observed;
-		this.expectedCount=expected;
-		this.adjustedSignificance=adjustedSignificance;
+		this.observedCount=observedCount;
+		this.expectedCount=expectedCount;
 		this.significance=significance;
-	} 
-	
+	}
+
+	public GOEntry goEntry()
+	{
+		return this.goe;
+	}
 	public double significance()
 	{
 		return this.significance;
@@ -38,29 +40,44 @@ public class GOResultForCandidateSnp {
 	{
 		return this.observedCount;
 	}
-	public GOEntry goEntry()
+	public int maxCount()
 	{
-		return this.goe;
+		return this.maxCount;
 	}
-
+	public void setMaxCount(int maxCount)
+	{
+		this.maxCount=maxCount;
+	}
 	public double adjustedSignificance()
 	{
 		return this.adjustedSignificance;
+	}
+	public void setAdjustedSignificance(double adjSignificance)
+	{
+		this.adjustedSignificance=adjSignificance;
+	}
+	public double minSignificance()
+	{
+		return this.minSignificance;
+	}
+	public void setMinSignificance(double minSignificance)
+	{
+		this.minSignificance=minSignificance;
 	}
 	public ArrayList<String> geneids()
 	{
 		return new ArrayList<String>(this.geneids);
 	}
-	
-	public GOResultForCandidateSnp setGeneids(ArrayList<String> geneids)
+	public void setGeneids(ArrayList<String> geneids)
 	{
-		return new GOResultForCandidateSnp(this.goe,this.significance,this.adjustedSignificance,this.observedCount,this.expectedCount,geneids);
+		this.geneids=geneids;
 	}
-	
-	public GOResultForCandidateSnp setAdjustedSignificance(double adjustedSignificance)
+	public ArrayList<String> maxGeneids()
 	{
-		return new GOResultForCandidateSnp(this.goe,this.significance,adjustedSignificance,this.observedCount,this.expectedCount);
+		return this.maxGeneids;
 	}
-
-	
+	public void setMaxGeneids(ArrayList<String> geneids)
+	{
+		this.maxGeneids=geneids;
+	}
 }
