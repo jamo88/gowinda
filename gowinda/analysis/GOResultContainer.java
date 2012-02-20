@@ -5,16 +5,21 @@ import java.util.*;
 public class GOResultContainer {
 	private final ArrayList<GOResultForCandidateSnp> gores;
 	private final GOSimulationContainer gosim;
+	private final HashMap<GOEntry,GOResultForCandidateSnp> goresmapping;
+	
 	public GOResultContainer(ArrayList<GOResultForCandidateSnp> gores, GOSimulationContainer gosim)
 	{
 		this.gores=new ArrayList<GOResultForCandidateSnp>(gores);
 		this.gosim=gosim;
+		goresmapping=new HashMap<GOEntry,GOResultForCandidateSnp>();
+		for(GOResultForCandidateSnp gres: this.gores)
+		{
+			goresmapping.put(gres.goEntry(), gres);
+		}	
 	}
 	
-	public GOResultContainer updateGeneids(HashMap<GOEntry,ArrayList<String>> genids)
+	public void updateGeneids(HashMap<GOEntry,ArrayList<String>> genids)
 	{
-		ArrayList<GOResultForCandidateSnp> toret=new ArrayList<GOResultForCandidateSnp>();
-		
 		for(GOResultForCandidateSnp gr: this.gores)
 		{
 			ArrayList<String> geneids =new ArrayList<String>();
@@ -22,31 +27,51 @@ public class GOResultContainer {
 			{
 				geneids=genids.get(gr.goEntry());
 			}
-			toret.add(gr.setGeneids(geneids));
+			gr.setGeneids(geneids);
 		}
-		return new GOResultContainer(toret,this.gosim);
-		
 	}
 	
-	public GOResultContainer updateMultipleTesting(IMultipleTestingAdjuster adj)
+	public void updateMaxGeneids(HashMap<GOEntry,ArrayList<String>> genids)
 	{
+		for(GOResultForCandidateSnp gr: this.gores)
+		{
+			ArrayList<String> geneids =new ArrayList<String>();
+			if(genids.containsKey(gr.goEntry()))
+			{
+				geneids=genids.get(gr.goEntry());
+			}
+			gr.setMaxGeneids(geneids);
+		}
+	}
+	
+	public void updateMultipleTesting(IMultipleTestingAdjuster adj)
+	{
+		// get the adjusted p-values
 		ArrayList<Double> pvals=new ArrayList<Double>();
 		for(GOResultForCandidateSnp res:this.gores)
 		{
 			pvals.add(res.significance());
 		}
-		
-		
 		ArrayList<Double> adjPvals=adj.getAdjustedSignificance(pvals);
-		ArrayList<GOResultForCandidateSnp> toret = new ArrayList<GOResultForCandidateSnp>();
+		
+		// update the underlying collection
 		for(int i=0; i<adjPvals.size(); i++)
 		{
 			GOResultForCandidateSnp active=this.gores.get(i);
 			double adjusteP=adjPvals.get(i);
-			toret.add(active.setAdjustedSignificance(adjusteP));
-			
+			active.setAdjustedSignificance(adjusteP);
 		}
-		return new GOResultContainer(toret,this.gosim);
+	}
+	
+	
+	public void updateMaxResult(GOResultContainer maxResult)
+	{
+		for(GOResultForCandidateSnp res: this.gores)
+		{
+			GOResultForCandidateSnp maxRes=maxResult.get(res.goEntry());
+			res.setMaxCount(maxRes.observedCount());
+			res.setMinSignificance(maxRes.significance());
+		}
 	}
 	
 	
@@ -69,7 +94,9 @@ public class GOResultContainer {
 	{
 		return this.gores.get(index);
 	}
-
 	
-
+	public GOResultForCandidateSnp get(GOEntry goe)
+	{
+		return this.goresmapping.get(goe);
+	}
 }

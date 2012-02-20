@@ -100,9 +100,11 @@ public class SimulationAnalyzer implements IAnalyze {
         logger.info("Candidate SNPs show an overlap with "+ gores.size() + " GO categories");
         //Update results with FDR and gene_ids
         IMultipleTestingAdjuster adj=new FdrAdjuster(covVal.getCoveredGOCount());
-        gores= gores.updateMultipleTesting(adj);
+        gores.updateMultipleTesting(adj);
         ArrayList<String> candGeneids=new ArrayList<String>(new HashSet<String>(genrep.getGeneidsForSnps(candidateSnps)));
-        gores=gores.updateGeneids(new GOTranslator(goentries).translateToGeneids(candGeneids));
+        gores.updateGeneids(new GOTranslator(goentries).translateToGeneids(candGeneids));
+        ArrayList<String> maxGeneids=new ArrayList<String>(new HashSet<String>(genrep.getGeneidsForSnps(snps)));
+        gores.updateMaxGeneids(new GOTranslator(goentries).translateToGeneids(maxGeneids));
         
         // Write results to output file
         new GOResultWriter(this.outputFile,gores,this.minsignificance,this.logger).writeAll();
