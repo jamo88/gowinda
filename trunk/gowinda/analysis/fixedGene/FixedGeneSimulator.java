@@ -3,6 +3,7 @@ package gowinda.analysis.fixedGene;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Random;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -59,7 +60,7 @@ public class FixedGeneSimulator implements IGOSimulator{
 		for(int i=0; i<simulations; i++)
 		{
 			
-			call.add(Executors.callable(new SingleSimulationFixedGene(simbuilder,gotrans,snps,genrep,candGeneCount,progReporter)));
+			call.add(Executors.callable(new SingleSimulationFixedGene(simbuilder,gotrans,snps,genrep,candGeneCount,progReporter,i)));
 		}
 		
 			
@@ -98,12 +99,13 @@ class SingleSimulationFixedGene implements Runnable
 	private final GOTranslator gotrans;
 	private final ArrayList<Snp> snps;
 	private final IGenomeRepresentation genrep;
+	private final Random randgen;
 
 
 	private final int candGeneCount;
 	private final gowinda.misc.GowindaProgressReporter progReporter;
 	public SingleSimulationFixedGene(GOSimulationContainer.GOSimulationContainerBuilder simbuilder,GOTranslator gotrans, ArrayList<Snp> snps, IGenomeRepresentation genrep, int candGeneCount,
-			gowinda.misc.GowindaProgressReporter progReporter)
+			gowinda.misc.GowindaProgressReporter progReporter, int instanceCount)
 	{
 		this.simbuilder=simbuilder;
 		this.gotrans=gotrans;
@@ -111,6 +113,7 @@ class SingleSimulationFixedGene implements Runnable
 		this.candGeneCount=candGeneCount;
 		this.genrep=genrep;
 		this.progReporter=progReporter;
+		this.randgen=new Random(System.currentTimeMillis()+instanceCount);
 
 	}
 	
@@ -121,7 +124,7 @@ class SingleSimulationFixedGene implements Runnable
 		HashSet<String> geneids=new HashSet<String>();
 		while(geneids.size()<candGeneCount)
 		{
-			int index=(int)(Math.random()*snpcount); //(int)(Math.random()*snpcount);randgen.nextInt(snpcount);
+			int index = randgen.nextInt(snpcount);
 			Snp s=snps.get(index);
 			ArrayList<String> snpgeneids=genrep.getGeneidsForSnp(s);
 			geneids.addAll(snpgeneids);

@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.Random;
 
 public class FixedSnpSimulator implements IGOSimulator {
 	
@@ -52,7 +53,7 @@ public class FixedSnpSimulator implements IGOSimulator {
 		for(int i=0; i<simulations; i++)
 		{
 			
-			call.add(Executors.callable(new SingleSimulationFixedSnp(simbuilder,gotrans,snps,genrep,candidateCount,progReporter)));
+			call.add(Executors.callable(new SingleSimulationFixedSnp(simbuilder,gotrans,snps,genrep,candidateCount,progReporter,i)));
 		}
 		
 			
@@ -98,7 +99,9 @@ class SingleSimulationFixedSnp implements Runnable
 	private final int snpcount;
 	private final int candCount;
 	private final gowinda.misc.GowindaProgressReporter progReporter;
-	public SingleSimulationFixedSnp(GOSimulationContainer.GOSimulationContainerBuilder simbuilder,GOTranslator gotrans, ArrayList<Snp> snps, IGenomeRepresentation genrep, int candCount,gowinda.misc.GowindaProgressReporter progReporter)
+	private final Random randgen;
+	public SingleSimulationFixedSnp(GOSimulationContainer.GOSimulationContainerBuilder simbuilder,GOTranslator gotrans, ArrayList<Snp> snps,
+			IGenomeRepresentation genrep, int candCount, gowinda.misc.GowindaProgressReporter progReporter, int instanceCount)
 	{
 		this.simbuilder=simbuilder;
 		this.gotrans=gotrans;
@@ -107,6 +110,7 @@ class SingleSimulationFixedSnp implements Runnable
 		this.candCount=candCount;
 		this.genrep=genrep;
 		this.progReporter=progReporter;
+		this.randgen=new Random(System.currentTimeMillis()+instanceCount);
 	}
 	
 	@Override
@@ -115,7 +119,7 @@ class SingleSimulationFixedSnp implements Runnable
 		HashSet<Integer> randSnpPos=new HashSet<Integer>();
 		while(randSnpPos.size()<candCount)
 		{
-			int index=(int)(Math.random()*snpcount);
+			int index=randgen.nextInt(snpcount);
 			randSnpPos.add(index);
 		}
 		

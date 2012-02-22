@@ -1,8 +1,10 @@
-package gowinda.analysis;
+package gowinda.tmp;
 
 import java.util.logging.Logger;
 import java.util.*;
 
+import gowinda.analysis.AnnotationEntry;
+import gowinda.analysis.IGenomeRepresentation;
 import gowinda.analysis.Snp;
 
 import gowinda.io.IBulkAnnotationReader;

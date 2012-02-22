@@ -3,10 +3,10 @@ package test.gowinda.analysis;
 import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
-import java.util.Arrays;
 import java.util.*;
 
-import gowinda.analysis.FdrAdjuster;
+import gowinda.tmp.FdrAdjuster;
+
 import org.junit.Test;
 
 public class TestFdrAdjuster {
