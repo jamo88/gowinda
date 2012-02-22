@@ -1,4 +1,4 @@
-package gowinda.analysis;
+package gowinda.analysis.fdr;
 
 import java.util.ArrayList;
 

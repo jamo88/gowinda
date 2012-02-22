@@ -99,9 +99,8 @@ public class SimulationAnalyzer implements IAnalyze {
         logger.info("Simulations detected SNPs in genes corresponding to "+gores.getSimulationContainer().size() +" GO categories, out of " + goCatPossible+ " possible ones (corresponding to genes having at least one SNP)");
         logger.info("FDR correction will be done with " + gores.getSimulationContainer().size()+ " tested GO categories");
         logger.info("Candidate SNPs show an overlap with "+ gores.size() + " GO categories");
-        //Update results with FDR and gene_ids
-        IMultipleTestingAdjuster adj=new FdrAdjuster(covVal.getCoveredGOCount());
-        gores.updateMultipleTesting(adj);
+        
+        //gene_ids
         ArrayList<String> candGeneids=new ArrayList<String>(new HashSet<String>(genrep.getGeneidsForSnps(candidateSnps)));
         gores.updateGeneids(new GOTranslator(goentries).translateToGeneids(candGeneids));
         ArrayList<String> maxGeneids=new ArrayList<String>(new HashSet<String>(genrep.getGeneidsForSnps(snps)));

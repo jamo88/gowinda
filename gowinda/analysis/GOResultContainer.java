@@ -1,5 +1,7 @@
 package gowinda.analysis;
 
+import gowinda.analysis.fdr.IMultipleTestingAdjuster;
+
 import java.util.*;
 
 public class GOResultContainer {

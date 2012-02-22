@@ -82,11 +82,17 @@ public class FixedGeneSimulator implements IGOSimulator{
         HashMap<GOEntry,Integer> candidateGOcategories=gotrans.translateToCount(new ArrayList<String>(candGeneids));
         GOResultContainer gores=simcont.estimateSignificance(candidateGOcategories);
         
+        //FDR
+        FdrSimFixedGeneAdjuster fdrCorrector=new FdrSimFixedGeneAdjuster();
+        gores.updateMultipleTesting(fdrCorrector);
+        
         // Max results
+        /*
         ArrayList<String> allGenes= new ArrayList<String>(new HashSet<String>(genrep.getGeneidsForSnps(snps)));
         HashMap<GOEntry,Integer> maxGOcatCount=gotrans.translateToCount(allGenes,candidateSnps.size());
         GOResultContainer maxres=simcont.estimateSignificance(maxGOcatCount);
         gores.updateMaxResult(maxres);        
+        */
         return gores;
         
 	}
