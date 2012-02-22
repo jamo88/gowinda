@@ -8,8 +8,8 @@ package gowinda;
 import java.util.*;
 
 import gowinda.io.*;
-import gowinda.tmp.FdrAdjuster;
 import gowinda.analysis.*;
+import gowinda.analysis.fdr.FdrAdjuster;
 import gowinda.analysis.fixedGene.FixedGeneSimulator;
 import gowinda.analysis.fixedSnp.FixedSnpSimulator;
 

@@ -1,6 +1,5 @@
-package gowinda.tmp;
+package gowinda.analysis.fdr;
 
-import gowinda.analysis.fdr.IMultipleTestingAdjuster;
 
 import java.util.*;
 /*
