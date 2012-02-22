@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import java.util.*;
 
-import gowinda.tmp.FdrAdjuster;
+import gowinda.analysis.fdr.FdrAdjuster;
 
 import org.junit.Test;
 
