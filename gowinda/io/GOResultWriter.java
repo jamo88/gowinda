@@ -55,7 +55,6 @@ public class GOResultWriter {
 				sb.append(String.format("%s\t%.3f\t%d\t%d\t", r.goEntry().goID(),r.expectedCount(),r.observedCount(),r.maxCount()));
 				sb.append(String.format("%.10f\t%.10f\t%.10f\t",r.significance(),r.adjustedSignificance(),r.minSignificance()));
 				sb.append(String.format("%d\t%d\t", r.geneids().size(),r.maxGeneids().size()));
-
 				sb.append(String.format("%s\t%s", r.goEntry().description(),geneids));
 						
 				bf.write(sb.toString()+"\n");

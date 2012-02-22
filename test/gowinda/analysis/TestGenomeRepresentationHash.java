@@ -2,6 +2,7 @@ package test.gowinda.analysis;
 
 
 import gowinda.analysis.*;
+import gowinda.tmp.GenomeRepresentationHash;
 import static org.junit.Assert.*;
 import java.util.*;
 
