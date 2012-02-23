@@ -24,6 +24,7 @@ public class CommandLineParser {
         String genedefstr="";
         String unitString="";
         String outputFile="";
+        int minGenes=1;
         int simulations=0;
         int threads=1;
         float significance=1;
@@ -67,6 +68,10 @@ public class CommandLineParser {
             {
                 simulations=Integer.parseInt(args.remove(0));
             }
+            else if(cu.equals("--min-genes"))
+            {
+            	minGenes=Integer.parseInt(args.remove(0));
+            }
             else if(cu.equals("--min-significance"))
             {
                 significance=Float.parseFloat(args.remove(0));
@@ -105,7 +110,7 @@ public class CommandLineParser {
         if(!unitString.equals(""))countunit=getMode(unitString);
         if(!genedefstr.equals(""))geneDef=getGeneDefinition(genedefstr);
         return new CommandLineArguments(outputFile, statInputFile, statOutputFile, gtfFile,snpFile,
-        		candidateFile,goFile,simulations,threads,significance,countunit,geneDef,displayHelp,debugmode,onlyGenedefSnps);
+        		candidateFile,goFile,minGenes,simulations,threads,significance,countunit,geneDef,displayHelp,debugmode,onlyGenedefSnps);
     }
     
     
@@ -122,6 +127,7 @@ public class CommandLineParser {
         sb.append("                         only the gtf-entries 'CDS' and 'exon' will be used\n");
         sb.append("--simulations            the number of simulations\n");
         sb.append("--min-significance       the minimum significance of GO terms to report\n");
+        sb.append("--min-genes				filter for GO categories that have at least 'n' genes; default=1");
         sb.append("--mode                   the simulation mode; gene | snp; default: gene'\n");
         sb.append("							'snp': the same number of SNPs as candidate SNPs will be sampled per simulation\n");
         sb.append("							'gene': the same number of genes as genes that are overlapping with a candidate SNP will be sampled per simulation\n");

@@ -40,7 +40,7 @@ public class Gowinda {
         IAnalyze analyzer;
         // start 'de novo' simulations
         analyzer =new SimulationAnalyzer(arguments.outputFile(),arguments.annotationFile(),arguments.snpFile(),arguments.candidateSnpFile(),arguments.goAssociationFile()
-                    ,arguments.simulations(), arguments.threads(),arguments.significance(),arguments.simulationMode(),arguments.geneDefinition(),logger);
+                    ,arguments.minGenes(),arguments.simulations(), arguments.threads(),arguments.significance(),arguments.simulationMode(),arguments.geneDefinition(),logger);
 
         //Start the analysis
         analyzer.startAnalysis();
