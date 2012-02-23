@@ -47,12 +47,13 @@ public class GOResultContainer {
 	{
 		for(GOResultForCandidateSnp gr: this.gores)
 		{
-			ArrayList<String> geneids =new ArrayList<String>();
+			int count=0;
+
 			if(genids.containsKey(gr.goEntry()))
 			{
-				geneids=genids.get(gr.goEntry());
+				count=genids.get(gr.goEntry()).size();
 			}
-			gr.setMaxGeneids(geneids.size());
+			gr.setMaxsnpGeneids(count);
 		}
 	}
 	

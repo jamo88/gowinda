@@ -1,4 +1,6 @@
 package gowinda.analysis;
+
+
 import java.util.*;
 
 /*
@@ -117,5 +119,83 @@ public class GOSimulationContainer {
 	{
 		return simres.size();
 	}
+	
+	/**
+	 * Get the average pvalue counts;
+	 * double[] c[i]
+	 * i/simulations= pvalue 
+	 * c[i] average number of occurences of this pvalue for a single simulation (averaged over all simulations) 
+	 */
+	public double[] getAveragePvalueDistribution()
+	{
+		double[] pvalsum=new double[simulations+1];
+		for(int i=0; i<pvalsum.length; i++)
+		{
+			pvalsum[i]=0;
+		}
+		for(Map.Entry<GOEntry, HashMap<Integer,Integer>> me: this.simres.entrySet())
+		{
+			double[] pvalDistriSingleGoCat=getPvalueDistributionForSingleGOEntry(me.getValue());
+			for(int i=0; i<pvalDistriSingleGoCat.length; i++)
+			{
+				pvalsum[i]+=pvalDistriSingleGoCat[i];
+			}
+		}
+		return pvalsum;
+ 	}
+	
+	/**
+	 * Converts the Count statistics (Key=genes found for GO category; Value=number of occurences) into
+	 * a pvalue distribution (index=(int)pvalue*simulations element=frequency of pvalue (in counts))
+	 * @param toaggregate
+	 * @return
+	 */
+	private double[] getPvalueDistributionForSingleGOEntry(HashMap<Integer,Integer> toaggregate)
+	{
+		int maxCount=0;
+		for(Map.Entry<Integer,Integer> me: toaggregate.entrySet())
+		{
+			if(me.getKey()>maxCount)maxCount=me.getKey();
+		}
+		
+		// Initialize the pvalue distribution
+		long[] pvalueDistribution=new long[this.simulations+1];
+		for(int i=0; i<pvalueDistribution.length; i++)
+		{
+			pvalueDistribution[i]=0;
+		}
+		
+		int checksum=0;
+ 		for(int i=0; i<=maxCount; i++)
+		{
+ 			Integer tmp=toaggregate.get(i);
+ 			int thisPvalueFrequency=tmp==null?0:tmp;
+			
+ 			checksum+=thisPvalueFrequency;
+			
+			int counterSum=0;
+			for(Map.Entry<Integer, Integer>me : toaggregate.entrySet())
+			{
+				if(me.getKey() >= i)counterSum+=me.getValue();
+			}
+			// double pvalue=((double)counterSum)/((double)simulations);
+			// int encodedpvalue=pvalue*simulations
+			int encodedPvalue=counterSum;
+			pvalueDistribution[encodedPvalue]+=thisPvalueFrequency;
+		}
+ 		assert(checksum==this.simulations);
+ 		
+		double[] averagePvalForGoCat=new double[this.simulations+1];
+		for(int i=0; i<averagePvalForGoCat.length; i++)
+		{
+			averagePvalForGoCat[i]=((double)pvalueDistribution[i])/((double)this.simulations);
+		}
+		return averagePvalForGoCat;
+	}
+
 
 }
+
+
+
+
