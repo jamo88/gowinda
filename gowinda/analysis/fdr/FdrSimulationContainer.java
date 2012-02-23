@@ -1,83 +1,30 @@
 package gowinda.analysis.fdr;
 
-import gowinda.analysis.*;
-import java.util.*;
+
 
 public class FdrSimulationContainer {
-	/**
-	 * Class for constructing FDR simulation Results
-	 * Synchronized (thread safe)
-	 * @author robertkofler
-	 *
-	 */
-	public static class FdrSimulationContainerBuilder
+	private double[] cumulativePvalDistri;
+	private int simulations;
+	
+	public FdrSimulationContainer(double[] averagePvalueDistribution,int simulations)
 	{
-		private ArrayList<Double> pvalues;
-		
-		public FdrSimulationContainerBuilder()
+		this.simulations=simulations;
+		this.cumulativePvalDistri=new double[averagePvalueDistribution.length];
+		this.cumulativePvalDistri[0]=averagePvalueDistribution[0];
+		for(int i=1; i < averagePvalueDistribution.length; i++)
 		{
-			pvalues=new ArrayList<Double>();
-		}
-		
-		/**
-		 * Update the FdrSimulationBuilder with the results of a single simulation
-		 * Thread safe
-		 * @param gores
-		 */
-		public void addGOResults(GOResultContainer gores)
-		{
-			ArrayList<Double> tmpPval=new ArrayList<Double>();
-			for(GOResultForCandidateSnp gr:gores.getCollection())
-			{
-				tmpPval.add(gr.significance());
-			}
-			synchronized(this)
-			{
-				this.pvalues.addAll(tmpPval);
-			}
-		}
-		/**
-		 * Get the results of the Fdr Simulation
-		 * @return
-		 */
-		public synchronized FdrSimulationContainer getFdrSimulationContainer()
-		{
-			return new FdrSimulationContainer(this.pvalues);
+			this.cumulativePvalDistri[i]=this.cumulativePvalDistri[i-1]+averagePvalueDistribution[i];
 		}
 	}
 	
-	
-	/*
-	 * FDR Simulation Container
-	 */
-	private final ArrayList<Double> pvalues;
-	
-	public FdrSimulationContainer(ArrayList<Double> pvalues)
+	public double getExpectedCount(double uncorrectedPvalue)
 	{
-		Collections.sort(pvalues);
-		this.pvalues=pvalues;
-	}
-	
-	public double translateToFdr(double uncorrectedPVal)
-	{
-		int counter=0;
-		int totSize=pvalues.size();
-		for(double p: this.pvalues)
-		{
-			if(p<=uncorrectedPVal)
-			{
-				counter++;
-			}
-			else
-			{
-				break;
-			}
-		}
-		return ((double)counter)/((double)totSize);
-	}
-	
-	
-	
-	
+		int key=(int)(uncorrectedPvalue*((double)this.simulations));
+		return cumulativePvalDistri[key];
 
+	}
+	
 }
+
+
+

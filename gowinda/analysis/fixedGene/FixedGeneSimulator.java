@@ -84,8 +84,8 @@ public class FixedGeneSimulator implements IGOSimulator{
         GOResultContainer gores=simcont.estimateSignificance(candidateGOcategories);
         
         // FDR simulation
-        this.logger.info("Starting 10.000 simulations to estimate FDR correction for multiple testing");
-        FdrSimulationContainer fdrsim=new FdrFixedGeneSimulator(simcont,this.genrep,gotrans,this.snps,candGeneCount,threads,10000).getFdrSimulations();
+
+        FdrSimulationContainer fdrsim=new FdrSimulationContainer(simcont.getAveragePvalueDistribution(),simulations);
         this.logger.info("Finished simulations; Starting FDR correction");
         FdrSimulatedAdjuster fdrCorrector=new FdrSimulatedAdjuster(fdrsim);
         gores.updateMultipleTesting(fdrCorrector);

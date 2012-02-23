@@ -81,8 +81,7 @@ public class FixedSnpSimulator implements IGOSimulator {
         GOResultContainer gores=simcont.estimateSignificance(candidateGOcategories);
         
         //Fdr correction
-        this.logger.info("Starting 10.000 simulations to estimate FDR correction for multiple testing");
-        FdrSimulationContainer fdrsim=new FdrFixedSnpSimulator(simcont,this.genrep,gotrans,this.snps,candidateCount,threads,10000).getFdrSimulations();
+        FdrSimulationContainer fdrsim=new FdrSimulationContainer(simcont.getAveragePvalueDistribution(),simulations);
         this.logger.info("Finished simulations; Starting FDR correction");
         gores.updateMultipleTesting(new FdrSimulatedAdjuster(fdrsim));
    
