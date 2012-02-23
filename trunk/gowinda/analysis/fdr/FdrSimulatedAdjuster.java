@@ -29,12 +29,14 @@ public class FdrSimulatedAdjuster implements IMultipleTestingAdjuster {
 	{
 		
 		ArrayList<Double> toret =new ArrayList<Double>();
-		for(double d: uncorrected)
+		for(int i=0; i<uncorrected.size(); i++)
 		{	
+			double d=uncorrected.get(i);
 			double expectedCount=fdrSim.getExpectedCount(d);
 			double observedCount=0;
-			for (double temp: uncorrected)
+			for (int k=0; k<uncorrected.size(); k++)
 			{
+				double temp=uncorrected.get(k);
 				if(temp<=d)observedCount++;
 			}
 			double fdr=expectedCount/observedCount;
