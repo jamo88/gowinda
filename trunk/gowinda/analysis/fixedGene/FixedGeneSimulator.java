@@ -17,6 +17,7 @@ import gowinda.analysis.IGOSimulator;
 import gowinda.analysis.IGenomeRepresentation;
 import gowinda.analysis.Snp;
 import gowinda.io.SnpGenicFilterReader;
+import gowinda.analysis.fdr.*;
 
 
 
@@ -82,9 +83,13 @@ public class FixedGeneSimulator implements IGOSimulator{
         HashMap<GOEntry,Integer> candidateGOcategories=gotrans.translateToCount(new ArrayList<String>(candGeneids));
         GOResultContainer gores=simcont.estimateSignificance(candidateGOcategories);
         
-        //FDR
-        FdrSimFixedGeneAdjuster fdrCorrector=new FdrSimFixedGeneAdjuster();
+        // FDR simulation
+        this.logger.info("Starting 10.000 simulations to estimate FDR correction for multiple testing");
+        FdrSimulationContainer fdrsim=new FdrFixedGeneSimulator(simcont,this.genrep,gotrans,this.snps,candGeneCount,threads,10000).getFdrSimulations();
+        this.logger.info("Finished simulations; Starting FDR correction");
+        FdrSimulatedAdjuster fdrCorrector=new FdrSimulatedAdjuster(fdrsim);
         gores.updateMultipleTesting(fdrCorrector);
+        
         
         // Max results
         /*

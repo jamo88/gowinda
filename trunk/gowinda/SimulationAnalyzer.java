@@ -9,7 +9,6 @@ import java.util.*;
 
 import gowinda.io.*;
 import gowinda.analysis.*;
-import gowinda.analysis.fdr.FdrAdjuster;
 import gowinda.analysis.fixedGene.FixedGeneSimulator;
 import gowinda.analysis.fixedSnp.FixedSnpSimulator;
 
@@ -97,14 +96,14 @@ public class SimulationAnalyzer implements IAnalyze {
         GOResultContainer gores  =gosimulator.getSimulationResults(this.simulations,this.threads);
     
         logger.info("Simulations detected SNPs in genes corresponding to "+gores.getSimulationContainer().size() +" GO categories, out of " + goCatPossible+ " possible ones (corresponding to genes having at least one SNP)");
-        logger.info("FDR correction will be done with " + gores.getSimulationContainer().size()+ " tested GO categories");
         logger.info("Candidate SNPs show an overlap with "+ gores.size() + " GO categories");
         
         //gene_ids
         ArrayList<String> candGeneids=new ArrayList<String>(new HashSet<String>(genrep.getGeneidsForSnps(candidateSnps)));
         gores.updateGeneids(new GOTranslator(goentries).translateToGeneids(candGeneids));
         ArrayList<String> maxGeneids=new ArrayList<String>(new HashSet<String>(genrep.getGeneidsForSnps(snps)));
-        gores.updateMaxGeneids(new GOTranslator(goentries).translateToGeneids(maxGeneids));
+        gores.updateMaxsnpGeneids(new GOTranslator(goentries).translateToGeneids(maxGeneids));
+        gores.updateMaxGeneids(goentries);
         
         // Write results to output file
         new GOResultWriter(this.outputFile,gores,this.minsignificance,this.logger).writeAll();
