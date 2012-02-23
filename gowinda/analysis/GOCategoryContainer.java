@@ -53,6 +53,31 @@ public class GOCategoryContainer {
 		return new ArrayList<GOEntry>(toret);
 	}
 	
+	/**
+	 * Returns the count of associated genes for every GO category
+	 * @return
+	 */
+	public HashMap<GOEntry,Integer> getGOcategoryAbundance()
+	{
+		HashMap<GOEntry,HashSet<String>> col=new HashMap<GOEntry,HashSet<String>>(); 
+		for(Map.Entry<String,ArrayList<GOEntry>> me: this.goentries.entrySet())
+		{
+			String geneid=me.getKey();
+			for(GOEntry ge: me.getValue())
+			{
+				if(!col.containsKey(ge))col.put(ge, new HashSet<String>());
+				col.get(ge).add(geneid);
+			}
+		}
+		
+		HashMap<GOEntry,Integer> toret=new HashMap<GOEntry,Integer>();
+		for(Map.Entry<GOEntry, HashSet<String>> ge: col.entrySet())
+		{
+			toret.put(ge.getKey(), ge.getValue().size());
+		}
+		return toret;
+	}
+	
 
 	/**
 	 * Returns a list of gene_ids with at least a single associated GO category

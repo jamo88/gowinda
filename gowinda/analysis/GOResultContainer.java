@@ -1,6 +1,6 @@
 package gowinda.analysis;
 
-import gowinda.analysis.fdr.IMultipleTestingAdjuster;
+import gowinda.analysis.fdr.*;
 
 import java.util.*;
 
@@ -33,7 +33,17 @@ public class GOResultContainer {
 		}
 	}
 	
-	public void updateMaxGeneids(HashMap<GOEntry,ArrayList<String>> genids)
+	public void updateMaxGeneids(GOCategoryContainer goCont)
+	{
+		
+		HashMap<GOEntry,Integer> mc=goCont.getGOcategoryAbundance();
+		for(GOResultForCandidateSnp gr:this.gores)
+		{
+			gr.setMaxGeneids(mc.get(gr.goEntry()));
+		}
+	}
+	
+	public void updateMaxsnpGeneids(HashMap<GOEntry,ArrayList<String>> genids)
 	{
 		for(GOResultForCandidateSnp gr: this.gores)
 		{
@@ -42,7 +52,7 @@ public class GOResultContainer {
 			{
 				geneids=genids.get(gr.goEntry());
 			}
-			gr.setMaxGeneids(geneids);
+			gr.setMaxGeneids(geneids.size());
 		}
 	}
 	
@@ -62,17 +72,6 @@ public class GOResultContainer {
 			GOResultForCandidateSnp active=this.gores.get(i);
 			double adjusteP=adjPvals.get(i);
 			active.setAdjustedSignificance(adjusteP);
-		}
-	}
-	
-	
-	public void updateMaxResult(GOResultContainer maxResult)
-	{
-		for(GOResultForCandidateSnp res: this.gores)
-		{
-			GOResultForCandidateSnp maxRes=maxResult.get(res.goEntry());
-			res.setMaxCount(maxRes.observedCount());
-			res.setMinSignificance(maxRes.significance());
 		}
 	}
 	

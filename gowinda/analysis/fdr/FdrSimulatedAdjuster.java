@@ -22,7 +22,4 @@ public class FdrSimulatedAdjuster implements IMultipleTestingAdjuster {
 		}
 		return toret;
 	}
-	
-	
-
 }
