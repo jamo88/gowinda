@@ -27,11 +27,13 @@ public class SimulationAnalyzer implements IAnalyze {
     private final String goAssociationFile;
     private final int simulations;
     private final int threads;
+    private final int minGenes;
     private final double minsignificance;
     private final gowinda.misc.SimulationMode simulationMode;
     private final gowinda.misc.GeneDefinition geneDefinition;
     private java.util.logging.Logger logger;
-    public SimulationAnalyzer(String outputFile, String annotationFile, String snpFile, String candidateSnpFile, String goAssociationFile, int simulations, 
+    
+    public SimulationAnalyzer(String outputFile, String annotationFile, String snpFile, String candidateSnpFile, String goAssociationFile,int minGenes, int simulations, 
             int threads, float significance, gowinda.misc.SimulationMode simulationMode,gowinda.misc.GeneDefinition geneDefinition, 
             java.util.logging.Logger logger)
     {
@@ -66,6 +68,7 @@ public class SimulationAnalyzer implements IAnalyze {
         this.simulationMode=simulationMode;
         this.geneDefinition=geneDefinition;
         this.logger=logger;
+        this.minGenes=minGenes;
     }
     
 
@@ -80,6 +83,8 @@ public class SimulationAnalyzer implements IAnalyze {
         IGenomeRepresentation genrep=(new GenomeRepresentationBuilder(this.annotationFile,this.geneDefinition,this.logger)).getGenomeRepresentation();
         // Read GO file and obtain a GO translator (geneid -> GO term)
         GOCategoryContainer goentries= new GOEntryBulkReader(this.goAssociationFile,this.logger).readGOEntries();
+        this.logger.info("Filtering for GO categories having at least "+this.minGenes+" genes");
+        goentries=goentries.subsetMinGenes(this.minGenes);
         // Read the SNPs
         ArrayList<Snp> snps= new SnpBulkReader(this.snpFile,this.logger).getSnps();
         ArrayList<Snp> candidateSnps=new SnpBulkReader(this.candidateSnpFile,this.logger).getSnps();

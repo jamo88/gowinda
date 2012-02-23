@@ -14,10 +14,12 @@ public class CommandLineArguments {
     private final String statOutputFile;
     private final int simulations;
     private final int threads;
+    private final int minGenes;
     private final String outputFile;
     private final float significance;
     private final boolean onlyGenedefSnps;
     private final boolean debugmode;
+    
     
 
     private final gowinda.misc.SimulationMode simulationMode;
@@ -37,7 +39,7 @@ public class CommandLineArguments {
      * @param countunit 
      */
     public CommandLineArguments(String outputFile, String statInputFile, String statOutputFile, String annotationFile, String snpFile, String candidateSnpFile, String goAssociationFile,
-            int simulations, int threads, float significance, gowinda.misc.SimulationMode simulationMode, gowinda.misc.GeneDefinition geneDef, 
+            int minGenes, int simulations, int threads, float significance, gowinda.misc.SimulationMode simulationMode, gowinda.misc.GeneDefinition geneDef, 
              boolean displayHelp, boolean debugmode, boolean  onlyGenedefSnps)
     {
     	this.threads=threads;
@@ -55,6 +57,7 @@ public class CommandLineArguments {
         this.geneDef=geneDef;
         this.debugmode=debugmode;
         this.onlyGenedefSnps=onlyGenedefSnps;
+        this.minGenes=minGenes;
 
     }
     
@@ -117,6 +120,10 @@ public class CommandLineArguments {
     public boolean geneDefSampling()
     {
     	return this.onlyGenedefSnps;
+    }
+    public int minGenes()
+    {
+    	return this.minGenes;
     }
     
            

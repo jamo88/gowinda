@@ -89,6 +89,28 @@ public class GOCategoryContainer {
 	}
 	
 	
+	public GOCategoryContainer subsetMinGenes(int minGenes)
+	{
+		// Get Abundance
+		HashMap<GOEntry,Integer> abundance=getGOcategoryAbundance();
+		
+		
+		HashMap<String,ArrayList<GOEntry>> toret=new HashMap<String,ArrayList<GOEntry>>();		
+		for(Map.Entry<String,ArrayList<GOEntry>> me: this.goentries.entrySet())
+		{
+			ArrayList<GOEntry> novelList=new ArrayList<GOEntry>();
+			for(GOEntry ge: me.getValue())
+			{
+				if(abundance.get(ge)>=minGenes)novelList.add(ge);
+			}
+			
+			if(novelList.size()>0) toret.put(me.getKey(), novelList);
+		}
+		
+		return new GOCategoryContainer(toret);
+	}
+	
+	
 	
 	
 }
