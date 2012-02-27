@@ -96,6 +96,9 @@ public class SimulationAnalyzer implements IAnalyze {
         covVal.validate();
         int goCatPossible=covVal.getCoveredGOCount();
         
+        // Filter for genes that have an associated GO category
+        genrep=genrep.filterForGOTerms(goentries);
+        
         //Simulate
         IGOSimulator gosimulator=getGOSimulator(this.simulationMode,genrep,goentries,snps,candidateSnps,this.logger);
         GOResultContainer gores  =gosimulator.getSimulationResults(this.simulations,this.threads);

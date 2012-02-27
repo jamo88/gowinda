@@ -37,7 +37,7 @@ public class GenomeRepresentationBuilder {
     }
     private IGenomeRepresentation getGenomeRepresentation(IBulkAnnotationReader reader)
     {
-    	return new GenomeRepresentationList(reader,this.logger);
+    	return new GenomeRepresentationList(reader.readAnnotation(),this.logger);
     }
     
     private IBulkAnnotationReader getAnnotationFileReader()

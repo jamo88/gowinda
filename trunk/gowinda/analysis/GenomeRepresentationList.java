@@ -1,5 +1,4 @@
 package gowinda.analysis;
-import gowinda.io.IBulkAnnotationReader;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -12,10 +11,11 @@ import gowinda.analysis.AnnotationEntry;
  * Memory friendly implementation, but CPU demanding
  */
 public class GenomeRepresentationList implements IGenomeRepresentation {
-	private  Logger logger;
-	private  HashMap<String,ArrayList<AnnotationEntry>> genrep;
-	private  HashMap<String,Integer> longestAnnotation;
-	private  ArrayList<String> geneids;
+	private   Logger logger;
+	private   ArrayList<AnnotationEntry> allentries;
+	private   HashMap<String,ArrayList<AnnotationEntry>> genrep;
+	private   HashMap<String,Integer> longestAnnotation;
+	private   ArrayList<String> geneids;
 	
 	public static class AnnotationStartComparator implements Comparator<AnnotationEntry>
 	{
@@ -30,10 +30,10 @@ public class GenomeRepresentationList implements IGenomeRepresentation {
 	
 	public static AnnotationStartComparator comp=new AnnotationStartComparator();
 	
-	public GenomeRepresentationList(IBulkAnnotationReader reader, Logger logger)
+	public GenomeRepresentationList(ArrayList<AnnotationEntry> entries, Logger logger)
 	{
 		this.logger=logger;
-		ArrayList<AnnotationEntry> entries=reader.readAnnotation();
+		this.allentries=entries;
 		setGeneids(entries);
 		setGenomeRep(entries);
 	}
@@ -41,6 +41,7 @@ public class GenomeRepresentationList implements IGenomeRepresentation {
 	{
 		this.logger=java.util.logging.Logger.getLogger("Gowinda Logger");
 		logger.setUseParentHandlers(false);
+		this.allentries=entries;
 		setGeneids(entries);
 		setGenomeRep(entries);
 	}
@@ -113,6 +114,22 @@ public class GenomeRepresentationList implements IGenomeRepresentation {
 			toret.addAll(this.getGeneidsForSnp(s));
 		}
 		return toret;
+	}
+	
+	@Override
+	public IGenomeRepresentation filterForGOTerms(GOCategoryContainer gocatcont)
+	{
+		ArrayList<AnnotationEntry> goOverlap=new ArrayList<AnnotationEntry>();
+		this.logger.info("Starting to filter the annotation for entries (genes) that have an associated GO category; Gene count "+ this.allentries.size());
+		for(AnnotationEntry e : this.allentries)
+		{
+			if(gocatcont.contains(e.geneid()))
+			{
+				goOverlap.add(e);
+			}
+		}
+		this.logger.info("Finished filtering for genes with GO category; Final gene count "+goOverlap.size());
+		return new GenomeRepresentationList(goOverlap,this.logger);
 	}
 	
 	/**
