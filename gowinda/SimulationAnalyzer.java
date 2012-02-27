@@ -91,6 +91,8 @@ public class SimulationAnalyzer implements IAnalyze {
         
         // Validate content of the files
         new GeneidCrossValidator(genrep,goentries,this.logger).validate();
+        // Filter for genes that have an associated GO category
+        genrep=genrep.filterForGOTerms(goentries);
         new SnpCrossValidator(snps,candidateSnps,this.logger).validate();
         SnpCoverageValidator covVal=new SnpCoverageValidator(genrep,snps,goentries,this.logger);
         covVal.validate();
