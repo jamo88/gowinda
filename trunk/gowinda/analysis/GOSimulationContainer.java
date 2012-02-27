@@ -40,9 +40,20 @@ public class GOSimulationContainer {
 		
 		public synchronized GOSimulationContainer getSimulationResults()
 		{
-			return new GOSimulationContainer(this.simres,this.simulations);
+			// update the results with the zero counts; i.e.: simulations for which not a single gene was found for a given GO category
+			for(HashMap<Integer,Integer> tmp: simres.values())
+			{
+				int simulationsPresent=0;
+				for(int count: tmp.values())
+				{
+					simulationsPresent+=count;
+				}
+				int simulationsAbsent=this.simulations-simulationsPresent;
+				tmp.put(0, simulationsAbsent);
+			}
+			return new GOSimulationContainer(new HashMap<GOEntry,HashMap<Integer,Integer>>(this.simres),this.simulations);
 		}
-		
+	
 	}
 	
 		/*	
@@ -59,6 +70,20 @@ public class GOSimulationContainer {
 	{
 		this.simulations=simulations;
 		this.simres=simres;
+		
+		// Test if the number of simulations is sane, i.e.: in agreement with the data container for every GO category
+		for(Map.Entry<GOEntry,HashMap<Integer,Integer>> me: simres.entrySet())
+		{
+			HashMap<Integer,Integer> tmp=me.getValue();
+			int simulationsPresent=0;
+			for(int count: tmp.values())
+			{
+				simulationsPresent+=count;
+			}
+			if(simulations!=simulationsPresent) throw new IllegalArgumentException("Error number of simulations does not agree with the number of simulations found "+simulations +" vs "+simulationsPresent);
+		}
+		
+		
 	}
 	
 
@@ -166,11 +191,13 @@ public class GOSimulationContainer {
 		}
 		
 		int checksum=0;
+		// iterate over all gene counts for a single GO category
  		for(int i=0; i<=maxCount; i++)
 		{
+ 			// i..counts of genes in the go category
+ 			// tmp.. how often has i-genes be observed in the simulations
  			Integer tmp=toaggregate.get(i);
  			int thisPvalueFrequency=tmp==null?0:tmp;
-			
  			checksum+=thisPvalueFrequency;
 			
 			int counterSum=0;

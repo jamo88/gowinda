@@ -14,7 +14,7 @@ import org.junit.runners.Suite;
  * @author robertkofler
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({TestSnp.class, TestAnnotationEntry.class, TestGenomeRepresentationHash.class,
+@Suite.SuiteClasses({TestSnp.class, TestAnnotationEntry.class,
 	TestGenomeRepresentationList.class, TestGenomeRepresentationListMultiSNP.class, TestGOSimulationContainer.class,TestFdrAdjuster.class})
 public class SuiteAnalysis {
 
