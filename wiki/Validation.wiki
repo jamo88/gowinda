@@ -1,4 +1,4 @@
-#summary Validating Gowinda by comparing simulated data to GoMiner
+#summary Validating Gowinda by comparing simulated data to !GoMiner
 
 <wiki:toc max_depth="2"/>
 
