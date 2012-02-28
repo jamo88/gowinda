@@ -26,7 +26,7 @@ Than filter this set further for gene_ids that have an associated GO term
 {{{
 python ../scripts/get_geneids_havinggocategory.py --go association_gominer.txt --genelist nonoverlapping_genes.txt > geneids_withgoterm_nooverlap.txt
 }}}
-== Introduce five SNPs into the non-overlapping genes ==
+== Introduce five SNPs into each of the non-overlapping genes ==
 {{{
 python ../scripts/create_snps_for_genes.py --genelist geneids_withgoterm_nooverlap.txt --gtf Flybase.gtf > snps_5pgene.txt
 }}}
