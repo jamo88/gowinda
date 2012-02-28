@@ -33,3 +33,9 @@ cat snps_5pgene.txt|perl -ne 'print if rand()<0.03'|head -1000 > rand_snps_1k.tx
 {{{
 /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Commands/java -Xmx4g -jar /Users/robertkofler/dev/PopGenTools/gowinda/Gowinda.jar --snp-file snps_5pgene.txt  --candidate-snp-file rand_snps_1k.txt --go-association-file association_gominer.txt --annotation-file Flybase.gtf --simulations 1000000 --min-significance 1 --gene-definition exon --threads 8 --output-file gowinda_res.txt --mode gene --min-genes 5
 }}}
+== Perform GO term analysis with !GoMiner==
+For the analysis with GoMiner we need two lists of gene_ids. One with the total set of gene_ids and one with the subset of gene_ids which should be tested for an enrichment
+{{{
+cat snps_5pgene.txt| awk '{print $3}'|sort |uniq > gominer_total.txt
+cat rand_snps_1k.txt| awk '{print $3}'|sort |uniq > gominer_totest.txt
+}}}
