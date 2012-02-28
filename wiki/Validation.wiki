@@ -5,7 +5,7 @@
 = Introduction =
 
 == Files ==
-* The annotation of _D. melanogaster_, the GO association file and the scripts for validating Gowinda can be found here: 
+* The annotation of _D. melanogaster_, the GO association file and the scripts for validating Gowinda can be found here: http://gowinda.googlecode.com/files/validation_files.zip
 * The results of
 
 = Validating Gowinda by comparing the results to !GoMiner =
