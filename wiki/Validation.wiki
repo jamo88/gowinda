@@ -8,10 +8,20 @@
 * The annotation of _D. melanogaster_, the GO association file and the scripts for validating Gowinda can be found here: 
 * The results of
 
-= Validating Gowinda using Gominer =
+= Validating Gowinda by comparing the results to GoMiner =
 In order to compare Gowinda with GoMiner it is necessary to perform an analysis of GO term enrichment only with genes that are (i) not overlapping and (ii) having an associated GO term. Furthermore to avoid the gene length bias we introduced into every gene exactly 5 SNPs.
-== Obtain a set of genes that are not overlapping and have an associated GO term == 
+We than subsequently drew 1000 SNPs randomly and compared the results obtained with Gowinda to the results obtained with GoMiner.
 
+== Obtain a set of genes that are not overlapping and have an associated GO term == 
+First obtain a set of non-overlapping gene_ids
+{{{
+python ../scripts/get_nonoverlapping_geneids.py --gtf Flybase.gtf > nonoverlapping_genes.txt
+}}}
+Than filter this set further for gene_ids that have an associated GO term
+{{{
+python ../scripts/get_geneids_havinggocategory.py --go association_gominer.txt --genelist nonoverlapping_genes.txt > geneids_withgoterm_nooverlap.txt
+}}}
+=== Introduce five SNPs into the non-overlapping genes ===
 
 
 = Details =
