@@ -4,6 +4,14 @@
 
 = Introduction =
 
+== Files ==
+* The annotation of _D. melanogaster_, the GO association file and the scripts for validating Gowinda can be found here: 
+* The results of
+
+= Validating Gowinda using Gominer =
+In order to compare Gowinda with GoMiner it is necessary to perform an analysis of GO term enrichment only with genes that are (i) not overlapping and (ii) having an associated GO term. Furthermore to avoid the gene length bias we introduced into every gene exactly 5 SNPs.
+== Obtain a set of genes that are not overlapping and have an associated GO term == 
+
 
 
 = Details =
