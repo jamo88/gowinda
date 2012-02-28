@@ -5,7 +5,12 @@
 = Introduction =
 
 == Files ==
-  * The annotation of _D. melanogaster_, the GO association file and the scripts for validating Gowinda can be found here: http://gowinda.googlecode.com/files/validation_files.zip
+The files necessary for validating Gowinda can be found here http://gowinda.googlecode.com/files/validation_files.zip
+
+This archive contains:
+  * the Python scripts used in the validation process shown below
+  * the annotation of _D. melanogaster_ (v5.43)
+  * the GO associations obtained from !GoMiner for 'CG' gene_ids
 
 
 = Validating Gowinda by comparing the results to !GoMiner =
