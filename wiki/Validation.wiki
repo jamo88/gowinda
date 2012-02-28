@@ -8,9 +8,9 @@
 * The annotation of _D. melanogaster_, the GO association file and the scripts for validating Gowinda can be found here: 
 * The results of
 
-= Validating Gowinda by comparing the results to GoMiner =
-In order to compare Gowinda with GoMiner it is necessary to perform an analysis of GO term enrichment only with genes that are (i) not overlapping and (ii) having an associated GO term. Furthermore to avoid the gene length bias we introduced into every gene exactly 5 SNPs.
-We than subsequently drew 1000 SNPs randomly and compared the results obtained with Gowinda to the results obtained with GoMiner.
+= Validating Gowinda by comparing the results to !GoMiner =
+In order to compare Gowinda with !GoMiner it is necessary to perform an analysis of GO term enrichment only with genes that are (i) not overlapping and (ii) having an associated GO term. Furthermore to avoid the gene length bias we introduced into every gene exactly 5 SNPs.
+We than subsequently drew 1000 SNPs randomly and compared the results obtained with Gowinda to the results obtained with !GoMiner.
 
 == Obtain a set of genes that are not overlapping and have an associated GO term == 
 First obtain a set of non-overlapping gene_ids
@@ -21,12 +21,15 @@ Than filter this set further for gene_ids that have an associated GO term
 {{{
 python ../scripts/get_geneids_havinggocategory.py --go association_gominer.txt --genelist nonoverlapping_genes.txt > geneids_withgoterm_nooverlap.txt
 }}}
-=== Introduce five SNPs into the non-overlapping genes ===
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+== Introduce five SNPs into the non-overlapping genes ==
+{{{
+python ../scripts/create_snps_for_genes.py --genelist geneids_withgoterm_nooverlap.txt --gtf Flybase.gtf > snps_5pgene.txt
+}}}
+== Choose 1000 random SNPs ==
+{{{
+cat snps_5pgene.txt|perl -ne 'print if rand()<0.03'|head -1000 > rand_snps_1k.txt
+}}}
+== Perform GO term analysis with Gowinda ==
+{{{
+/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Commands/java -Xmx4g -jar /Users/robertkofler/dev/PopGenTools/gowinda/Gowinda.jar --snp-file snps_5pgene.txt  --candidate-snp-file rand_snps_1k.txt --go-association-file association_gominer.txt --annotation-file Flybase.gtf --simulations 1000000 --min-significance 1 --gene-definition exon --threads 8 --output-file gowinda_res.txt --mode gene --min-genes 5
+}}}
