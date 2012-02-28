@@ -44,3 +44,12 @@ For the analysis with GoMiner we need two lists of gene_ids. One with the total 
 cat snps_5pgene.txt| awk '{print $3}'|sort |uniq > gominer_total.txt
 cat rand_snps_1k.txt| awk '{print $3}'|sort |uniq > gominer_totest.txt
 }}}
+
+Subsequently use High-Troughput GoMiner: http://discover.nci.nih.gov/gominer/GoCommandWebInterface.jsp
+
+Following you can find the settings that we used with !GoMiner
+{{{
+
+}}}
+
+== Compare the results of Gowinda to !GoMiner ==
