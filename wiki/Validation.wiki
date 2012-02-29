@@ -74,7 +74,7 @@ tf=0
 email=xxx@xxx
 }}}
 
-== Extract the results of Gowinda and !GoMiner ==
+== Merge the results of Gowinda and !GoMiner into a singel file ==
 From the GoMiner results you need to extract the file: gominer_totest.txt.change
 
 {{{
@@ -82,7 +82,7 @@ cat gowinda_res.txt| awk '{print $1,$4}'|sort -k1,1 > merged/tm_gowinda.txt
 cat GoMiner/gominer_totest.txt.change |awk 'NF>5{print $1,10^$5}'|perl -pe 's/_[^ ]+//' |sort -k1,1> merged/tm_gominer.txt
 join -1 1 -2 1 tm_gominer.txt tm_gowinda.txt > merged_min_win.txt
 }}}
-The resulting file contains for every GO category (column 1) the p-value obtained with !GoMiner (column 2) and Gowinda (column 3)
+The resulting file contains for every GO category (column 1) the p-value obtained with !GoMiner (column 2) and Gowinda (column 3) and may easily be analyzed with R.
 
 == Results == 
 Our results (including our random SNPs) for the comparision of Gowinda with !GoMiner can be found here: http://gowinda.googlecode.com/files/step1_valGoMiner.zip
