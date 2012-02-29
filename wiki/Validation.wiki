@@ -200,5 +200,7 @@ python ../scripts/pick_random_snps_excepttargetlist.py --snp snps_lengthbiased.t
 /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Commands/java -Xmx4g -jar /Users/robertkofler/dev/PopGenTools/gowinda/Gowinda.jar --snp-file snps_lengthbiased.txt --candidate-snp-file random_targetsnps.txt --go-association-file association_gominer.txt --annotation-file Flybase.gtf --simulations 1000000 --min-significance 1 --gene-definition exon --threads 8 --output-file gowinda.res --mode gene --min-genes 1
 }}}
 == Results ==
+With an FDR <0.01 we identified the following significantly enriched GO categories.
 {{{
+
 }}}
