@@ -117,3 +117,10 @@ First obtain the gene_ids from the randomly drawn SNPs
 {{{
 cat rand_1k_snps.txt|awk '{print $3}'|sort |uniq > subset_genes.txt
 }}}
+
+Than perform the analysis for GO term enrichment with GoMiner: http://discover.nci.nih.gov/gominer/htgm.jsp
+
+We used the following parameters
+{{{
+
+}}}
