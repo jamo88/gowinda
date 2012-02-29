@@ -49,7 +49,25 @@ Subsequently use High-Troughput GoMiner: http://discover.nci.nih.gov/gominer/GoC
 
 Following you can find the settings that we used with !GoMiner
 {{{
-
+totalfile=gominer_total.txt
+changedfile=gominer_totest.txt
+datasource=FB
+organism=7227
+evidencecode=all
+crossref=true
+synonym=true
+thresholdtype=BOTH
+timeseriesthreshold=0.05
+randomization=100
+categorymin=5
+cim=1
+categorymax=10000
+rootcategory=all
+tf=0
+email=xxx@xxx
 }}}
 
-== Compare the results of Gowinda to !GoMiner ==
+== Extract the results of Gowinda and !GoMiner ==
+{{{
+cat gowinda_res.txt| awk '{print $1,$4}'|sort -k1,1 > merged/tm_gowinda.txt
+}}}
