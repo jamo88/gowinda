@@ -139,3 +139,9 @@ rootcategory=all
 tf=0
 email=rokofler@gmail.com
 }}}
+
+== Merge the results of Gowinda and !GoMiner ==
+From the !GoMiner results you need to extract the file subset_genes.txt.change
+{{{
+
+}}}
