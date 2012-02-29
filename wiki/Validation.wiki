@@ -91,4 +91,14 @@ With an FDR of <0.05 neither !GoMiner nor Gowinda found any significant GO categ
 [[http://gowinda.googlecode.com/files/cor_gowinda_gominer.png]]
 
 = Does Gowinda correct for the gene length bias? =
-In GWAS studies longer genes do typically have more SNPs and thus also have a higher probability of containing a candidate SNP. This potentially higher fraction of candidate SNPs in longer genes may lead to an artefactual overrepresentation of GO categories containing many long genes. To test the effect of this gene length bias and whether Gowinda efficiently corrects for this bias we introduced one SNP every 100bp into genes having an associated GO category. Furthermore overlapping genes were not discarded for this analysis, this dataset thus represents a representative dataset for a typical GWAS study. design. However, finally we randomly picked 1000 SNPs and compared the results obtained  with !GoMiner to the results obtained with Gowinda.  
+In GWAS studies longer genes do typically have more SNPs and thus also have a higher probability of containing a candidate SNP. This potentially higher fraction of candidate SNPs in longer genes may lead to an artefactual overrepresentation of GO categories containing many long genes. To test the effect of this gene length bias and whether Gowinda efficiently corrects for this bias we introduced one SNP every 100bp into genes having an associated GO category. Furthermore overlapping genes were not discarded for this analysis, this dataset thus represents a representative dataset for a typical GWAS study. design. However, finally we randomly picked 1000 SNPs and compared the results obtained  with !GoMiner to the results obtained with Gowinda. 
+
+== Extract the gene_ids of genes having an associated GO term ==
+{{{
+python ../scripts/extract_geneids_fromgoaassociation.py --go association_gominer.txt > total_genes.txt
+}}}
+
+== Introduce one SNP every 100bp for genes with an associated GO term ==
+{{{
+python ../scripts/create_length_biased_genes.py --gtf Flybase.gtf --genelist total_genes.txt > snps_lengthbiased.txt
+}}} 
