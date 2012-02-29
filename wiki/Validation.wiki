@@ -12,6 +12,8 @@ This archive contains:
   * the annotation of _D. melanogaster_ (v5.43)
   * the GO associations obtained from !GoMiner for 'CG' gene_ids
 
+The results for the validation of Gowinda by comparing the results to !GoMiner can be found here: http://gowinda.googlecode.com/files/step1_valGoMiner.zip
+
 
 = Validating Gowinda by comparing the results to !GoMiner =
 In order to compare Gowinda with !GoMiner it is necessary to perform an analysis of GO term enrichment only with genes that are (i) not overlapping and (ii) having an associated GO term. Furthermore to avoid the gene length bias we introduced into every gene exactly 5 SNPs.
@@ -78,5 +80,6 @@ join -1 1 -2 1 tm_gominer.txt tm_gowinda.txt > merged_min_win.txt
 The resulting file contains for every GO category (column 1) the p-value obtained with !GoMiner (column 2) and Gowinda (column 3)
 
 == Results == 
+Our results (including our random SNPs) for the comparision of Gowinda with !GoMiner can be found here: http://gowinda.googlecode.com/files/step1_valGoMiner.zip
 These results (merged_min_win.txt) can now be analyzed in R.
-With an FDR of <0.05 neither !GoMiner nor Gowinda found any significant categories.
+With an FDR of <0.05 neither !GoMiner nor Gowinda found any significant GO categories.
