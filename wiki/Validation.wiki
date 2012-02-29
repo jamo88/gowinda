@@ -68,6 +68,9 @@ email=xxx@xxx
 }}}
 
 == Extract the results of Gowinda and !GoMiner ==
+From the GoMiner results you need to extract the file: gominer_totest.txt.change
+
 {{{
 cat gowinda_res.txt| awk '{print $1,$4}'|sort -k1,1 > merged/tm_gowinda.txt
+cat GoMiner/gominer_totest.txt.change.gce |awk 'NF>5{print $1,10^$5}'|perl -pe 's/_[^ ]+//' |sort -k1,1> merged/tm_gominer.txt
 }}}
