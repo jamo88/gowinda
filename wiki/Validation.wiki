@@ -143,5 +143,9 @@ email=rokofler@gmail.com
 == Merge the results of Gowinda and !GoMiner ==
 From the !GoMiner results you need to extract the file subset_genes.txt.change
 {{{
-
+cat GoMiner/subset_genes.txt.change |awk 'NF>5{print $1,10^$5}'|perl -pe 's/_[^ ]+//' |sort -k1,1> merged/tm_gominer.txt
 }}}
+== Results ==
+Our results of this analysis can be found here:
+
+Although we randomly drew SNPs and would thus not expect an overrepresentation of any GO term, !GoMiner reports that 341 GO terms have an significant overrepresentation (FDR <0.05), which suggests that the gene length bias has an tremendous influence on GO term analysis. By contrast Gowinda which corrects for the gene length bias (by random permuting the set of candidate SNPs) correctly reports that none of the GO terms show any significant overrepresentation (FDR <0.05).
