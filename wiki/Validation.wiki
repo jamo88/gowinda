@@ -107,3 +107,13 @@ python ../scripts/create_length_biased_genes.py --gtf Flybase.gtf --genelist tot
 {{{
 cat snps_lengthbiased.txt|perl -ne 'print if rand()<0.004'|head -1000> rand_1k_snps.txt
 }}}
+== Perform GO term analysis with Gowinda ==
+{{{
+/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Commands/java -Xmx4g -jar /Users/robertkofler/dev/PopGenTools/gowinda/Gowinda.jar --snp-file snps_lengthbiased.txt  --candidate-snp-file rand_1k_snps.txt --go-association-file association_gominer.txt --annotation-file Flybase.gtf --simulations 1000000 --min-significance 1 --gene-definition exon --threads 8 --output-file gowinda_res.txt --mode gene --min-genes 5
+}}}
+
+== Perform GO term analysis with !GoMiner ==
+First obtain the gene_ids from the randomly drawn SNPs
+{{{
+cat rand_1k_snps.txt|awk '{print $3}'|sort |uniq > subset_genes.txt
+}}}
