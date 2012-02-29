@@ -21,10 +21,8 @@ The results for the validation of Gowinda by comparing the results to !GoMiner c
 
 
 = Validating Gowinda by comparing the results to !GoMiner =
-. As !GoMiner does not correct for the gene length bias nor consider overlapping genes it was necessary to provide a dataset which does not have these two problems. Therefore we 
-
-In order to compare Gowinda with !GoMiner it is necessary to perform an analysis of GO term enrichment only with genes that are (i) not overlapping and (ii) having an associated GO term. Furthermore to avoid the gene length bias we introduced into every gene exactly 5 SNPs.
-We than subsequently drew 1000 SNPs randomly and compared the results obtained with Gowinda to the results obtained with !GoMiner.
+As !GoMiner does not correct for the gene length bias nor consider overlapping genes it was necessary to use a dataset not showing these two problems. We therefore (i) filtered for not-overlapping genes (ii) filtered for genes that have an associated GO term and (iii) introduced exactly 5 SNPs in each of these filtered genes. 
+Subsequently we randomly picked 1000 SNPs and compared the p-values obtained with Gowinda to the p-values obtained with !GoMiner (without FDR correction).
 
 == Obtain a set of genes that are not overlapping and have an associated GO term == 
 First obtain a set of non-overlapping gene_ids
