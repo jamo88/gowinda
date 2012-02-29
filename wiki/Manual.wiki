@@ -6,6 +6,31 @@ Add your content here.
 
 
 = Requirements =
+Gowinda requires the following software installed:
+  * Java 6 or higher
+Furthermore the following input files are required
+  * a file containing the annotation of the genome in .gtf
+  * a GO association file containing for every GO category a list of associated gene_ids
+  * a file containing the total set of SNPs
+  * a file containing the candidate SNPs
+== annotation in .gtf ==
+The annotation must be in the gtf format: http://mblab.wustl.edu/GTF22.html
+Gowinda however only requires for the attribute `gene_id`, the attribute `transcript_id` is optional.
+Furthermore the feature column (column 3) must either contain `exon` or `CDS`, all other features are ignored.
+{{{
+2L      FlyBase exon    8193    9484    .       +       .       gene_id "CG11023";
+2L      FlyBase exon    8193    8589    .       +       .       gene_id "CG11023";
+2L      FlyBase exon    8668    9484    .       +       .       gene_id "CG11023";
+2L      FlyBase exon    9839    11344   .       -       .       gene_id "CG2671";
+2L      FlyBase exon    11410   11518   .       -       .       gene_id "CG2671";
+}}}
+
+Note that we decided not to support the .gff file format, for the following reasons:
+  * it is less transparent to the user as the .gtf format. In order to obtain the gene_id for a given exon it is necessary to extract the mRNA and the gene features and than using the hierarchy exon->mRNA->gene finally identify the corresponding `gene_id`. If this process is encapsulated within Gowinda it may be hard to identify possible sources of problems in the analysis, whereas with the .gtf file format the `gene_id` is immediately accessible to the user.
+  * there are several sources of inconsistencies in the .gff exons not having a parent (mRNA), mRNAs not having a parent (gene) etc. Although it would be possible to ignore exons not having an mRNA parent we argue that this again results in hiding relevant information from the user.
+
+However we provide a .gff2gtf converter which can be downloaded here  
+
 = Details =
 
 Add your content here.  Format your content with:
