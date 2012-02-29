@@ -22,6 +22,7 @@ The results for the validation of Gowinda using by comparing the results to !GoM
 The results demonstrating the impact of the gene length bias can be found here: http://gowinda.googlecode.com/files/step2_lengthBias.zip
 
 
+
 = Validating Gowinda by comparing the results to !GoMiner =
 As !GoMiner does not correct for the gene length bias nor consider overlapping genes it was necessary to use a dataset not showing these two biases. We therefore (i) filtered for not-overlapping genes (ii) filtered for genes that have an associated GO term and (iii) introduced exactly 5 SNPs in each of the thus obtained genes. 
 Subsequently we randomly picked 1000 SNPs and compared the p-values obtained with Gowinda to the p-values obtained with !GoMiner (without FDR correction).
@@ -92,7 +93,10 @@ With an FDR of <0.05 neither !GoMiner nor Gowinda found any significant GO categ
 
 [[http://gowinda.googlecode.com/files/cor_gowinda_gominer.png]]
 
-= Does Gowinda correct for the gene length bias? =
+
+
+
+= Validation that Gowinda eliminates the gene length bias =
 In GWAS studies longer genes do typically have more SNPs and thus also have a higher probability of containing a candidate SNP. This potentially higher fraction of candidate SNPs in longer genes may lead to an artefactual overrepresentation of GO categories containing many long genes. To test the effect of this gene length bias and whether Gowinda efficiently corrects for this bias we introduced one SNP every 100bp into genes having an associated GO category. Furthermore overlapping genes were not discarded, thus this dataset contains the biases which usually complicate GO analysis for GWAS. However, finally we randomly picked 1000 SNPs and compared the results obtained with !GoMiner to the results obtained with Gowinda. 
 
 == Extract the gene_ids of genes having an associated GO term ==
@@ -155,3 +159,15 @@ Our results of this analysis can be found here: http://gowinda.googlecode.com/fi
 Although we randomly drew SNPs and would thus not expect an overrepresentation of any GO term, !GoMiner reports that 341 GO terms have an significant overrepresentation (FDR <0.05), which suggests that the gene length bias has an tremendous influence on GO term analysis. By contrast Gowinda which corrects for the gene length bias (by random permuting the set of candidate SNPs) correctly reports that none of the GO terms show any significant overrepresentation (FDR <0.05). The correlation between the p-values obtained with Gowinda and !GoMiner (Spearman's rank correlation; rho=0.5610065; p-value < 2.2e-16) is much worse as compared to the unbiased data set. Assuming that Gowinda yields reliable results (see validation above), these results clearly demonstrate the tremendous impact of the gene length bias on GO analysis. In fact the length bias results in 341 artefactual overrepresented GO categories.  The following graph shows the correlation of the p-values obtained with Gowinda and !GoMiner using the length biased dataset. 
 
 [[http://gowinda.googlecode.com/files/corBiased_Gominer_Gowinda.png]]
+
+= Validation that Gowinda identifies significant overrepresentated GO terms =
+To validate that Gowinda correctly identifies significantly overrepresented GO terms, we proceeded in a two step procedure. First we randomly picked five GO categories with a small number of genes (between 5 and 10). We than picked one SNP for ever gene in these GO categories and added randomly drawn SNPs from the length biased  dataset until a total of 1000 SNPs was obtained. Finally we performed a GO term enrichment analysis using Gowinda and tested whether the five randomly picked categories were correctly identified.
+
+== Identify genes having an associated GO term ==
+{{{
+python ../scripts/extract_geneids_fromgoaassociation.py --go association_gominer.txt > total_genes.txt
+}}}
+== Introduce one SNP every 100bp for genes with an associated GO term ==
+{{{
+python ../scripts/create_length_biased_genes.py --gtf Flybase.gtf --genelist total_genes.txt > snps_lengthbiased.txt
+}}} 
