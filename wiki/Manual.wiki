@@ -27,7 +27,7 @@ Furthermore the feature column (column 3) must either contain `exon` or `CDS`, a
 
 Note that we decided not to support the .gff file format, for the following reasons:
   * it is less transparent to the user as the .gtf format. In order to obtain the gene_id for a given exon it is necessary to extract the mRNA and the gene features and than using the hierarchy exon->mRNA->gene finally identify the corresponding `gene_id`. If this process is encapsulated within Gowinda it may be hard to identify possible sources of problems in the analysis, whereas with the .gtf file format the `gene_id` is immediately accessible to the user.
-  * there are several sources of inconsistencies in the .gff exons not having a parent (mRNA), mRNAs not having a parent (gene) etc. Although it would be possible to ignore exons not having an mRNA parent we argue that this again results in hiding relevant information from the user.
+  * there are several sources of inconsistencies in the .gff file format, like exons not having a parent (mRNA) or mRNAs not having a parent (gene). Although it would be possible to ignore exons not having an mRNA parent we argue that this again results in hiding relevant information from the user.
 
 However we provide a .gff2gtf converter which can be downloaded here  
 
