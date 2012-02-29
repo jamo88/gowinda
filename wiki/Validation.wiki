@@ -175,4 +175,22 @@ python ../scripts/create_length_biased_genes.py --gtf Flybase.gtf --genelist tot
 == Randomly pick five small GO categories ==
 We randomly picked five small GO categories having 5 - 10 genes.
 {{{
+python ../scripts/pick_random_gocats.py --input association_gominer.txt > random_gocategories.txt
+}}}
+
+In our example we picked the following categories, where the first column is the number of genes in this category:
+{{{
+cat random_gocategories.txt|awk '{print $2}' |sort |uniq -c
+   5 GO:0007289
+   6 GO:0009074
+   5 GO:0030173
+   5 GO:0040020
+   8 GO:0046364
+}}}
+
+== Introduce SNPs into the genes of target GO categories and add biased random SNPs ==
+We than picked one SNP from every gene in the targeted GO categories and added random SNPs from the length biased dataset until the total number of SNPs amounted to 1000.
+
+{{{ 
+python ../scripts/pick_random_snps_excepttargetlist.py --snp snps_lengthbiased.txt --genelist random_gocategories.txt > random_targetsnps.txt
 }}}
