@@ -86,5 +86,6 @@ The resulting file contains for every GO category (column 1) the p-value obtaine
 
 == Results == 
 Our results (including our random SNPs) for the comparision of Gowinda with !GoMiner can be found here: http://gowinda.googlecode.com/files/step1_valGoMiner.zip
-These results (merged_min_win.txt) can now be analyzed in R.
-With an FDR of <0.05 neither !GoMiner nor Gowinda found any significant GO categories.
+With an FDR of <0.05 neither !GoMiner nor Gowinda found any significant GO categories. The p-values (not FDR corrected) for the different GO categories obtained by Gowinda and GoMiner are highly correlated (Spearman's rank correlation; rho=0.9999005; p-value < 2.2e-16)
+
+[[http://gowinda.googlecode.com/files/cor_gowinda_gominer.png]]
