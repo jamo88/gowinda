@@ -122,5 +122,20 @@ Than perform the analysis for GO term enrichment with GoMiner: http://discover.n
 
 We used the following parameters
 {{{
-
+totalfile=total_genes.txt
+changedfile=subset_genes.txt
+datasource=FB
+organism=7227
+evidencecode=all
+crossref=true
+synonym=true
+thresholdtype=BOTH
+timeseriesthreshold=0.05
+randomization=100
+categorymin=5
+cim=1
+categorymax=10000
+rootcategory=all
+tf=0
+email=rokofler@gmail.com
 }}}
