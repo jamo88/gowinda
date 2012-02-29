@@ -102,3 +102,8 @@ python ../scripts/extract_geneids_fromgoaassociation.py --go association_gominer
 {{{
 python ../scripts/create_length_biased_genes.py --gtf Flybase.gtf --genelist total_genes.txt > snps_lengthbiased.txt
 }}} 
+
+== Randomly draw 1000 SNPs ==
+{{{
+cat snps_lengthbiased.txt|perl -ne 'print if rand()<0.004'|head -1000> rand_1k_snps.txt
+}}}
