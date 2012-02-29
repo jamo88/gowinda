@@ -79,4 +79,4 @@ The resulting file contains for every GO category (column 1) the p-value obtaine
 
 == Results == 
 These results (merged_min_win.txt) can now be analyzed in R.
-We found
+With an FDR of <0.05 neither !GoMiner nor Gowinda found any significant categories.
