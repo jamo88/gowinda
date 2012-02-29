@@ -170,4 +170,9 @@ python ../scripts/extract_geneids_fromgoaassociation.py --go association_gominer
 == Introduce one SNP every 100bp for genes with an associated GO term ==
 {{{
 python ../scripts/create_length_biased_genes.py --gtf Flybase.gtf --genelist total_genes.txt > snps_lengthbiased.txt
-}}} 
+}}}  
+
+== Randomly pick five small GO categories ==
+We randomly picked five small GO categories having 5 - 10 genes.
+{{{
+}}}
