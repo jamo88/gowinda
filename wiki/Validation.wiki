@@ -4,6 +4,11 @@
 
 = Introduction =
 
+We validated Gowinda in three ways:
+  * first we randomly drew 1000 SNPs from a dataset not having the gene length bias and compared the results of Gowinda to !GoMiner. We found that the p-values reported by Gowinda and !GoMiner are highly correlated (Spearman's rank correlation; rho=0.99).
+  * second we randomly drew 1000 SNPs from a dataset having the gene length bias and again compared the results of Gowinda and !GoMiner. We found that !GoMiner reports an significant enrichment for ~300 GO categories, whereas Gowinda correctly reports none!
+  * and third we tested whether Gowinda correctly finds an enrichment for 5 small GO categories which were randomly chosen. We picked a SNP in each gene of these small target GO categories and added random SNPs from the gene length biased dataset until a total of 1000SNPs was obtain. We found that Gowinda correctly identified these targeted GO categories (FDR<0.01).
+
 == Files ==
 The files necessary for validating Gowinda can be found here http://gowinda.googlecode.com/files/validation_files.zip
 
@@ -16,6 +21,8 @@ The results for the validation of Gowinda by comparing the results to !GoMiner c
 
 
 = Validating Gowinda by comparing the results to !GoMiner =
+. As !GoMiner does not correct for the gene length bias nor consider overlapping genes it was necessary to provide a dataset which does not have these two problems. Therefore we 
+
 In order to compare Gowinda with !GoMiner it is necessary to perform an analysis of GO term enrichment only with genes that are (i) not overlapping and (ii) having an associated GO term. Furthermore to avoid the gene length bias we introduced into every gene exactly 5 SNPs.
 We than subsequently drew 1000 SNPs randomly and compared the results obtained with Gowinda to the results obtained with !GoMiner.
 
