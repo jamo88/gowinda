@@ -61,7 +61,7 @@ The file consists of three tab-delimited columns
 *NOTE:* the `gene_ids` of the annotation need to be identical to the `gene_ids` of the GO association file. The case is not considered as Gowinda internally converts all `gene_ids` to lower-case.
 However a problem may arise as many `gene_ids` have synonyms. One strategy to deal with this problem is to use the GO association file from !GoMiner (see tutorial http://code.google.com/p/gowinda/wiki/Tutorial)
 
-== total SNP file ==
+== Total SNP file ==
 This file must contain all the SNPs used for the GWAS in a very simple tab-delimited file format. Following you can see the simplest example
 {{{
 2L	117081
@@ -87,7 +87,7 @@ This file must contain all the SNPs used for the GWAS in a very simple tab-delim
 2R	2303	N	8	TTTTTTT^FT	AAAAAAAA	8	TTTTTTT^FT	AAAAAAAA
 }}}
 
-== candidate SNP file == 
+== Candidate SNP file == 
 the same applies as for the total SNP file, except that the candidate SNPs must be a subset of the total SNPs.
 
 = Gowinda =
@@ -110,14 +110,14 @@ Gowinda has the following input parameters
   * `--threads`: the simulations of Gowinda utilize multi-threading. Adjust the number of threads to use. Optional parameter; default=1
   * `--help`: show the help for Gowinda; Optional parameter
 
-=== analysis mode `gene` ===
+=== Analysis mode `gene` ===
 In this mode Gowinda randomly picks SNPs until the corresponding number of genes equals the number of genes associated with the candidate SNPs. The number of genes is thus constant in each round of random sampling but the number of randomly picked SNPs may differ between rounds. Finally to derive the p-values, the numbers of candidate genes (genes having a candidate SNP) are compared to the empirical null distribution for every GO category.
 
 *NOTE:* in this mode every gene is considered only once even when containing several candidate/random SNPs.
 
 We generally recommend this mode.
 
-=== analysis mode `snp` ===
+=== Analysis mode `snp` ===
 In this mode Gowinda randomly picks SNPs until the number of random SNPs equals the number of candidate SNPs. The number of SNPs is thus constant in each round of random sampling but the number of corresponding genes may differ between rounds. Furthermore genes will be counted multiple times according to the number of contained candidate/random SNPs. Finally to derive p-values the numbers of candidate genes, whereas each gene may be counted several times, are compared to the empirical null distribution for every GO category.
 
 We recommend this mode when assuming that linkage disequilibrium decays quickly and that the candidate SNPs are thus independently.
