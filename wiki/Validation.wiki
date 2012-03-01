@@ -202,5 +202,27 @@ python ../scripts/pick_random_snps_excepttargetlist.py --snp snps_lengthbiased.t
 == Results ==
 With an FDR <0.01 we identified the following significantly enriched GO categories.
 {{{
-
+O:0046165      1.278   9       0.0000010000    0.0002654000    9       14      14      alcohol_biosynthetic_process    cg32220,cg17725,cg10118,cg8890,cg10688,cg3495,cg10924,cg8251,cg1516
+GO:0019319      0.714   7       0.0000010000    0.0002654000    7       7       7       hexose_biosynthetic_process     cg17725,cg8890,cg10688,cg3495,cg10924,cg8251,cg1516
+=>GO:0009074      0.339   6       0.0000010000    0.0002654000    6       6       6       aromatic_amino_acid_family_catabolic_process    cg7399,cg1555,cg4779,cg9363,cg9362,cg2155
+=>GO:0046364      0.740   8       0.0000010000    0.0002654000    8       8       8       monosaccharide_biosynthetic_process     cg32220,cg17725,cg8890,cg10688,cg3495,cg10924,cg8251,cg1516
+=>GO:0007289      0.483   5       0.0000010000    0.0002654000    5       5       5       spermatid_nucleus_differentiation       cg3354,cg6998,cg5648,cg12284,cg8827
+GO:0009225      0.152   4       0.0000020000    0.0003176667    4       4       4       nucleotide-sugar_metabolic_process      cg32220,cg8890,cg10688,cg3495
+GO:0009226      0.152   4       0.0000020000    0.0003176667    4       4       4       nucleotide-sugar_biosynthetic_process   cg32220,cg8890,cg10688,cg3495
+GO:0019439      0.464   6       0.0000020000    0.0003176667    6       7       7       aromatic_compound_catabolic_process     cg7399,cg1555,cg4779,cg9363,cg9362,cg2155
+GO:0051445      0.966   7       0.0000020000    0.0003176667    7       9       9       regulation_of_meiotic_cell_cycle        cg18543,cg6513,cg9900,cg13584,cg4727,cg4336,cg7719
+=>GO:0030173      0.517   5       0.0000040000    0.0005274545    5       5       5       integral_to_Golgi_membrane      cg10580,cg4871,cg10772,cg2448,cg12366
+GO:0031228      0.517   5       0.0000040000    0.0005274545    5       5       5       intrinsic_to_Golgi_membrane     cg10580,cg4871,cg10772,cg2448,cg12366
+GO:0006558      0.227   4       0.0000070000    0.0008063077    4       4       4       L-phenylalanine_metabolic_process       cg7399,cg4779,cg9363,cg9362
+GO:0006559      0.227   4       0.0000070000    0.0008063077    4       4       4       L-phenylalanine_catabolic_process       cg7399,cg4779,cg9363,cg9362
+=>GO:0040020      0.622   5       0.0000110000    0.0011997857    5       5       5       regulation_of_meiosis   cg9900,cg13584,cg4727,cg4336,cg7719
+GO:0009072      1.411   8       0.0000230000    0.0024266667    8       18      18      aromatic_amino_acid_family_metabolic_process    cg7399,cg10118,cg1555,cg4779,cg17870,cg9363,cg9362,cg2
+155
+GO:0034637      2.181   9       0.0000870000    0.0094014375    9       21      21      cellular_carbohydrate_biosynthetic_process      cg32220,cg17725,cg8890,cg9485,cg10688,cg3495,cg10924,c
+g8251,cg1516
+GO:0006572      0.142   3       0.0000970000    0.0096698421    3       3       3       tyrosine_catabolic_process      cg4779,cg9363,cg9362
+GO:0046395      3.068   11      0.0001050000    0.0096698421    11      38      38      carboxylic_acid_catabolic_process       cg7399,cg4586,cg1555,cg4779,cg3626,cg6638,cg9709,cg9527,cg9363
+,cg9362,cg2155
+GO:0016054      3.068   11      0.0001050000    0.0096698421    11      38      38      organic_acid_catabolic_process  cg7399,cg4586,cg1555,cg4779,cg3626,cg6638,cg9709,cg9527,cg9363,cg9362,
+cg2155
 }}}
