@@ -8,7 +8,7 @@ Gowinda is a software for identifying significant enrichment of GO categories fr
 Gowinda addresses these two sources of error with a permutation test. Gowinda randomly draws the same number of SNPs as candidate SNPs, several million times, and subsequently derives an empirical null distribution of the abundance of genes for every GO category. P-values for the candidate SNPs are derived by comparing the abundance of genes resulting from the candidate SNPs to the empirical null distribution. Furthermore FDR correction for multiple testing is also done from the empirical null distribution.
 
 For a validation of Gowinda please see: http://code.google.com/p/gowinda/wiki/Validation
-In this validation we show that Gowinda yields highly reliable results (comparision with !GoMiner) efficiently corrects for the gene length bias while still identifying significantly overrepresented GO categories.
+In this validation we show that Gowinda yields highly reliable results (comparision with !GoMiner) efficiently corrects for the gene length bias while still identifying significantly overrepresented GO categories. We also demonstrate that the gene length bias has an tremendous influence on the GO analysis potentially causing an extensive amount of false positive GO categories.
 
 = Requirements =
 Gowinda requires the following software installed:
