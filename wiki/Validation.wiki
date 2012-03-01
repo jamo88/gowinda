@@ -200,7 +200,7 @@ python ../scripts/pick_random_snps_excepttargetlist.py --snp snps_lengthbiased.t
 /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Commands/java -Xmx4g -jar /Users/robertkofler/dev/PopGenTools/gowinda/Gowinda.jar --snp-file snps_lengthbiased.txt --candidate-snp-file random_targetsnps.txt --go-association-file association_gominer.txt --annotation-file Flybase.gtf --simulations 1000000 --min-significance 1 --gene-definition exon --threads 8 --output-file gowinda.res --mode gene --min-genes 1
 }}}
 == Results ==
-With an FDR <0.01 we identified the following significantly enriched GO categories.
+With an FDR <0.01 we identified 19 significantly enriched GO categories (see below). All five targeted GO categories were successfully identified (marked with an arrow). However we also found that an additional 14 not targeted GO categories showed a significant enrichment (FDR<0.01).  
 {{{
 GO:0046165      1.278   9       0.0000010000    0.0002654000    9       14      14      alcohol_biosynthetic_process    cg32220,cg17725,cg10118,cg8890,cg10688,cg3495,cg10924,cg8251,cg1516
 GO:0019319      0.714   7       0.0000010000    0.0002654000    7       7       7       hexose_biosynthetic_process     cg17725,cg8890,cg10688,cg3495,cg10924,cg8251,cg1516
