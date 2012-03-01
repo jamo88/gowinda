@@ -91,7 +91,12 @@ This file must contain all the SNPs used for the GWAS in a very simple tab-delim
 the same applies as for the total SNP file, except that the candidate SNPs must be a subset of the total SNPs.
 
 = Gowinda =
+
+For an example of how to use Gowinda with real data please see the tutorial: http://code.google.com/p/gowinda/wiki/Tutorial
 == Parameters ==
+Gowinda offers the following parameters
+
+  * 
 
 == Output ==
 
