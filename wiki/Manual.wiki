@@ -33,7 +33,7 @@ Furthermore the feature column (column 3) must either contain `exon` or `CDS`, a
 It is not necessary that the entries are unique, Gowinda is internally reducing multiple copies of the same entry to a single one.
 
 Gowinda does not support the `.gff` format as it less transparent as the `.gtf` format (e.g.: in order to obtain the gene_id for a given exon it is necessary to traverse the hierarchy exon -> mRNa -> gene) and has several sources of inconsistencies (exons without parent (mRNA), exons with several parents).
-We however provide a script for converting a .gff file into a .gtf file: http://gowinda.googlecode.com/files/Gff2Gtf.py
+We however provide a script for converting a `.gff` file into a `.gtf` file: http://gowinda.googlecode.com/files/Gff2Gtf.py
 
 The user may thus assure that the annotation is correctly converted before providing it to Gowinda. 
 
