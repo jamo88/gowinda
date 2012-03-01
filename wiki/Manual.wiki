@@ -60,7 +60,7 @@ The file consists of three tab-delimited columns
 category
 
 *NOTE*: the `gene_ids` of the annotation need to be identical to the `gene_ids` of the GO association file. The case is not considered as Gowinda internally converts all `gene_ids` to lower-case.
-However a frequent problem may arise as many `gene_ids` have synonyms. One strategy to deal with this problem is to use the GO association file from !GoMiner (see tutorial http://code.google.com/p/gowinda/wiki/Tutorial)
+However a problem may arise as many `gene_ids` have synonyms. One strategy to deal with this problem is to use the GO association file from !GoMiner (see tutorial http://code.google.com/p/gowinda/wiki/Tutorial)
 
 == total SNP files ==
 This file must contain all the SNPs used for the GWAS in a very simple tab-delimited file format. Following you can see the simplest example
