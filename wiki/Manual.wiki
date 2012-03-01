@@ -100,7 +100,8 @@ Gowinda has the following input parameters
   * `--go-association-file`: a file containing for every GO term the associated genes; For the file format see above; Mandatory parameter
   * `--snp-file`: a file containing the total set of SNPs that were used for the GWAS. For the file format see above; Mandatory parameter
   * `--candidate-snp-file`: a file containing the candidate SNPs that show some association with the trait of interest. For the file format see above; Mandatory parameter
-  * `--mode`: Gowinda offers to analysis modes either `snp` or `gene`; For description see below
+  * `--simulations`: the number of simulations that should be performed. This will have a direct influence on the minimum possible p-value; For example with 1.000.000 simulations the minimum possible p-value is 1.0e-6; Increase the number of simulations if you need a higher resoultion/precision; Note that incresasing the number of simulations will not result in larger numbers of significant GO categories
+  * `--mode`: Gowinda offers to analysis modes either `snp` or `gene`; For description see below; Optional parameter; default=`gene`
 
 === analysis mode `gene` ===
 === analysis mode `snp` ===
