@@ -37,7 +37,8 @@ Note that we decided not to support the .gff file format, for the following reas
   * there are several sources of inconsistencies in the .gff file format, like exons not having a parent (mRNA) or mRNAs not having a parent (gene). Although it would be possible to ignore exons not having an mRNA parent we argue that this again results in hiding relevant information from the user. 
   * an additional source for inconsistencies is the option that a single exon may have several parent mRNAs
 
-However we provide a .gff2gtf converter which can be downloaded here  
+However we provide a script for converting a .gff file into a .gtf file: http://gowinda.googlecode.com/files/Gff2Gtf.py
+The user may thus assure that the annotation is correctly converted before providing it to Gowinda. 
 
 = Details =
 
