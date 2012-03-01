@@ -17,9 +17,11 @@ This archive contains:
   * the annotation of _D. melanogaster_ (v5.43)
   * the GO associations obtained from !GoMiner for 'CG' gene_ids
 
-The results for the validation of Gowinda by comparing the results to !GoMiner can be found here: http://gowinda.googlecode.com/files/step1_valGoMiner.zip
+Results for validating Gowinda
+  * biased dataset: http://gowinda.googlecode.com/files/step1_valGoMiner.zip
+  * unbiased dataset: http://gowinda.googlecode.com/files/step2_lengthBias.zip
+  * known recovery: http://gowinda.googlecode.com/files/step3_knownRecovery.zip
 
-The results demonstrating the impact of the gene length bias can be found here: http://gowinda.googlecode.com/files/step2_lengthBias.zip
 
 
 
