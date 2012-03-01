@@ -28,7 +28,7 @@ Gowinda however only requires the attribute `gene_id`, the attribute `transcript
 2L      FlyBase exon    9839    11344   .       -       .       gene_id "CG2671";
 2L      FlyBase exon    11410   11518   .       -       .       gene_id "CG2671";
 }}}
-Furthermore the feature column (column 3) must either contain `exon` or `CDS`, all other features will be ignored. Column 2 (source), column 6 (score), column 7 (strand), and column 8 (offset) are ignored and have no influence on the results.
+Furthermore the feature column (column 3) must either contain `exon` or `CDS`, all other features will be ignored. Column 2 (source), column 6 (score), and column 8 (offset) are ignored and have no influence on the results.
 
 It is not necessary that the entries are unique, Gowinda is internally reducing multiple copies of the same entry to a single one.
 
@@ -124,10 +124,14 @@ We recommend this mode when assuming that linkage disequilibrium decays quickly 
 
 === SNP to gene mapping ===
 SNP to gene mapping determines the genes that are associated with a given SNP. For example a user may elect that only SNPs in exons are associated with genes or another user - more interested in regulatory regions - may choose that also SNPs at most 500bp upstream of the first exon are associated with genes. Gowinda only loads the genomic features `exon` and `cds` all following features are thus internally calculated from these two. 
-  * `exon`: only SNPs within exons are associated with genes
-  * `cds`: only SNPs within CDS are associated with genes
-  * `utr`: only SNPs within 5'-UTR and 3'-UTR are associated with genes. Caluclated as `exon - cds`
-  * `gene`: only SNPs within exons or introns are associated with genes. Internally the distance from the start position of the first exon
+  * `exon`: SNPs within exons are associated with genes
+  * `cds`: SNPs within CDS are associated with genes
+  * `utr`: SNPs within 5'-UTR and 3'-UTR are associated with genes. Caluclated as `exon - cds`
+  * `gene`: SNPs within exons or introns are associated with genes. Internally the distance from the start position of the first exon to the end position of the last exon is computed
+  * `upstreamDDDD`: in addition to exons and introns also the DDDD upstream bases are considered for mapping a SNP to a gene. DDDD must be replaced with an arbitrary number. This information requires the strand.
+
+
+*NOTE:* we found examples where exons from a single gene are on opposite strands, in this case Gowinda uses the majority vote, i.e.: the strand of the most exons
 
 
 
