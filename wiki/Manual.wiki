@@ -37,7 +37,50 @@ We however provide a script for converting a `.gff` file into a `.gtf` file: htt
 
 The user may thus assure that the annotation is correctly converted before providing it to Gowinda. 
 == GO association ==
-The GO association file may be directly obtained from the download section of FuncAssociate2 (http://llama.mshri.on.ca/funcassociate/download_go_associations) or indirectly from GoMiner (see tutorial: http://code.google.com/p/gowinda/wiki/Tutorial?ts=1330597385&updated=Tutorial)
+The GO association file may be directly obtained from the download section of !FuncAssociate2 (http://llama.mshri.on.ca/funcassociate/download_go_associations) or indirectly from !GoMiner (see tutorial: http://code.google.com/p/gowinda/wiki/Tutorial)
+
+Following an example of a GO association file
+{{{
+GO:0000002      mitochondrial genome maintenance        CG11077 CG33650 CG4337 CG5924
+GO:0000003      reproduction    CG10112 CG10128 CG1262 CG13873 CG14034 CG15117 CG15616 CG1656 CG17011 CG17097 CG17673 CG17799 CG17843 CG1803 CG2665 CG2668 CG2852 CG30450 CG30473 CG31680 CG31
+704 CG31872 CG31883 CG31941 CG32203 CG32498 CG32667 CG33943 CG34033 CG34034 CG34102 CG3662 CG3801 CG42461 CG42462 CG42466 CG42468 CG42469 CG42472 CG42474 CG42475 CG42477 CG42478 CG42479 CG42
+480 CG42482 CG42483 CG42485 CG42564 CG42602 CG42603 CG42604 CG42605 CG42606 CG42607 CG42608 CG42609 CG4546 CG4706 CG4847 CG4986 CG6555 CG6690 CG6917 CG7157 CG8137 CG8462 CG8622 CG8626 CG8982
+ CG9024 CG9029 CG9074 CG9111 CG9334 CG9997
+GO:0000009      alpha-1,6-mannosyltransferase activity  CG8412
+GO:0000010      trans-hexaprenyltranstransferase activity       CG10585 CG31005
+GO:0000012      single strand break repair      CG4208 CG5316
+GO:0000014      single-stranded DNA specific endodeoxyribonuclease activity     CG10215 CG10670 CG10890 CG2990
+GO:0000015      phosphopyruvate hydratase complex       CG17654
+GO:0000017      alpha-glucoside transport       CG30035
+}}}
+The file consists of three tab-delimited columns
+  * column 1: the GO category
+  * column 2: the description of the GO category. Note that spaces are allowed but no tabs
+  * column 3: a space separated list of gene ids for the given GO 
+category
+
+*NOTE*: the `gene_ids` of the annotation need to be identical to the `gene_ids` of the GO association file. The case is not considered as Gowinda internally converts all `gene_ids` to lower-case.
+However a frequent problem may arise as many `gene_ids` have synonyms. One strategy to deal with this problem is to use the GO association file from !GoMiner (see tutorial http://code.google.com/p/gowinda/wiki/Tutorial)
+
+== total SNP files ==
+This file must contain all the SNPs used for the GWAS in a very simple tab-delimited file format. Following you can see the simplest example
+{{{
+2L	117081
+2L	117082
+2L	144234
+2L	252591
+2L	283388
+2L	318365
+2L	320282
+2L	378118
+2L	378119
+2L	476447
+}}}
+  * column 1: the chromosome
+  * column 2: the position
+
+NOTE: Gowinda ignores all additional columns after column 2, thus it is for example also possible to provide a pileup file format 
+
 
 = Gowinda =
 
