@@ -87,9 +87,8 @@ This file must contain all the SNPs used for the GWAS in a very simple tab-delim
 2R	2303	N	8	TTTTTTT^FT	AAAAAAAA	8	TTTTTTT^FT	AAAAAAAA
 }}}
 
-= candidate SNP file = 
-identical to the `total SNP file`.
-The candidate SNPs must however be a subset of the total SNPs.
+== candidate SNP file == 
+the same applies as for the total SNP file, except that the candidate SNPs must be a subset of the total SNPs.
 
 = Gowinda =
 == Parameters ==
