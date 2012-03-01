@@ -94,9 +94,16 @@ the same applies as for the total SNP file, except that the candidate SNPs must 
 
 For an example of how to use Gowinda with real data please see the tutorial: http://code.google.com/p/gowinda/wiki/Tutorial
 == Parameters ==
-Gowinda offers the following parameters
+Gowinda has the following input parameters
 
-  * 
+  * `--annotation-file`: a file containing the annotation for the species of interest. Only the `.gtf` format is accepted (see above). Mandatory parameter
+  * `--go-association-file`: a file containing for every GO term the associated genes; For the file format see above; Mandatory parameter
+  * `--snp-file`: a file containing the total set of SNPs that were used for the GWAS. For the file format see above; Mandatory parameter
+  * `--candidate-snp-file`: a file containing the candidate SNPs that show some association with the trait of interest. For the file format see above; Mandatory parameter
+  * `--mode`: Gowinda offers to analysis modes either `snp` or `gene`; For description see below
+
+=== analysis mode `gene` ===
+=== analysis mode `snp` ===
 
 == Output ==
 
