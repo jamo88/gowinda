@@ -61,7 +61,7 @@ The file consists of three tab-delimited columns
 *NOTE:* the `gene_ids` of the annotation need to be identical to the `gene_ids` of the GO association file. The case is not considered as Gowinda internally converts all `gene_ids` to lower-case.
 However a problem may arise as many `gene_ids` have synonyms. One strategy to deal with this problem is to use the GO association file from !GoMiner (see tutorial http://code.google.com/p/gowinda/wiki/Tutorial)
 
-== total SNP files ==
+== total SNP file ==
 This file must contain all the SNPs used for the GWAS in a very simple tab-delimited file format. Following you can see the simplest example
 {{{
 2L	117081
@@ -80,21 +80,24 @@ This file must contain all the SNPs used for the GWAS in a very simple tab-delim
 
 *NOTE:* Gowinda ignores all additional columns after column 2, thus it is for example also possible to provide a pileup file  as shown in the followinge example
 {{{
-2R	2296	N	1	^5A	A	1	^5A	A
-2R	2297	N	2	G^8G	AA	2	G^8G	AA
-2R	2298	N	3	AA^8A	AAA	3	AA^8A	AAA
 2R	2299	N	4	TTT^FT	AAAA	4	TTT^FT	AAAA
 2R	2300	N	5	AAAA^FA	AAAAA	5	AAAA^FA	AAAAA
 2R	2301	N	6	TTTTT^FT	AAAAAA	6	TTTTT^FT	AAAAAA
 2R	2302	N	7	TTTTTT^FT	AAAAAAA	7	TTTTTT^FT	AAAAAAA
 2R	2303	N	8	TTTTTTT^FT	AAAAAAAA	8	TTTTTTT^FT	AAAAAAAA
-2R	2304	N	9	CCCCCCCC^FC	AAAAAAAAA	9	CCCCCCCC^FC	AAAAAAAAA
-2R	2305	N	10	CCACCCCCC^FC	AAAAAAAAAA	10	GCCCCCCCC^FC	AAAAAAAAAA
-
 }}}
 
+= candidate SNP file = 
+identical to the `total SNP file`.
+The candidate SNPs must however be a subset of the total SNPs.
 
 = Gowinda =
+== Parameters ==
+
+== Output ==
+
+== Benchmarks == 
+Ram CPU
 
 = Scripts =
 == !Gff2Gtf.py ==
