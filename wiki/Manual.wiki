@@ -100,17 +100,22 @@ Gowinda has the following input parameters
   * `--go-association-file`: a file containing for every GO term the associated genes; For the file format see above; Mandatory parameter
   * `--snp-file`: a file containing the total set of SNPs that were used for the GWAS. For the file format see above; Mandatory parameter
   * `--candidate-snp-file`: a file containing the candidate SNPs that show some association with the trait of interest. For the file format see above; Mandatory parameter
-  * `--gene-definition`: Gowinda needs to decide for every SNP whether an association with any genes exists (SNP to gene mapping). With this parameter it is possible to adjust the method for this SNP to gene mapping. see detailed description below; possible arguments: `exon`, `cds`, `utr`,`gene`, `upstreamDDDD`, `downstreamDDDD`, `updownstreamDDDD`; Mandatory parameter 
-  * `--mode`: Gowinda offers to analysis modes either `snp` or `gene`; For description see below; Optional parameter; default=`gene`
+  * `--output-file`: where to store the output. Mandatory parameter
+  * `--mode`: As a major feature Gowinda offers two main analysis modes either `snp` or `gene`; For description see below; Optional parameter; default=`gene`
+  * `--gene-definition`: As another major feature Gowinda allows to adjust the SNP to gene mapping, i.e.: to decide which genes are associated with a given SNP. For example the user may decide that only SNPs being located in an exon are associated with the corresponding gene. See detailed description below; possible arguments: `exon`, `cds`, `utr`,`gene`, `upstreamDDDD`, `downstreamDDDD`, `updownstreamDDDD`; Mandatory parameter 
   * `--simulations`: the number of simulations that should be performed. This will have a direct influence on the minimum possible p-value; For example with 1.000.000 simulations the minimum possible p-value is 1.0e-6; Increase the number of simulations if you need a higher resoultion/precision; Note that incresasing the number of simulations will not result in larger numbers of significant GO categories
   * `--min-genes`: filter for GO categories having at least `--min-genes` number of genes; This parameter is for example useful to remove small GO categories having only one associated gene; Optional parameter; default=1
   * `--min-significance`: only report GO categories having  after FDR correction `p-value <= --min-significance`; Optional parameter; default=1.0
-
-
- with this parameter the user may choose which SNPs are considered to be associated with a gene. For example are only SNPs within exons considered or
+  * `--detailed-log`: switch to the detailed log mode. The IDs of genes present in the GO association file but not present in the annotation will be displayed. Also the progress of the simulations will be shown in steps of 10.000; Optional parameter
+  * `--threads`: the simulations of Gowinda utilize multi-threading. Adjust the number of threads to use. Optional parameter; default=1
+  * `--help`: show the help for Gowinda; Optional parameter
 
 === analysis mode `gene` ===
+
+
 === analysis mode `snp` ===
+
+=== SNP to gene mapping ===
 
 == Output ==
 
