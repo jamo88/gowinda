@@ -1,6 +1,6 @@
 #summary Validating Gowinda by comparing simulated data to !GoMiner
 
-<wiki:toc max_depth="2"/>
+<wiki:toc max_depth="3"/>
 
 = Introduction =
 
