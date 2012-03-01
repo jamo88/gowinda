@@ -15,8 +15,7 @@ Furthermore the following input files are required
   * a file containing the candidate SNPs
 == annotation in .gtf ==
 The annotation must be in the gtf format: http://mblab.wustl.edu/GTF22.html
-Gowinda however only requires for the attribute `gene_id`, the attribute `transcript_id` is optional.
-Furthermore the feature column (column 3) must either contain `exon` or `CDS`, all other features are ignored.
+Gowinda however only requires the attribute `gene_id`, the attribute `transcript_id` is optional. Following an example of a minimal annotation file.
 {{{
 2L      FlyBase exon    8193    9484    .       +       .       gene_id "CG11023";
 2L      FlyBase exon    8193    8589    .       +       .       gene_id "CG11023";
@@ -24,10 +23,14 @@ Furthermore the feature column (column 3) must either contain `exon` or `CDS`, a
 2L      FlyBase exon    9839    11344   .       -       .       gene_id "CG2671";
 2L      FlyBase exon    11410   11518   .       -       .       gene_id "CG2671";
 }}}
+Furthermore the feature column (column 3) must either contain `exon` or `CDS`, all other features will be ignored. Column 2 (source), column 6 (score), column 7 (strand), and column 8 (offset) are ignored and have no influence on the results.
+
+It is not necessary that the entries are unique, Gowinda is internally reducing multiple copies of the same entry to a single one.
 
 Note that we decided not to support the .gff file format, for the following reasons:
-  * it is less transparent to the user as the .gtf format. In order to obtain the gene_id for a given exon it is necessary to extract the mRNA and the gene features and than using the hierarchy exon->mRNA->gene finally identify the corresponding `gene_id`. If this process is encapsulated within Gowinda it may be hard to identify possible sources of problems in the analysis, whereas with the .gtf file format the `gene_id` is immediately accessible to the user.
-  * there are several sources of inconsistencies in the .gff file format, like exons not having a parent (mRNA) or mRNAs not having a parent (gene). Although it would be possible to ignore exons not having an mRNA parent we argue that this again results in hiding relevant information from the user.
+  * it is less transparent to the user as the .gtf format. In order to obtain the `gene_id` for a given exon it is necessary to extract the mRNA and the gene features. Subsequently using this hierarchical information (exon->mRNA->gene) the `gene_id` may be identifed for a given exon. If this process is encapsulated within Gowinda it may be hard to identify possible sources of problems in the analysis, whereas with the `.gtf` file format the `gene_id` is immediately accessible to the user.
+  * there are several sources of inconsistencies in the .gff file format, like exons not having a parent (mRNA) or mRNAs not having a parent (gene). Although it would be possible to ignore exons not having an mRNA parent we argue that this again results in hiding relevant information from the user. 
+  * an additional source for inconsistencies is the option that a single exon may have several parent mRNAs
 
 However we provide a .gff2gtf converter which can be downloaded here  
 
