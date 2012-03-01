@@ -34,3 +34,8 @@ GO:0016023      1.142   4       0.012730        1.000000        cytoplasmic memb
 </code>
 
 A detailed description of the output file can be found in the Manual
+
+= Gff2Gtf=
+{{{
+python ../src/scripts/Gff2Gtf.py --input toconvert.gff > converted.gtf
+}}}
