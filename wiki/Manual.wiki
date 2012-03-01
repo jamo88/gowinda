@@ -38,9 +38,15 @@ Note that we decided not to support the .gff file format, for the following reas
   * an additional source for inconsistencies is the option that a single exon may have several parent mRNAs
 
 However we provide a script for converting a .gff file into a .gtf file: http://gowinda.googlecode.com/files/Gff2Gtf.py
+
 The user may thus assure that the annotation is correctly converted before providing it to Gowinda. 
 
-= Details =
+= Gowinda =
+
+= Scripts =
+== Gff2Gtf.py ==
+== Gominer2FuncAssociate.py ==
+
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_
