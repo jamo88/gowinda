@@ -18,7 +18,7 @@ Furthermore the following input files are required
   * a GO association file containing for every GO category a list of associated gene_ids
   * a file containing the total set of SNPs
   * a file containing the candidate SNPs
-== annotation in .gtf ==
+== Annotation (.gtf) ==
 The annotation must be in the gtf format: http://mblab.wustl.edu/GTF22.html
 Gowinda however only requires the attribute `gene_id`, the attribute `transcript_id` is optional. Following an example of a minimal annotation file.
 {{{
@@ -32,12 +32,8 @@ Furthermore the feature column (column 3) must either contain `exon` or `CDS`, a
 
 It is not necessary that the entries are unique, Gowinda is internally reducing multiple copies of the same entry to a single one.
 
-Note that we decided not to support the .gff file format, for the following reasons:
-  * it is less transparent to the user as the .gtf format. In order to obtain the `gene_id` for a given exon it is necessary to extract the mRNA and the gene features. Subsequently using this hierarchical information (exon->mRNA->gene) the `gene_id` may be identifed for a given exon. If this process is encapsulated within Gowinda it may be hard to identify possible sources of problems in the analysis, whereas with the `.gtf` file format the `gene_id` is immediately accessible to the user.
-  * there are several sources of inconsistencies in the .gff file format, like exons not having a parent (mRNA) or mRNAs not having a parent (gene). Although it would be possible to ignore exons not having an mRNA parent we argue that this again results in hiding relevant information from the user. 
-  * an additional source for inconsistencies is the option that a single exon may have several parent mRNAs
-
-However we provide a script for converting a .gff file into a .gtf file: http://gowinda.googlecode.com/files/Gff2Gtf.py
+Gowinda does not support the `.gff` format as it less transparent as the `.gtf` format (e.g.: in order to obtain the gene_id for a given exon it is necessary to traverse the hierarchy exon -> mRNa -> gene) and has several sources of inconsistencies (exons without parent (mRNA), exons with several parents).
+We however provide a script for converting a .gff file into a .gtf file: http://gowinda.googlecode.com/files/Gff2Gtf.py
 
 The user may thus assure that the annotation is correctly converted before providing it to Gowinda. 
 
@@ -46,4 +42,3 @@ The user may thus assure that the annotation is correctly converted before provi
 = Scripts =
 == !Gff2Gtf.py ==
 == !Gominer2FuncAssociate.py ==
-
