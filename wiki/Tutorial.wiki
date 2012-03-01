@@ -35,7 +35,9 @@ GO:0016023      1.142   4       0.012730        1.000000        cytoplasmic memb
 
 A detailed description of the output file can be found in the Manual
 
-= Gff2Gtf=
+= Convet a `.gtf` file into a `.gff` =
 {{{
 python ../src/scripts/Gff2Gtf.py --input toconvert.gff > converted.gtf
 }}}
+
+= Obtain a GO association file from GoMiner for use with Gowinda =
