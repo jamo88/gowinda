@@ -87,4 +87,6 @@ Finally, with an FDR <0.05 we have found a significantly enriched GO categories.
 python ../src/scripts/Gff2Gtf.py --input toconvert.gff > converted.gtf
 }}}
 
+However our converted annotation has the `FBgn` gene_ids whereas the GO association file has the `CG` gene_ids we therefore need a novel GO association file. Most conveniently it can be directly obtained from !FuncAssociate2. However if many genes in the association file have an unmatched entry in the annotation, or vice versa, we recommend to obtain the GO association file from !GoMiner (see following tutorial):
+
 = Obtain a GO association file from GoMiner for use with Gowinda =
