@@ -164,4 +164,13 @@ Ram CPU
 
 = Scripts =
 == !Gff2Gtf.py ==
+The script `Gff2Gtf.py` may be used to convert a `.gff` file into a `.gtf` file. The script scans the `.gff` file for the features exon, cds, and mRNA all other features are ignored. These features require the fields 'ID=' and 'Parent='. The ID of the corresponding gene will be  infered for every exon/cds from the hierarchy exon->mRNA->gene.
+Exons not having a parent mRNA will be ignored. Furthermore if exons have several parent mRNAs only the first one will be used.
+
+Following are the parameters:
+  * --input: the path to the gtf file
+  * --help: Display help for the script
+
+Redirect the output (`.gtf`) to any file of your choice (see tutorial)
+
 == !Gominer2FuncAssociate.py ==
