@@ -42,7 +42,8 @@ Please see the manual for a detailed description of the output: http://code.goog
 However, in this example with an FDR <0.05 no GO categories show a significant enrichment.
 
 == Unique genes; SNPs may also be in regulatory regions upstream and downstream of a gene ==
-For the next analysis, in addition to SNPs in exons and introns we also want SNPs 2000 bp upstream and 2000 bp downstream of a gene to be associated with it.
+In the previous analysis only SNPs within exons or introns were associated with a gene. For the next analysis we additionally want to include 2000 bp upstream and 2000 bp downstream of a gene (`--gene-definition updownstream2000`) into the analysis in order to account for regulatory regions.
+
 {{{
 java -Xmx4g -jar <path-to-gowinda>/Gowinda.jar --snp-file total_snps.txt --candidate-snp-file cand_snps.txt --go-association-file goassociations_cg.txt --annotation-file annotation.gtf --simulations 100000 --min-significance 1 --gene-definition updownstream2000 --threads 8 --output-file results_gene_2000ud.txt --mode gene --min-genes 1
 }}} 
