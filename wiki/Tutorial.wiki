@@ -6,6 +6,7 @@
 The following section provides a quick and fast introduction into the analysis of GO term enrichment with Gowinda. For the sake of this tutorial we provide a small artificial data set from _Drosophila melanogaster_ chromosome 2R. In these sample data we identified 348.701 SNPs and a GWAS-like study showed that 279 of those are associated with the trait of interest, lets say wing length. Furthermore the dataset contains an annotation of _D. melanogaster_ from !FlyBase and the GO associations from !FuncAssociate2. In the following section we demonstrate how to test, whether our set of candidate SNPs shows a significant enrichment for any GO terms. 
 
 = Data =
+== Tutorial Gowinda ==
 The following sample data set contains SNPs, annotation and the GO associations for _D.melanogaster_ chromosome arm 2R. 
 First obtain the sample data for the Walkthrough: http://gowinda.googlecode.com/files/GowindaWalkthrough.zip
 
@@ -15,7 +16,11 @@ After unzipping the archive you should have the following files:
   * annotation.gff: Annotation of the genome in the .gff file format (obtained from !FlyBase: http://flybase.org/)
   * funcassociate_go_associations.txt: A GO annotation file obtained from the !FuncAssociate2 web page (http://llama.mshri.on.ca/funcassociate_client/html/) 
 
-= Walkthrough =
+== Tutorial Gff2Gtf==
+
+== Tutorial: obtaining a GO association file from !GoMiner ==
+
+= Tutorial Gowinda =
 
 == Unique gene based analysis ==
 
