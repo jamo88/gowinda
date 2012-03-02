@@ -174,3 +174,19 @@ Following are the parameters:
 Redirect the output (`.gtf`) to any file of your choice (see tutorial)
 
 == !Gominer2FuncAssociate.py ==
+
+This script converts a `.gce` file from !GoMiner to a GO association file compatible with Gowinda and !FuncAssociate. See the tutorial for how to obtain a `.gce` file and how to use this script.
+
+Following an example from a `.gce` file:
+{{{
+}}}
+
+Following an example of the resulting GO assocation file
+{{{
+}}}
+
+The parameters of this script are:
+  * --input: The `.gce` file which should be converted
+  * --help: Display help for the script
+
+
