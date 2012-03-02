@@ -20,7 +20,7 @@ After unzipping the archive you should have the following files:
 
 = Tutorial Gowinda =
 
-== Unique gene based analysis ==
+== Unique genes; SNPs may be in exons or introns ==
 
 First we test whether the candidate SNPs show any enrichment for any GO category when counting every gene only once (`--mode gene`). Furthermore we want a SNP to be associated with a gene if the SNP position is within one of the exons or introns of the gene (`--gene-definition gene`). Furthermore to speed up the tutorial we use 8 threads for the simulations and only perform 100.000 simulations.
 {{{
