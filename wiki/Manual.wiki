@@ -139,6 +139,10 @@ SNP to gene mapping determines the genes that are associated with a given SNP. F
 
 == Output ==
 
+Following an example output
+{{{
+}}}
+
 == Benchmarks == 
 Ram CPU
 
