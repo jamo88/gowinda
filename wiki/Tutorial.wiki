@@ -122,6 +122,26 @@ Than we start a query at High Throughput !GoMiner (http://discover.nci.nih.gov/g
   * Step 11: Choose all/gene ontology
   * Step 13: Provide email address and submit query
 
+Your parameters should be similar to the following:
+{{{
+totalfile=total_genes.txt
+changedfile=total_genes.txt
+datasource=FB
+organism=7227
+evidencecode=all
+crossref=true
+synonym=true
+thresholdtype=BOTH
+timeseriesthreshold=0.05
+randomization=100
+categorymin=1
+cim=1
+categorymax=10000
+rootcategory=all
+tf=0
+}}}
+
+
 Finally we need to convert the file containing the associations into the file format accepted by Gowinda (and !FuncAssociate2):
 {{{
 
