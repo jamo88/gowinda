@@ -8,38 +8,25 @@ The following section provides a quick and fast introduction into the analysis o
 = Data =
 == Tutorial Gowinda ==
 The following sample data set contains SNPs, annotation and the GO associations for _D.melanogaster_ chromosome arm 2R. 
-First obtain the sample data for the Walkthrough: http://gowinda.googlecode.com/files/GowindaWalkthrough.zip
+First obtain the sample data for the Walkthrough: http://gowinda.googlecode.com/files/data_gowinda_tutorial.zip
 
 After unzipping the archive you should have the following files:
-  * all_snps.txt: the set of all identified SNPs
-  * candidate_snps.txt: the candidate SNPs. Some previous GWAS-like analysis revealed that these SNPs are associated with a trait of interest for example wing length. They are a subset of all_snps.txt
-  * annotation.gff: Annotation of the genome in the .gff file format (obtained from !FlyBase: http://flybase.org/)
-  * funcassociate_go_associations.txt: A GO annotation file obtained from the !FuncAssociate2 web page (http://llama.mshri.on.ca/funcassociate_client/html/) 
+  * annotation.gtf: Annotation of the genome in the .gtf file format
+  * annotation.gff: Annotation of the genome in the .gff file format
+  * goassociations_cg.txt: A GO annotation file obtained from the !FuncAssociate2 web page
+  * total_snps.txt: the set of all SNPs used in the GWAS-like  study
+  * cand_snps.txt: the candidate SNPs. Some GWAS-like study showed that these SNPs are associated with a trait of interest, for example wing length.
 
-== Tutorial Gff2Gtf==
-
-== Tutorial: obtaining a GO association file from !GoMiner ==
 
 = Tutorial Gowinda =
 
 == Unique gene based analysis ==
 
-First we test whether the candidate SNPs show any enrichment for any GO category when counting every gene only once. This means, even when a gene has more than one candidate SNP it is only counted once ({{{--unit gene}}}). We want every gene counted only once because we assume that there is linkage disequilibrium between our candidate SNPs and they are thus not independent. Further we assign a SNP to a gene if the SNP is overlapping either with an exon or an intron ({{{--gene-defintion gene}}}).
-<code language="bash">
-java -Xmx4g -jar /Users/robertkofler/dev/PopGenTools/gowinda/Gowinda.jar --snp-file all_snps.txt --candidate-snp-file candidate_snps.txt --go-association-file funcassociate_go_associations.txt --annotation-file annotation.gff --simulations 100000 --gene-definition gene --unit gene --threads 4 --output-file go_enrich_gene.txt --min-significance 1 
-</code>
-In this example we further used 100.000 simulations, 4 threads (CPUs) and a minimum significance of 1 (i.e.: we want to display all results).
-
-Now the output file {{{go_associations.txt}}} should contain the following first lines:
-<code>
-GO:0031625      0.084   2       0.002550        1.000000        ubiquitin protein ligase binding        fbgn0015509,fbgn0002791
-GO:0000152      0.134   2       0.007510        1.000000        nuclear ubiquitin ligase complex        fbgn0015509,fbgn0002791
-GO:0044265      0.953   4       0.012160        1.000000        cellular macromolecule catabolic process        fbgn0050421,fbgn0015509,fbgn0024732,fbgn0002791
-GO:0016023      1.142   4       0.012730        1.000000        cytoplasmic membrane-bounded vesicle    fbgn0033313,fbgn0260964,fbgn0261673,fbgn0033714
-</code>
-
-A detailed description of the output file can be found in the Manual
-
+First we test whether the candidate SNPs show any enrichment for any GO category when counting every gene only once (`--mode gene`). Furthermore we want a SNP to be associated with a gene if the SNP position is within one of the exons or introns of the gene (`--gene-definition gene`).
+{{{
+java -Xmx4g -jar <path-to-gowinda>/Gowinda.jar --snp-file total_snps.txt --candidate-snp-file cand_snps.txt --go-association-file goassociations_cg.txt --annotation-file annotation.gtf --simulations 100000 --min-significance 1 --gene-definition gene --threads 8 --output-file results_gene_gene.txt --mode gene --min-genes 1
+}}}
+ 
 = Convet a `.gtf` file into a `.gff` =
 {{{
 python ../src/scripts/Gff2Gtf.py --input toconvert.gff > converted.gtf
