@@ -142,7 +142,7 @@ tf=0
 }}}
 
 
-Finally we need to convert the file containing the associations into the file format accepted by Gowinda (and !FuncAssociate2):
+Finally convert the resulting `.gce` file into the file format compatible with Gowinda:
 {{{
-
+python <path-to-conversiontool>/GoMiner2FuncAssociate.py --input work1338826265/total_genes.txt1338826265.dir/total_genes.txt.dir/total_genes.txt.change.gce > association_gominer.txt
 }}}
