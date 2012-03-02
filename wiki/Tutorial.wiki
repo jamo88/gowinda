@@ -70,8 +70,7 @@ GO:0006497      0.606   8       0.0000100000    0.0014018182    1       7       
 GO:0043543      0.797   8       0.0000100000    0.0014018182    1       8       36      protein acylation       cg18810
 GO:0006119      0.167   7       0.0000100000    0.0014018182    2       2       8       oxidative phosphorylation       cg13263,cg17903
 GO:0005794      1.865   12      0.0000100000    0.0014018182    2       12      65      Golgi apparatus cg18810,cg5020
-GO:0045155      0.167   7       0.0000100000    0.0014018182    2       2       2       electron transporter, transferring electrons from CoQH2-cytochrome c reductase compl
-ex and cytochrome c oxidase complex activity        cg13263,cg17903
+GO:0045155      0.167   7       0.0000100000    0.0014018182    2       2       2       electron transporter, transferring electrons from CoQH2cytochrome c reductase complex and cytochrome c oxidase complex activity        cg13263,cg17903
 GO:0005212      0.118   4       0.0000100000    0.0014018182    1       1       1       structural constituent of eye lens      cg16963
 GO:0019707      0.464   8       0.0000100000    0.0014018182    1       5       21      protein-cysteine S-acyltransferase activity     cg18810
 GO:0019706      0.464   8       0.0000100000    0.0014018182    1       5       21      protein-cysteine S-palmitoleyltransferase activity      cg18810
