@@ -22,10 +22,24 @@ After unzipping the archive you should have the following files:
 
 == Unique gene based analysis ==
 
-First we test whether the candidate SNPs show any enrichment for any GO category when counting every gene only once (`--mode gene`). Furthermore we want a SNP to be associated with a gene if the SNP position is within one of the exons or introns of the gene (`--gene-definition gene`).
+First we test whether the candidate SNPs show any enrichment for any GO category when counting every gene only once (`--mode gene`). Furthermore we want a SNP to be associated with a gene if the SNP position is within one of the exons or introns of the gene (`--gene-definition gene`). Furthermore to speed up the tutorial we use 8 threads for the simulations and only perform 100.000 simulations.
 {{{
 java -Xmx4g -jar <path-to-gowinda>/Gowinda.jar --snp-file total_snps.txt --candidate-snp-file cand_snps.txt --go-association-file goassociations_cg.txt --annotation-file annotation.gtf --simulations 100000 --min-significance 1 --gene-definition gene --threads 8 --output-file results_gene_gene.txt --mode gene --min-genes 1
 }}}
+
+After approximately 1 minute the results should be  available:
+{{{
+GO:0045155      0.050   2       0.0004800000    0.1648850000    2       2       2       electron transporter, transferring electrons from CoQH2-cytochrome c reductase compl
+ex and cytochrome c oxidase complex activity        cg13263,cg17903
+GO:0006119      0.050   2       0.0004800000    0.1648850000    2       2       8       oxidative phosphorylation       cg13263,cg17903
+GO:0009112      0.066   2       0.0009500000    0.2321100000    2       2       16      nucleobase metabolic process    cg7811,cg7171
+GO:0006725      0.308   3       0.0027700000    0.3813620000    3       11      73      cellular aromatic compound metabolic process    cg7811,cg7171,cg10501
+GO:0005759      0.348   3       0.0031100000    0.3813620000    3       9       55      mitochondrial matrix    cg13263,cg7235,cg17903
+}}}
+Please see the manual for a detailed description of the output: http://code.google.com/p/gowinda/wiki/Manual
+
+
+However, in this example with an FDR <0.05 no GO categories show a significant enrichment.
  
 = Convet a `.gtf` file into a `.gff` =
 {{{
