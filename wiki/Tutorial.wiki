@@ -64,6 +64,22 @@ As we are getting quite desperate now and we know that linkage disequilibrium is
 java -Xmx4g -jar <path-to-gowinda>/Gowinda.jar --snp-file total_snps.txt --candidate-snp-file cand_snps.txt --go-association-file goassociations_cg.txt --annotation-file annotation.gtf --simulations 100000 --min-significance 1 --gene-definition updownstream2000 --threads 8 --output-file results_snp_2000ud.txt --mode snp --min-genes 1
 }}}
 
+The results should look like in the following example:
+{{{
+GO:0006497      0.606   8       0.0000100000    0.0014018182    1       7       45      protein lipidation      cg18810
+GO:0043543      0.797   8       0.0000100000    0.0014018182    1       8       36      protein acylation       cg18810
+GO:0006119      0.167   7       0.0000100000    0.0014018182    2       2       8       oxidative phosphorylation       cg13263,cg17903
+GO:0005794      1.865   12      0.0000100000    0.0014018182    2       12      65      Golgi apparatus cg18810,cg5020
+GO:0045155      0.167   7       0.0000100000    0.0014018182    2       2       2       electron transporter, transferring electrons from CoQH2-cytochrome c reductase compl
+ex and cytochrome c oxidase complex activity        cg13263,cg17903
+GO:0005212      0.118   4       0.0000100000    0.0014018182    1       1       1       structural constituent of eye lens      cg16963
+GO:0019707      0.464   8       0.0000100000    0.0014018182    1       5       21      protein-cysteine S-acyltransferase activity     cg18810
+GO:0019706      0.464   8       0.0000100000    0.0014018182    1       5       21      protein-cysteine S-palmitoleyltransferase activity      cg18810
+GO:0016409      0.640   8       0.0000100000    0.0014018182    1       6       25      palmitoyltransferase activity   cg18810
+GO:0007349      4.461   16      0.0000100000    0.0014018182    8       24      91      cellularization cg9506,cg13263,cg14472,cg10728,cg8049,cg5020,cg17161,cg6137
+GO:0018345      0.464   8       0.0000100000    0.0014018182    1       5       22      protein palmitoylation  cg18810
+}}}
+Finally, with an FDR <0.05 we have found a significantly enriched GO categories. For example for the first GO term (GO:0006497) we find on the average only one candidate SNP, but in our analysis we found 8. Note that we have a significant enrichement for this category although candidate SNPs were only found for a single gene. This could be due to selection acting on a single SNP and the others hitch-hicking along. Therefore these results must be interpreted with caution. 
 = Convet a `.gtf` file into a `.gff` =
 {{{
 python ../src/scripts/Gff2Gtf.py --input toconvert.gff > converted.gtf
