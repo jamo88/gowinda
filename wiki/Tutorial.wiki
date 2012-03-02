@@ -103,5 +103,26 @@ The output should be similar to the following:
 
 This converted annotation has the `FBgn` gene IDs whereas the GO association file has the `CG` gene IDs, therefore we need a different GO association file. Most conveniently such a GO association file can be directly obtained from !FuncAssociate2 (http://llama.mshri.on.ca/funcassociate/download_go_associations). However if many genes in the association file have an unmatched entry in the annotation, or vice versa, we recommend to obtain the GO association file from !GoMiner (see following tutorial):
 
-= Obtain a GO association file from GoMiner for use with Gowinda =
+= Obtain a GO association file from GoMiner =
 We recommend to obtain an GO association from !GoMiner when you have many unmatched gene IDs between the annotation and the GO association file (the log of Gowinda contains information about the number of matching gene IDs). !GoMiner uses a database of synonymous gene IDs and this can be utilized to produce a GO association file. However !GoMiner does not directly such a download therefore we have to perform a query for GO term enrichment and subsequently extract the GO association file from the results.
+
+First we need a unique set of the gene IDs
+{{{
+cat converted.gtf|awk '{print $10}'|sed 's/";//'|sed 's/"//'|sort |uniq >total_genes
+}}}
+
+Than we start a query at High Troughput !GoMiner (http://discover.nci.nih.gov/gominer/relationship.jsp):
+  * Step 1: check the Auto Generate Box
+  * Step 2: provide the total_genes file shown above
+  * Step 3,4,5: choose your species and evidence level
+  * Step 6: make sure that `Cross Reference` and `Synonym` are checked
+  * Step 7,8: leave the devaults 
+  * Step 9: set smalles category to 1
+  * Step 10: set largest category to 10.000
+  * Step 11: Choose all/gene ontology
+  * Step 13: Provide email address and submit query
+
+Finally we need to convert the file containing the associations into the file format accepted by Gowinda (and FuncAssociate2):
+{{{
+
+}}}
