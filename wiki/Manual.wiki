@@ -141,8 +141,7 @@ SNP to gene mapping determines the genes that are associated with a given SNP. F
 
 Following an example output:
 {{{
-GO:0045155      0.050   2       0.0004800000    0.1648850000    2       2       2       electron transporter, transferring electrons from CoQH2cytochrome c reductase compl
-ex and cytochrome c oxidase complex activity        cg13263,cg17903
+GO:0045155      0.050   2       0.0004800000    0.1648850000    2       2       2       electron transporter, transferring electrons from CoQH2cytochrome c reductase complex and cytochrome c oxidase complex activity        cg13263,cg17903
 GO:0006119      0.050   2       0.0004800000    0.1648850000    2       2       8       oxidative phosphorylation       cg13263,cg17903
 GO:0009112      0.066   2       0.0009500000    0.2321100000    2       2       16      nucleobase metabolic process    cg7811,cg7171
 GO:0006725      0.308   3       0.0027700000    0.3813620000    3       11      73      cellular aromatic compound metabolic process    cg7811,cg7171,cg10501
