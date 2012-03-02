@@ -3,7 +3,7 @@
 <wiki:toc max_depth="2"/>
 
 = Introduction =
-The following section provides a quick and fast introduction into the analysis of GO enrichment of candidate SNPs using Gowinda. For the sake of this tutorial we provide a small artificial data set for _Drosophila melanogaster_ chromosome 2R. In these sample data we identified 348.701 SNPs and a GWAS-like study showed that 279 of those are associated with the trait of interest, lets say wing length. We furthermore obtained an annotation for _D. melanogaster_ from !FlyBase and the GO associations from the !FuncAssociate2 Download. In the following section we demonstrate how to test, whether our set of candidate SNPs shows a significant enrichment for any GO categories. 
+The following section provides a quick and fast introduction into the analysis of GO term enrichment with Gowinda. For the sake of this tutorial we provide a small artificial data set from _Drosophila melanogaster_ chromosome 2R. In these sample data we identified 348.701 SNPs and a GWAS-like study showed that 279 of those are associated with the trait of interest, lets say wing length. Furthermore the dataset contains an annotation of _D. melanogaster_ from !FlyBase and the GO associations from !FuncAssociate2. In the following section we demonstrate how to test, whether our set of candidate SNPs shows a significant enrichment for any GO terms. 
 
 = Data =
 The following sample data set contains SNPs, annotation and the GO associations for _D.melanogaster_ chromosome arm 2R. 
