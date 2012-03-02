@@ -55,7 +55,13 @@ GO:0016831      0.301   3       0.0027100000    0.8419150000    3       4       
 GO:0022618      0.389   3       0.0047600000    0.8419150000    3       6       33      ribonucleoprotein complex assembly      cg7138,cg4602,cg6137
 GO:0016830      0.370   3       0.0048500000    0.8419150000    3       6       34      carbon-carbon lyase activity    cg5029,cg7811,cg10501
 GO:0007349      3.040   8       0.0048600000    0.8419150000    8       24      91      cellularization cg9506,cg13263,cg14472,cg10728,cg8049,cg5020,cg17161,cg6137
+}}}
 
+== Multiple counts for a gene; Including regulatory region ==
+As we are getting quite desperate now and we know that linkage disequilibrium is decaying quite rapidly in our organism we want to perform a higher resolution analysis in which genes may be counted several times, dependent on the number of candidate SNPs found in a gene (`--mode snp`). For example a gene containing 5 candidate SNPs is counted 5 times. This is of course also true in the simulations, a gene with 5 random SNPs will also be counted 5 times.
+
+{{{
+java -Xmx4g -jar <path-to-gowinda>/Gowinda.jar --snp-file total_snps.txt --candidate-snp-file cand_snps.txt --go-association-file goassociations_cg.txt --annotation-file annotation.gtf --simulations 100000 --min-significance 1 --gene-definition updownstream2000 --threads 8 --output-file results_snp_2000ud.txt --mode snp --min-genes 1
 }}}
 
 = Convet a `.gtf` file into a `.gff` =
