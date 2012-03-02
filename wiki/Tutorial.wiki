@@ -48,7 +48,15 @@ In the previous analysis only SNPs within exons or introns were associated with 
 java -Xmx4g -jar <path-to-gowinda>/Gowinda.jar --snp-file total_snps.txt --candidate-snp-file cand_snps.txt --go-association-file goassociations_cg.txt --annotation-file annotation.gtf --simulations 100000 --min-significance 1 --gene-definition updownstream2000 --threads 8 --output-file results_gene_2000ud.txt --mode gene --min-genes 1
 }}} 
 
-=
+Following an example of the results, again with an FDR <0.05 no significantly enriched GO categories were found.
+{{{
+GO:0005516      1.019   4       0.0027100000    0.8419150000    4       4       29      calmodulin binding      cg5125,cg8475,cg14472,cg6713
+GO:0016831      0.301   3       0.0027100000    0.8419150000    3       4       25      carboxy-lyase activity  cg5029,cg7811,cg10501
+GO:0022618      0.389   3       0.0047600000    0.8419150000    3       6       33      ribonucleoprotein complex assembly      cg7138,cg4602,cg6137
+GO:0016830      0.370   3       0.0048500000    0.8419150000    3       6       34      carbon-carbon lyase activity    cg5029,cg7811,cg10501
+GO:0007349      3.040   8       0.0048600000    0.8419150000    8       24      91      cellularization cg9506,cg13263,cg14472,cg10728,cg8049,cg5020,cg17161,cg6137
+
+}}}
 
 = Convet a `.gtf` file into a `.gff` =
 {{{
