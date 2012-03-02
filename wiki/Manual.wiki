@@ -177,8 +177,19 @@ Redirect the output (`.gtf`) to any file of your choice (see tutorial)
 
 This script converts a `.gce` file from !GoMiner to a GO association file compatible with Gowinda and !FuncAssociate. See the tutorial for how to obtain a `.gce` file and how to use this script.
 
-Following an example from a `.gce` file:
+Following a small example from a `.gce` file:
 {{{
+GO:0000003_reproduction	FBGN0033033	137	137	1.000000	0.000000	4633	4633.0	1.000000
+GO:0000003_reproduction	FBGN0250842	137	137	1.000000	0.000000	4633	4633.0	1.000000
+GO:0000003_reproduction	FBGN0260934	137	137	1.000000	0.000000	4633	4633.0	1.000000
+GO:0000003_reproduction	FBGN0027538	137	137	1.000000	0.000000	4633	4633.0	1.000000
+GO:0000003_reproduction	FBGN0015584	137	137	1.000000	0.000000	4633	4633.0	1.000000
+GO:0000003_reproduction	FBGN0023172	137	137	1.000000	0.000000	4633	4633.0	1.000000
+GO:0000003_reproduction	FBGN0016053	137	137	1.000000	0.000000	4633	4633.0	1.000000
+GO:0000003_reproduction	FBGN0011236	137	137	1.000000	0.000000	4633	4633.0	1.000000
+GO:0000003_reproduction	FBGN0005655	137	137	1.000000	0.000000	4633	4633.0	1.000000
+GO:0000003_reproduction	FBGN0034430	137	137	1.000000	0.000000	4633	4633.0	1.000000
+
 }}}
 
 Following an example of the resulting GO assocation file
@@ -188,5 +199,3 @@ Following an example of the resulting GO assocation file
 The parameters of this script are:
   * --input: The `.gce` file which should be converted
   * --help: Display help for the script
-
-
