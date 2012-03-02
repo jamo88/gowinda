@@ -139,9 +139,26 @@ SNP to gene mapping determines the genes that are associated with a given SNP. F
 
 == Output ==
 
-Following an example output
+Following an example output:
 {{{
+GO:0045155      0.050   2       0.0004800000    0.1648850000    2       2       2       electron transporter, transferring electrons from CoQH2-cytochrome c reductase compl
+ex and cytochrome c oxidase complex activity        cg13263,cg17903
+GO:0006119      0.050   2       0.0004800000    0.1648850000    2       2       8       oxidative phosphorylation       cg13263,cg17903
+GO:0009112      0.066   2       0.0009500000    0.2321100000    2       2       16      nucleobase metabolic process    cg7811,cg7171
+GO:0006725      0.308   3       0.0027700000    0.3813620000    3       11      73      cellular aromatic compound metabolic process    cg7811,cg7171,cg10501
+GO:0005759      0.348   3       0.0031100000    0.3813620000    3       9       55      mitochondrial matrix    cg13263,cg7235,cg17903
 }}}
+
+  * column 1: the GO term
+  * column 2: on the average this number of genes are found per simulation for the given GO category. In `--mode gene` every gene is only counted once whereas in `--mode snp` a single gene may be counted several times dependent on the SNP
+  * column 3: using the candidate SNPs this number of genes was found for the given GO category. In `--mode gene` every gene is only counted once whereas in `--mode snp` a single gene may be counted several times dependent on the SNP
+  * column 4: p-value (uncorrected for multiple testing)
+  * column 5: FDR (p-value after adjustment for multiple testing)
+  * column 6: the number of genes (uniq) found for the given GO category
+  * column 7: the number of genes that could at most be found for the given GO category, i.e.: genes of the given GO category that have an corresponding entry in the annotation file and contain at least one SNP
+  * column 8: total number of genes for the given GO category in the GO association file
+  * column 9: description of the given GO term
+  * column 10: comma separated list of the gene_ids found for the given GO category
 
 == Benchmarks == 
 Ram CPU
