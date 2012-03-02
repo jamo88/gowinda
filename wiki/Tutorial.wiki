@@ -108,12 +108,12 @@ Usually we recommend to obtain a GO association file from !FuncAssociate2. Howev
 
 First we need a unique set of the gene IDs (using the `converted.gtf` file from the previous tutorial)
 {{{
-cat converted.gtf|awk '{print $10}'|sed 's/";//'|sed 's/"//'|sort |uniq >total_genes
+cat converted.gtf|awk '{print $10}'|sed 's/";//'|sed 's/"//'|sort |uniq > total_genes.txt
 }}}
 
 Than we start a query at High Throughput !GoMiner (http://discover.nci.nih.gov/gominer/relationship.jsp):
-  * Step 1: check the Auto Generate Box
-  * Step 2: provide the total_genes file shown above
+  * Step 1: provide the total_genes.txt file shown above
+  * Step 2: again provide the total_genes.txt file shown above
   * Step 3,4,5: choose your species and evidence level
   * Step 6: make sure that `Cross Reference` and `Synonym` are checked
   * Step 7,8: leave the devaults 
