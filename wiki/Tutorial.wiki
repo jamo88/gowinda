@@ -48,6 +48,8 @@ In the previous analysis only SNPs within exons or introns were associated with 
 java -Xmx4g -jar <path-to-gowinda>/Gowinda.jar --snp-file total_snps.txt --candidate-snp-file cand_snps.txt --go-association-file goassociations_cg.txt --annotation-file annotation.gtf --simulations 100000 --min-significance 1 --gene-definition updownstream2000 --threads 8 --output-file results_gene_2000ud.txt --mode gene --min-genes 1
 }}} 
 
+=
+
 = Convet a `.gtf` file into a `.gff` =
 {{{
 python ../src/scripts/Gff2Gtf.py --input toconvert.gff > converted.gtf
