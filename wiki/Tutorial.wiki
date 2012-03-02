@@ -82,12 +82,26 @@ GO:0007349      4.461   16      0.0000100000    0.0014018182    8       24      
 GO:0018345      0.464   8       0.0000100000    0.0014018182    1       5       22      protein palmitoylation  cg18810
 }}}
 Finally, with an FDR <0.05 we have found a significantly enriched GO categories. For example for the first GO term (GO:0006497) we find on the average only one candidate SNP, but in our analysis we found 8. Note that we have a significant enrichement for this category although candidate SNPs were only found for a single gene. This could be due to selection acting on a single SNP and the others hitch-hicking along. Therefore these results must be interpreted with caution. 
+
 = Convet a `.gtf` file into a `.gff` =
-In this section we demonstrate how to convert a `.gff` file into a `.gtf` file using the script `Gff2Gtf.py`.
+
+In this section we demonstrate how to convert a `.gff` file into a `.gtf` file using the script `Gff2Gtf.py`:
+
 {{{
-python ~/dev/Gowinda/src/scripts/Gff2Gtf.py --input annotation.gff >converted.gtf
+python ~/dev/Gowinda/src/scripts/Gff2Gtf.py --input annotation.gff > converted.gtf
 }}}
 
-However our converted annotation has the `FBgn` gene_ids whereas the GO association file has the `CG` gene_ids we therefore need a novel GO association file. Most conveniently it can be directly obtained from !FuncAssociate2. However if many genes in the association file have an unmatched entry in the annotation, or vice versa, we recommend to obtain the GO association file from !GoMiner (see following tutorial):
+The output should be similar to the following:
+
+{{{
+2R      FlyBase exon    18442   18629   .       +       .       gene_id "FBgn0262115";
+2R      FlyBase exon    18487   18629   .       +       .       gene_id "FBgn0262115";
+2R      FlyBase exon    18498   18773   .       +       .       gene_id "FBgn0262115";
+2R      FlyBase exon    18681   19484   .       +       .       gene_id "FBgn0262115";
+2R      FlyBase exon    18681   18773   .       +       .       gene_id "FBgn0262115";
+}}}
+
+This converted annotation has the `FBgn` gene IDs whereas the GO association file has the `CG` gene IDs, therefore we need a different GO association file. Most conveniently such a GO association file can be directly obtained from !FuncAssociate2 (http://llama.mshri.on.ca/funcassociate/download_go_associations). However if many genes in the association file have an unmatched entry in the annotation, or vice versa, we recommend to obtain the GO association file from !GoMiner (see following tutorial):
 
 = Obtain a GO association file from GoMiner for use with Gowinda =
+We recommend to obtain an GO association from !GoMiner when you have many unmatched gene IDs between the annotation and the GO association file (the log of Gowinda contains information about the number of matching gene IDs). !GoMiner uses a database of synonymous gene IDs and this can be utilized to produce a GO association file. However !GoMiner does not directly such a download therefore we have to perform a query for GO term enrichment and subsequently extract the GO association file from the results.
