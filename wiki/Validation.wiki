@@ -4,16 +4,17 @@
 
 = Introduction =
 
-We validated Gowinda in three ways:
-  * first we randomly drew 1000 SNPs from a dataset not having the gene length bias and compared the results of Gowinda to !GoMiner. We found that the p-values reported by Gowinda and !GoMiner are highly correlated (Spearman's rank correlation; rho=0.99).
-  * second we randomly drew 1000 SNPs from a dataset having the gene length bias and again compared the results of Gowinda and !GoMiner. We found that !GoMiner reports an significant enrichment for ~300 GO categories, whereas Gowinda correctly reports none!
-  * and third we tested whether Gowinda correctly finds an enrichment for 5 small GO categories which were randomly chosen. We picked a SNP in each gene of these small target GO categories and added random SNPs from the gene length biased dataset until a total of 1000SNPs was obtain. We found that Gowinda correctly identified these targeted GO categories (FDR<0.01).
+We validated Gowinda with the following approaches:
+  * first we compared the results of Gowinda with !GoMiner with an unbiased dataset (no gene length bias and no overlapping genes). We found that the p-values reported by Gowinda and !GoMiner are highly correlated (Spearman's rank correlation; rho=0.99).
+  * second we assessed the impact of the gene length bias and estimated whether Gowinda efficiently deals with the bias. We found that with an length biased dataset !GoMiner reports an significant enrichment for ~300 GO categories, whereas Gowinda correctly reports none.
+  * and third we tested whether Gowinda correctly identifies a significant enrichment for 5 preselected GO terms and found that Gowinda correctly identified these targeted GO categories (FDR<0.01).
 
 == Files ==
-The files necessary for validating Gowinda can be found here http://gowinda.googlecode.com/files/validation_files.zip
+The following file allows repeating of the whole validation of Gowinda:
+ http://gowinda.googlecode.com/files/validation_files.zip
 
 This archive contains:
-  * the Python scripts used in the validation process shown below
+  * the Python scripts used in the validation process (shown below)
   * the annotation of _D. melanogaster_ (v5.43)
   * the GO associations obtained from !GoMiner for 'CG' gene_ids
 
