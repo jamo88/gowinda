@@ -133,7 +133,7 @@ SNP to gene mapping determines the genes that are associated with a given SNP. F
   * `updownstreamDDDD`: in addition to  exons and introns also the DDDD bases upstream the start of a gene and the DDDD bases downstream of the end of a gene are considered for mapping a SNP to a gene. DDDD must be replaced with an arbitrary number. This method does NOT require strand information. 
 
 
-*NOTE:* we found examples where exons from a single gene are on opposite strands, in this case Gowinda uses the majority vote, i.e.: the strand of the most exons
+*NOTE:* we found examples where exons from a single gene are on opposite strands, in this case Gowinda uses the majority vote, i.e.: the strand being supported by the most exons
 
 
 
