@@ -206,7 +206,7 @@ The parameters of this script are:
   * --input: The `.gce` file which should be converted
   * --help: Display help for the script
 
-= Use Gowinda for analysing overrepresentation of custom pathway databases=
+= Use a custom pathway database =
 Although Gowinda will probably mostly be used to test for overrepresentation of genes in GO categories, it is also possible to use different databases. In this case it is only necessary to provide a custom association file like in the following example:
 {{{
 category_A    description of category A    gene1 gene2 gene3 gene4 gene5
