@@ -205,3 +205,16 @@ GO:0043139      5'-3'_DNA_helicase_activity     FBGN0261850
 The parameters of this script are:
   * --input: The `.gce` file which should be converted
   * --help: Display help for the script
+
+= Use Gowinda for analysing overrepresentation of custom pathway databases=
+Although Gowinda will probably mostly be used to test for overrepresentation of genes in GO categories, it is also possible to use different databases. In this case it is only necessary to provide a custom association file like in the following example:
+{{{
+category_A    description of category A    gene1 gene2 gene3 gene4 gene5
+category_B    description of category B    gene1 gene6 gene7 gene8
+category_C    description of category C    gene10 gene11 gene12
+}}}
+
+  * column1: name of the custom category
+  * column2: description of the custom categories
+  * column3: list of genes associated with the custom category
+*Note* that columns are separated by a tab whereas entries within columns need to be separated by a space!
