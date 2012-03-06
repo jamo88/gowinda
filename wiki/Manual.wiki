@@ -78,7 +78,7 @@ This file must contain all the SNPs used for the GWAS in a very simple tab-delim
   * column 1: the chromosome
   * column 2: the position
 
-Gowinda ignores all additional columns after column 2, thus it is for example also possible to provide a mpileup file as shown in the followinge example
+Gowinda ignores all additional columns after column 2, thus it is for example also possible to provide a '.mpileup' file (http://samtools.sourceforge.net/) as shown in the followinge example
 {{{
 2R	2299	N	4	TTT^FT	AAAA	4	TTT^FT	AAAA
 2R	2300	N	5	AAAA^FA	AAAAA	5	AAAA^FA	AAAAA
@@ -87,7 +87,7 @@ Gowinda ignores all additional columns after column 2, thus it is for example al
 2R	2303	N	8	TTTTTTT^FT	AAAAAAAA	8	TTTTTTT^FT	AAAAAAAA
 }}}
 
-Gowinda also ignores entries starting with a '#' thus a .vcf file (http://vcftools.sourceforge.net/specs.html) may also be provided as shown in the following example:
+Gowinda also ignores entries starting with a '#' thus a '.vcf' file (http://vcftools.sourceforge.net/specs.html) may also be provided as shown in the following example:
 {{{
 
 ##fileformat=VCFv4.0
