@@ -173,8 +173,6 @@ GO:0005759      0.348   3       0.0031100000    0.3813620000    3       9       
   * column 9: description of the given GO term
   * column 10: comma separated list of the gene_ids found for the given GO category
 
-== Benchmarks == 
-Ram CPU
 
 = Scripts =
 == !Gff2Gtf.py ==
