@@ -50,7 +50,7 @@ cat snps_5pgene.txt|perl -ne 'print if rand()<0.03'|head -1000 > rand_snps_1k.tx
 }}}
 == Perform GO term analysis with Gowinda ==
 {{{
-/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Commands/java -Xmx4g -jar /Users/robertkofler/dev/PopGenTools/gowinda/Gowinda.jar --snp-file snps_5pgene.txt  --candidate-snp-file rand_snps_1k.txt --go-association-file association_gominer.txt --annotation-file Flybase.gtf --simulations 1000000 --min-significance 1 --gene-definition exon --threads 8 --output-file gowinda_res.txt --mode gene --min-genes 5
+/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Commands/java -Xmx4g -jar /Users/robertkofler/dev/PopGenTools/gowinda/Gowinda.jar --snp-file snps_5pgene.txt  --candidate-snp-file rand_snps_1k.txt --gene-set-file association_gominer.txt --annotation-file Flybase.gtf --simulations 1000000 --min-significance 1 --gene-definition exon --threads 8 --output-file gowinda_res.txt --mode gene --min-genes 5
 }}}
 == Perform GO term analysis with !GoMiner==
 For the analysis with GoMiner we need two lists of gene_ids. One with the total set of gene_ids and one with the subset of gene_ids which should be tested for an enrichment
@@ -119,7 +119,7 @@ cat snps_lengthbiased.txt|perl -ne 'print if rand()<0.004'|head -1000> rand_1k_s
 }}}
 == Perform GO term analysis with Gowinda ==
 {{{
-/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Commands/java -Xmx4g -jar /Users/robertkofler/dev/PopGenTools/gowinda/Gowinda.jar --snp-file snps_lengthbiased.txt  --candidate-snp-file rand_1k_snps.txt --go-association-file association_gominer.txt --annotation-file Flybase.gtf --simulations 1000000 --min-significance 1 --gene-definition exon --threads 8 --output-file gowinda_res.txt --mode gene --min-genes 5
+/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Commands/java -Xmx4g -jar /Users/robertkofler/dev/PopGenTools/gowinda/Gowinda.jar --snp-file snps_lengthbiased.txt  --candidate-snp-file rand_1k_snps.txt --gene-set-file association_gominer.txt --annotation-file Flybase.gtf --simulations 1000000 --min-significance 1 --gene-definition exon --threads 8 --output-file gowinda_res.txt --mode gene --min-genes 5
 }}}
 
 == Perform GO term analysis with !GoMiner ==
@@ -201,7 +201,7 @@ python ../scripts/pick_random_snps_excepttargetlist.py --snp snps_lengthbiased.t
 
 == Perform GO term analysis with Gowinda ==
 {{{
-/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Commands/java -Xmx4g -jar /Users/robertkofler/dev/PopGenTools/gowinda/Gowinda.jar --snp-file snps_lengthbiased.txt --candidate-snp-file random_targetsnps.txt --go-association-file association_gominer.txt --annotation-file Flybase.gtf --simulations 1000000 --min-significance 1 --gene-definition exon --threads 8 --output-file gowinda.res --mode gene --min-genes 1
+/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Commands/java -Xmx4g -jar /Users/robertkofler/dev/PopGenTools/gowinda/Gowinda.jar --snp-file snps_lengthbiased.txt --candidate-snp-file random_targetsnps.txt --gene-set-file association_gominer.txt --annotation-file Flybase.gtf --simulations 1000000 --min-significance 1 --gene-definition exon --threads 8 --output-file gowinda.res --mode gene --min-genes 1
 }}}
 == Results for GO category recovery ==
 With an FDR <0.01 we identified 19 significantly enriched GO categories (see below). All five targeted GO categories were successfully identified (marked with an arrow). However we also found an additional 14 not targeted GO categories with a significant enrichment (FDR<0.01), which is due to the nesting of GO categories. 
