@@ -36,10 +36,10 @@ Gowinda does not support the `.gff` format as it less transparent as the `.gtf` 
 We however provide a script for converting a `.gff` file into a `.gtf` file: http://gowinda.googlecode.com/files/Gff2Gtf.py
 
 The user may thus assure that the annotation is correctly converted before providing it to Gowinda. 
-== GO association ==
-The GO association file may be directly obtained from the download section of !FuncAssociate2 (http://llama.mshri.on.ca/funcassociate/download_go_associations) or indirectly from !GoMiner (see tutorial: http://code.google.com/p/gowinda/wiki/Tutorial)
+== gene set  ==
+The gene set file for Gene Ontology terms may be directly obtained from the download section of !FuncAssociate2 (http://llama.mshri.on.ca/funcassociate/download_go_associations) or indirectly from !GoMiner (see tutorial: http://code.google.com/p/gowinda/wiki/Tutorial)
 
-Following an example of a GO association file
+Following an example of a gene set file for Gene Ontology
 {{{
 GO:0000002      mitochondrial genome maintenance        CG11077 CG33650 CG4337 CG5924
 GO:0000003      reproduction    CG10112 CG10128 CG1262 CG13873 CG14034 CG15117 CG15616 CG1656 CG17011 CG17097 CG17673 CG17799 CG17843 CG1803 CG2665 CG2668 CG2852 CG30450 CG30473 CG31680 CG31
@@ -111,7 +111,7 @@ For an example of how to use Gowinda with real data please see the tutorial: htt
 Gowinda has the following input parameters
 
   * `--annotation-file`: a file containing the annotation for the species of interest. Only the `.gtf` format is accepted (see above). Mandatory parameter
-  * `--go-association-file`: a file containing for every GO term the associated genes; For the file format see above; Mandatory parameter
+  * `--gene-set-file`: a file containing for every gene set (e.g.: Gene Ontology term) the associated genes; For the file format see above; Mandatory parameter
   * `--snp-file`: a file containing the total set of SNPs that were used for the GWAS. For the file format see above; Mandatory parameter
   * `--candidate-snp-file`: a file containing the candidate SNPs that show some association with the trait of interest. For the file format see above; Mandatory parameter
   * `--output-file`: where to store the output. Mandatory parameter
