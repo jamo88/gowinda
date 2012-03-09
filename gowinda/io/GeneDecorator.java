@@ -55,7 +55,7 @@ public class GeneDecorator implements IBulkAnnotationReader {
 			AnnotationEntry gene=getGene(exonList);
 			if(gene!=null)genes.add(gene);
 		}
-		// voila a list of genes
+
 		logger.info("Finished - obtained " + genes.size()+" 'gene' entries");
 		return genes;
 	}

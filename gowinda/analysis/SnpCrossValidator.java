@@ -23,6 +23,6 @@ public class SnpCrossValidator {
 			if(!allsnps.contains((s))) throw new IllegalArgumentException("SNP "+s+ " is not part of all SNPs; Invalid candidate SNPs must be a subset of all SNPs");
 		}
 		
-		this.logger.info("Finished validating SNP files; Candidate SNPs are a subset of all SNPs");
+		this.logger.info("Finished - Candidate SNPs are a subset of all SNPs");
 	}
 }

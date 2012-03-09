@@ -27,7 +27,7 @@ public class CommandLineParser {
         int minGenes=1;
         int simulations=0;
         int threads=1;
-        float significance=1;
+        float significance=1.0f;
         boolean displayHelp=false;
         boolean onlyGenedefSnps=false;
         boolean debugmode=false;
@@ -48,7 +48,7 @@ public class CommandLineParser {
             {
                 candidateFile=args.remove(0);
             }        
-            else if(cu.equals("--go-association-file"))
+            else if(cu.equals("--gene-set-file"))
             {
                 goFile=args.remove(0);
             }
@@ -122,7 +122,7 @@ public class CommandLineParser {
         sb.append("--output-file            the output file for the GO enrichment analysis\n");
         sb.append("--snp-file               a file containing all SNPs found in the species\n");
         sb.append("--candidate-snp-file     a file containing only the candidate SNPs\n");
-        sb.append("--go-association-file    a file containing the association between gene-id and GO terms\n");
+        sb.append("--gene-set-file    		a file containing the association between gene IDs and some  gene sets (e.g.: Gene Ontology)\n");
         sb.append("--annotation-file        a file containing the annotation of the species in the .gtf or .gff format\n");
         sb.append("                         only the gtf-entries 'CDS' and 'exon' will be used\n");
         sb.append("--simulations            the number of simulations\n");

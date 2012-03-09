@@ -34,7 +34,7 @@ public class SnpBulkReader implements ISnpBulkReader {
     
     public ArrayList<Snp> getSnps()
     {
-        logger.info("Starting to load SNPs from file "+this.inputFile);
+        logger.info("Starting to load SNPs from file: "+this.inputFile);
         ArrayList<Snp> snps=new ArrayList<Snp>();
         try
         {

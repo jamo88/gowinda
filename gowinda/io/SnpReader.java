@@ -29,8 +29,13 @@ public class SnpReader implements ISnpReader{
     @Override
     public Snp next() throws IOException
     {
-        String line=bf.readLine();
-        if(line==null)return null;
+    	String line;
+    	while(true)
+    	{
+    		line=bf.readLine();
+    		if(line==null) return null;
+    		if(!line.startsWith("#"))break;
+    	}
         
         // SNP info must be in the following format
         // chromosome   position    ... 

@@ -43,6 +43,7 @@ public class FixedSnpSimulator implements IGOSimulator {
         // Get simulation results
 		int candidateCount=this.candidateSnps.size();
 		this.logger.info("Starting " +simulations+ " simulations for " +candidateCount+ " candidate SNPs using " + threads +" threads");
+		this.logger.info("Will randomly draw SNPs unless the number of random SNPs equals the number of candidate SNPs");
 		this.logger.info("This may take a while. Switch to the detailed log mode if you want to see the progress");
 		
 		GOTranslator gotrans=new GOTranslator(this.goentries);
@@ -82,7 +83,7 @@ public class FixedSnpSimulator implements IGOSimulator {
         
         //Fdr correction
         FdrSimulationContainer fdrsim=new FdrSimulationContainer(simcont.getAveragePvalueDistribution(),simulations);
-        this.logger.info("Finished simulations; Starting FDR correction");
+        this.logger.info("Starting FDR correction");
         gores.updateMultipleTesting(new FdrSimulatedAdjuster(fdrsim));
    
         

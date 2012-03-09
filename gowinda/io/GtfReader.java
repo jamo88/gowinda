@@ -50,7 +50,7 @@ public class GtfReader implements IBulkAnnotationReader {
     public ArrayList<AnnotationEntry> readAnnotation()
     {
         ArrayList<AnnotationEntry> toret= new ArrayList<AnnotationEntry>();
-        logger.info("Start parsing .gtf file " + this.fileName);
+        logger.info("Start parsing '.gtf' file: " + this.fileName);
         AnnotationEntry entry;
         try
         {
@@ -68,10 +68,10 @@ public class GtfReader implements IBulkAnnotationReader {
             e.printStackTrace();
             System.exit(1);
         }
-        logger.info("Finished - Read " + toret.size() + " size Annotation entries");
-        logger.info("Starting to scan for duplicated gtf entries");
+        logger.info("Finished - Read " + toret.size() + " annotation entries");
+        logger.info("Starting to scan for duplicated annotation entries");
         HashSet<AnnotationEntry> tset=new HashSet<AnnotationEntry>(toret);
-        logger.info("Finished - Found " + tset.size() + " unique entries");
+        logger.info("Finished - Found " + tset.size() + " unique annotation entries");
         return new ArrayList<AnnotationEntry>(tset);
     }
     
