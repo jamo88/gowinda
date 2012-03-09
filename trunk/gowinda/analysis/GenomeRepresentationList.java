@@ -58,7 +58,7 @@ public class GenomeRepresentationList implements IGenomeRepresentation {
 	private void setGenomeRep(ArrayList<AnnotationEntry> entries)
 	{
 
-		logger.info("Starting to build a lightwight representation of the genome");
+
 		genrep=new HashMap<String,ArrayList<AnnotationEntry>>();
 		for(AnnotationEntry e: entries)
 		{
@@ -120,7 +120,7 @@ public class GenomeRepresentationList implements IGenomeRepresentation {
 	public IGenomeRepresentation filterForGOTerms(GOCategoryContainer gocatcont)
 	{
 		ArrayList<AnnotationEntry> goOverlap=new ArrayList<AnnotationEntry>();
-		this.logger.info("Starting to filter the annotation for entries (genes) that have an associated GO category; Gene count "+ this.allentries.size());
+		this.logger.info("Starting to filter the annotation for entries that have an associated gene set (e.g.: GO category); Feature count "+ this.allentries.size());
 		for(AnnotationEntry e : this.allentries)
 		{
 			if(gocatcont.contains(e.geneid()))
@@ -128,7 +128,7 @@ public class GenomeRepresentationList implements IGenomeRepresentation {
 				goOverlap.add(e);
 			}
 		}
-		this.logger.info("Finished filtering for genes with GO category; Final gene count "+goOverlap.size());
+		this.logger.info("Finished filtering for features with an associated gene set; Final feature count: "+ goOverlap.size());
 		return new GenomeRepresentationList(goOverlap,this.logger);
 	}
 	

@@ -23,7 +23,7 @@ public class UtrDecorator implements IBulkAnnotationReader {
 	@Override
 	public ArrayList<AnnotationEntry> readAnnotation(){
 	
-		logger.info("Start creating UTR feature (internally calculated as exons - cds)");
+		logger.info("Start creating 'UTR' feature (calculated as exons - cds)");
 		HashMap<String,ArrayList<AnnotationEntry>> genebase=getFeaturesForGene(this.aes);
 		
 		ArrayList<AnnotationEntry> toret=new ArrayList<AnnotationEntry>();
@@ -39,7 +39,7 @@ public class UtrDecorator implements IBulkAnnotationReader {
 		}
 		
 		
-		logger.info("Finished - obtained " + toret.size() +" UTR entries");
+		logger.info("Finished - obtained " + toret.size() +" 'UTR' entries");
 		return toret;
 	}
 	

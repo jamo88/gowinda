@@ -48,7 +48,7 @@ public class FixedGeneSimulator implements IGOSimulator{
         int candGeneCount=candGeneids.size();
         int candSnpCount=this.candidateSnps.size();
 		this.logger.info("Starting " +simulations+ " simulations for " +candSnpCount+ " candidate SNPs using " + threads +" threads");
-		this.logger.info("The candidate SNPs are overlapping with "+ candGeneCount+ " genes; Will randomly draw SNPs unless the random SNPs are overlapping with the same nubmer of genes");
+		this.logger.info("The candidate SNPs are overlapping with "+ candGeneCount+ " genes; Will randomly draw SNPs unless the random SNPs are overlapping with the same number of genes");
 		this.logger.info("This may take a while. Switch to the detailed log mode if you want to see the progress");
 		
 		GOTranslator gotrans=new GOTranslator(this.goentries);
@@ -86,7 +86,7 @@ public class FixedGeneSimulator implements IGOSimulator{
         // FDR simulation
 
         FdrSimulationContainer fdrsim=new FdrSimulationContainer(simcont.getAveragePvalueDistribution(),simulations);
-        this.logger.info("Finished simulations; Starting FDR correction");
+        this.logger.info("Starting FDR correction");
         FdrSimulatedAdjuster fdrCorrector=new FdrSimulatedAdjuster(fdrsim);
         gores.updateMultipleTesting(fdrCorrector);
         

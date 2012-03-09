@@ -35,7 +35,7 @@ public class UpstreamDecorator implements IBulkAnnotationReader {
 		// obtain all exons (using the ExonDecorator)
 		
 		
-		logger.info("Starting to build 'upstream+gene' regions, using a distance of " +this.distance+"bp");
+		logger.info("Starting to build 'upstream + gene' regions, using a distance of " +this.distance+"bp");
 		
 		ArrayList<AnnotationEntry> geneUpstream=new ArrayList<AnnotationEntry>();
 		for(AnnotationEntry gene: genes)
@@ -57,7 +57,7 @@ public class UpstreamDecorator implements IBulkAnnotationReader {
 			}
 			geneUpstream.add(new AnnotationEntry(gene.chromosome(),"upstream+gene",start,end,gene.strand(),gene.frameshift(),gene.geneid()));
 		}
-		logger.info("Finished - obtained " + geneUpstream.size()+" 'upstream+gene' entries");
+		logger.info("Finished - obtained " + geneUpstream.size()+" 'upstream + gene' entries");
 		return geneUpstream;
 	}
 	

@@ -37,11 +37,11 @@ public class SimulationAnalyzer implements IAnalyze {
             int threads, float significance, gowinda.misc.SimulationMode simulationMode,gowinda.misc.GeneDefinition geneDefinition, 
             java.util.logging.Logger logger)
     {
-        if(!new File(annotationFile).exists()){throw new IllegalArgumentException("Annotation file does not exist");}
-        if(!new File(snpFile).exists()){throw new IllegalArgumentException("File with all SNPs of the species does not exist");}
-        if(!new File(candidateSnpFile).exists()){throw new IllegalArgumentException("Candidate SNP file does not exist");}
-        if(!new File(goAssociationFile).exists()){throw new IllegalArgumentException("GO association file does not exist");}
-        if(simulations<1){throw new IllegalArgumentException("Number of simulations must be larger than 0");}
+        if(!new File(annotationFile).exists()){throw new IllegalArgumentException("Annotation file does not exist: "+annotationFile);}
+        if(!new File(snpFile).exists()){throw new IllegalArgumentException("File with all SNPs of the species does not exist: "+snpFile);}
+        if(!new File(candidateSnpFile).exists()){throw new IllegalArgumentException("Candidate SNP file does not exist: "+ candidateSnpFile);}
+        if(!new File(goAssociationFile).exists()){throw new IllegalArgumentException("GO association file does not exist: "+ goAssociationFile);}
+        if(simulations<1){throw new IllegalArgumentException("Number of simulations must be larger than 0; Provided: "+simulations);}
         if(significance<=0 || significance>1){throw new IllegalArgumentException("Significance must be larger than 0 and smaller or equal than 1; Provided: "+significance);}
         if(threads<1) throw new IllegalArgumentException("Number of threads needs to be larger than zero");
         try{
@@ -83,8 +83,9 @@ public class SimulationAnalyzer implements IAnalyze {
         IGenomeRepresentation genrep=(new GenomeRepresentationBuilder(this.annotationFile,this.geneDefinition,this.logger)).getGenomeRepresentation();
         // Read GO file and obtain a GO translator (geneid -> GO term)
         GOCategoryContainer goentries= new GOEntryBulkReader(this.goAssociationFile,this.logger).readGOEntries();
-        this.logger.info("Filtering for GO categories having at least "+this.minGenes+" genes");
+        this.logger.info("Filtering for gene sets having at least "+this.minGenes+" associated gene(s)");
         goentries=goentries.subsetMinGenes(this.minGenes);
+        this.logger.info("Finished - obtained " + goentries.size() + " gene sets" );
         // Read the SNPs
         ArrayList<Snp> snps= new SnpBulkReader(this.snpFile,this.logger).getSnps();
         ArrayList<Snp> candidateSnps=new SnpBulkReader(this.candidateSnpFile,this.logger).getSnps();
@@ -96,17 +97,13 @@ public class SimulationAnalyzer implements IAnalyze {
         new SnpCrossValidator(snps,candidateSnps,this.logger).validate();
         SnpCoverageValidator covVal=new SnpCoverageValidator(genrep,snps,goentries,this.logger);
         covVal.validate();
-        int goCatPossible=covVal.getCoveredGOCount();
-        
-        // Filter for genes that have an associated GO category
-        genrep=genrep.filterForGOTerms(goentries);
         
         //Simulate
-        IGOSimulator gosimulator=getGOSimulator(this.simulationMode,genrep,goentries,snps,candidateSnps,this.logger);
-        GOResultContainer gores  =gosimulator.getSimulationResults(this.simulations,this.threads);
+        IGOSimulator gosimulator = getGOSimulator(this.simulationMode,genrep,goentries,snps,candidateSnps,this.logger);
+        GOResultContainer gores  = gosimulator.getSimulationResults(this.simulations,this.threads);
     
-        logger.info("Simulations detected SNPs in genes corresponding to "+gores.getSimulationContainer().size() +" GO categories, out of " + goCatPossible+ " possible ones (corresponding to genes having at least one SNP)");
-        logger.info("Candidate SNPs show an overlap with "+ gores.size() + " GO categories");
+        logger.info("Simulations detected SNPs in genes corresponding to "+gores.getSimulationContainer().size() +" gene sets");
+        logger.info("Candidate SNPs show an association with "+ gores.size() + " gene sets");
         
         //gene_ids
         ArrayList<String> candGeneids=new ArrayList<String>(new HashSet<String>(genrep.getGeneidsForSnps(candidateSnps)));

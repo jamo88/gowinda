@@ -21,17 +21,17 @@ public class SnpCoverageValidator {
 	 */
 	public void validate()
 	{
-		this.logger.info("Computing the number of genes and GO categories available for testing");
+		this.logger.info("Computing the number of genes and gene sets available for testing");
 		int annotationGeneCount= genrep.allGeneids().size();
 		ArrayList<String> genesCoveredBySnps=new ArrayList<String>(new HashSet<String>(genrep.getGeneidsForSnps(snps)));
 		int snpCoveredGeneCount=genesCoveredBySnps.size();
-		this.logger.info("Out of "+annotationGeneCount+ " genes present, " + snpCoveredGeneCount+" genes contain a SNP and are thus available for testing");
+		this.logger.info("Total genes in annotation: "+annotationGeneCount+ "; Annotated genes with SNP: " + snpCoveredGeneCount+" (genes without SNP are ignored).");
 		
 		
 		GOTranslator gotrans=new GOTranslator(gocat);
 		int gocatCount=gocat.getAllGOEntries().size();
 		int gocatPresentCount=gotrans.translateToGeneids(genesCoveredBySnps).size();
-		this.logger.info("Out of "+gocatCount+" GO categories, "+gocatPresentCount +" GO categories are available for testing, as they contain to at least one gene that contains a SNP"); 
+		this.logger.info("Total gene sets: "+gocatCount+"; Gene sets with at least one gene having a SNP: "+gocatPresentCount +"  (gene sets without a single gene having a SNP are ignored)"); 
 	}
 	
 	/**

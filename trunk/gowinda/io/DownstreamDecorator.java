@@ -34,7 +34,7 @@ public class DownstreamDecorator implements IBulkAnnotationReader {
 	
 		
 		
-		logger.info("Starting to build 'downstream+gene' regions, using a distance of " +this.distance+"bp");
+		logger.info("Starting to build 'gene + downstream' regions, using a distance of " +this.distance+" bp");
 		
 		ArrayList<AnnotationEntry> geneUpstream=new ArrayList<AnnotationEntry>();
 		for(AnnotationEntry gene: genes)
@@ -52,11 +52,11 @@ public class DownstreamDecorator implements IBulkAnnotationReader {
 			}
 			else
 			{
-				throw new IllegalArgumentException("Do not recognise strand"+gene.strand());
+				throw new IllegalArgumentException("Do not recognise strand: "+gene.strand());
 			}
 			geneUpstream.add(new AnnotationEntry(gene.chromosome(),"downstream+gene",start,end,gene.strand(),gene.frameshift(),gene.geneid()));
 		}
-		logger.info("Finished - obtained " + geneUpstream.size()+" 'downstream+gene' entries");
+		logger.info("Finished - obtained " + geneUpstream.size()+" 'gene + downstream' entries");
 		return geneUpstream;
 	}
 	

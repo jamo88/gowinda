@@ -22,7 +22,7 @@ public class SnpGenicFilterReader implements ISnpBulkReader
 
 		ArrayList<Snp> filtered=new ArrayList<Snp>();
 
-		logger.info("Starting to filter for 'genic' Snps; Initial SNP count: "+toFilter.size());
+		logger.info("Starting to filter for 'genic' SNPs; Initial SNP count: "+toFilter.size());
 		for(Snp s :toFilter)
 		{
 			if(genrep.getGeneidsForSnp(s).size()>0) filtered.add(s);
