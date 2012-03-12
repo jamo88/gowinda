@@ -134,17 +134,16 @@ Gowinda has the following input parameters
 
 === Analysis mode `gene` ===
 We recommend this mode when SNPs are in linkage disequilibrium. 
-Gowinda randomly samples SNPs until the corresponding number of genes is identical to the number of genes obtained with the candidate SNPs and finally the significance of overrepresentation is estimated from the empirical null distribution. Note that the number of randomly sampled genes is kept constant in the permutations (--mode gene) and that every gene is only considered once even when containing several candidate SNPs This approach does however only account for LD within genes not for LD between genes.
+Gowinda randomly samples SNPs until the corresponding number of genes is identical to the number of genes obtained with the candidate SNPs and finally the significance of overrepresentation is estimated from the empirical null distribution. Note that the number of randomly sampled genes is kept constant in the permutations  and that every gene is only considered once even when containing several candidate SNPs This approach does however only account for LD within genes not for LD between genes.
 
 We generally recommend this mode.
 
 === Analysis mode `snp` ===
-In this mode Gowinda randomly picks SNPs until the number of random SNPs equals the number of candidate SNPs. The number of SNPs is thus constant in each round of random sampling but the number of corresponding genes may differ between rounds. Furthermore genes will be counted multiple times according to the number of contained candidate/random SNPs. Finally to derive p-values the numbers of candidate genes, whereas each gene may be counted several times, are compared to the empirical null distribution for every GO category.
 
-We recommend this mode when assuming that linkage disequilibrium decays quickly and that the candidate SNPs are thus independently.
+We recommend this mode when SNPs are in linkage equilibrium. Gowinda randomly samples SNPs until the number of SNPs equals the number of candidate SNPs. Subsequently the corresponding genes are identified and overrepresentation is estimated from the empirical null distribution. The number of SNPs is thus constant in each round of random sampling but the number of corresponding genes may differ between rounds. Furthermore genes will be counted multiple times according to the number of contained candidate/random SNPs. 
 
 === SNP to gene mapping ===
-SNP to gene mapping determines the genes that are associated with a given SNP. For example a user may elect that only SNPs in exons are associated with genes or another user - more interested in regulatory regions - may choose that also SNPs at most 500bp upstream of the first exon are associated with genes. Gowinda only loads the genomic features `exon` and `cds` all following features are thus internally calculated from these two. 
+SNP to gene mapping refers to the assignment of genes to SNPs. For example it is possible to associate only genes where an exon is overlapping with a SNP or as another example, when regulatory regions should be considered, a SNP may be considered as associated with a gene when it's position is less than 500 bp upstream of the gene. Gowinda only reads the `.gtf` features `exon` and `cds`, all other features are ignored. The following features are thus internally derived from the annotation `exon` and `cds`:
   * `exon`: SNPs within exons are associated with genes
   * `cds`: SNPs within CDS are associated with genes
   * `utr`: SNPs within 5'-UTR and 3'-UTR are associated with genes. Caluclated as `exon - cds`
