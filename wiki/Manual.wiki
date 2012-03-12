@@ -11,16 +11,18 @@ For a validation of Gowinda please see: http://code.google.com/p/gowinda/wiki/Va
 In the validation we show that Gowinda yields highly reliable results (by comparision with !GoMiner) efficiently corrects for the gene length bias while still identifying significantly overrepresented GO categories. We also demonstrate that the gene length bias has a tremendous influence on the GO analysis potentially causing an substantial amount of false positive GO categories.
 
 = Requirements =
-Gowinda requires the following software installed:
+Gowinda requires the following software:
   * Java 6 or higher
 Furthermore the following input files are required
   * a file containing the annotation of the genome in .gtf
-  * a GO association file containing for every GO category a list of associated gene_ids
+  * a gene set file, containing for every gene set (e.g.: GO category) a list of the associated gene IDs
   * a file containing the total set of SNPs
   * a file containing the candidate SNPs
+
 == Annotation (.gtf) ==
-The annotation must be in the gtf format: http://mblab.wustl.edu/GTF22.html
-Gowinda however only requires the attribute `gene_id`, the attribute `transcript_id` is optional. Following an example of a minimal annotation file.
+The annotation must be in the `.gtf` format: http://mblab.wustl.edu/GTF22.html
+Gowinda however only requires the attribute `gene_id`, the attribute `transcript_id` is optional. Following an example of a minimal annotation file:
+
 {{{
 2L      FlyBase exon    8193    9484    .       +       .       gene_id "CG11023";
 2L      FlyBase exon    8193    8589    .       +       .       gene_id "CG11023";
@@ -28,14 +30,18 @@ Gowinda however only requires the attribute `gene_id`, the attribute `transcript
 2L      FlyBase exon    9839    11344   .       -       .       gene_id "CG2671";
 2L      FlyBase exon    11410   11518   .       -       .       gene_id "CG2671";
 }}}
-Furthermore the feature column (column 3) must either contain `exon` or `CDS`, all other features will be ignored. Column 2 (source), column 6 (score), and column 8 (offset) are ignored and have no influence on the results.
+
+Furthermore the feature column (column 3) must either contain `exon` or `CDS`, all other features will be ignored. Column 2 (source), column 6 (score), and column 8 (offset)  have no influence on the results.
 
 It is not necessary that the entries are unique, Gowinda is internally reducing multiple copies of the same entry to a single one.
 
-Gowinda does not support the `.gff` format as it less transparent as the `.gtf` format (e.g.: in order to obtain the gene_id for a given exon it is necessary to traverse the hierarchy exon -> mRNa -> gene) and has several sources of inconsistencies (exons without parent (mRNA), exons with several parents).
-We however provide a script for converting a `.gff` file into a `.gtf` file: http://gowinda.googlecode.com/files/Gff2Gtf.py
+Gowinda does not support the `.gff` format as it less transparent as the `.gtf` format (e.g.: in order to obtain the gene ID for a given exon it is necessary to traverse the hierarchy exon -> mRNa -> gene) and has several sources of inconsistencies (exons without parent (mRNA), exons with several parents).
+We however provide a script for converting a `.gff` file into a `.gtf` file: 
+
+http://gowinda.googlecode.com/files/Gff2Gtf.py
 
 The user may thus assure that the annotation is correctly converted before providing it to Gowinda. 
+
 == gene set  ==
 The gene set file for Gene Ontology terms may be directly obtained from the download section of !FuncAssociate2 (http://llama.mshri.on.ca/funcassociate/download_go_associations) or indirectly from !GoMiner (see tutorial: http://code.google.com/p/gowinda/wiki/Tutorial)
 
@@ -58,11 +64,12 @@ The file consists of three tab-delimited columns
   * column 2: the description of the GO category. Note that spaces are allowed but no tabs
   * column 3: a space separated list of gene ids for the given GO category
 
-*NOTE:* the `gene_ids` of the annotation need to be identical to the `gene_ids` of the GO association file. The case is not considered as Gowinda internally converts all `gene_ids` to lower-case.
-However a problem may arise as many `gene_ids` have synonyms. One strategy to deal with this problem is to use the GO association file from !GoMiner (see tutorial http://code.google.com/p/gowinda/wiki/Tutorial)
+*NOTE:* the `gene_id`s of the annotation need to be identical to the `gene_id`s of the GO association file. The case is not considered as Gowinda internally converts all `gene_id`s to lower-case.
+However a problem may arise as many `gene_id`s have synonyms. One strategy to deal with this problem is to use the GO association file from !GoMiner (see tutorial http://code.google.com/p/gowinda/wiki/Tutorial)
 
 == Total SNP file ==
-This file must contain all the SNPs used for the GWAS in a very simple tab-delimited file format. Following you can see the simplest example
+
+This file must contain all the SNPs used for the GWAS, in a simple tab-delimited file format. Following you can see the simplest example
 {{{
 2L	117081
 2L	117082
@@ -89,7 +96,6 @@ Gowinda ignores all additional columns after column 2, thus it is for example al
 
 Gowinda also ignores entries starting with a '#' thus a '.vcf' file (http://vcftools.sourceforge.net/specs.html) may also be provided as shown in the following example:
 {{{
-
 ##fileformat=VCFv4.0
 ##fileDate=20090805
 ##...
@@ -102,11 +108,13 @@ Gowinda also ignores entries starting with a '#' thus a '.vcf' file (http://vcft
 
 
 == Candidate SNP file == 
+
 the same applies as for the total SNP file, except that the candidate SNPs must be a subset of the total SNPs.
 
 = Gowinda =
 
-For an example of how to use Gowinda with real data please see the tutorial: http://code.google.com/p/gowinda/wiki/Tutorial
+For an example of how to use Gowinda with a sample dataset please see the tutorial: http://code.google.com/p/gowinda/wiki/Tutorial
+
 == Parameters ==
 Gowinda has the following input parameters
 
@@ -117,7 +125,7 @@ Gowinda has the following input parameters
   * `--output-file`: where to store the output. Mandatory parameter
   * `--mode`: As a major feature Gowinda offers two main analysis modes either `snp` or `gene`; For description see below; Optional parameter; default=`gene`
   * `--gene-definition`: As another major feature Gowinda allows to adjust the SNP to gene mapping, i.e.: to decide which genes are associated with a given SNP. For example the user may decide that only SNPs being located in an exon are associated with the corresponding gene. See detailed description below; possible arguments: `exon`, `cds`, `utr`,`gene`, `upstreamDDDD`, `downstreamDDDD`, `updownstreamDDDD`; Mandatory parameter 
-  * `--simulations`: the number of simulations that should be performed. This will have a direct influence on the minimum possible p-value; For example with 1.000.000 simulations the minimum possible p-value is 1.0e-6; Increase the number of simulations if you need a higher resoultion/precision; Note that incresasing the number of simulations will not result in larger numbers of significant GO categories
+  * `--simulations`: the number of simulations that should be performed. For more information on the number of simulation see below
   * `--min-genes`: filter for GO categories having at least `--min-genes` number of genes; This parameter is for example useful to remove small GO categories having only one associated gene; Optional parameter; default=1
   * `--min-significance`: only report GO categories having  after FDR correction `p-value <= --min-significance`; Optional parameter; default=1.0
   * `--detailed-log`: switch to the detailed log mode. The IDs of genes present in the GO association file but not present in the annotation will be displayed. Also the progress of the simulations will be shown in steps of 10.000; Optional parameter
@@ -125,9 +133,8 @@ Gowinda has the following input parameters
   * `--help`: show the help for Gowinda; Optional parameter
 
 === Analysis mode `gene` ===
-In this mode Gowinda randomly picks SNPs until the corresponding number of genes equals the number of genes associated with the candidate SNPs. The number of genes is thus constant in each round of random sampling but the number of randomly picked SNPs may differ between rounds. Finally to derive the p-values, the numbers of candidate genes (genes having a candidate SNP) are compared to the empirical null distribution for every GO category.
-
-*NOTE:* in this mode every gene is considered only once even when containing several candidate/random SNPs.
+We recommend this mode when SNPs are in linkage disequilibrium. 
+Gowinda randomly samples SNPs until the corresponding number of genes is identical to the number of genes obtained with the candidate SNPs and finally the significance of overrepresentation is estimated from the empirical null distribution. Note that the number of randomly sampled genes is kept constant in the permutations (--mode gene) and that every gene is only considered once even when containing several candidate SNPs This approach does however only account for LD within genes not for LD between genes.
 
 We generally recommend this mode.
 
@@ -149,6 +156,12 @@ SNP to gene mapping determines the genes that are associated with a given SNP. F
 
 *NOTE:* we found examples where exons from a single gene are on opposite strands, in this case Gowinda uses the majority vote, i.e.: the strand being supported by the most exons
 
+
+=== simulations ===
+The number of simulations has an direct influence on the minimum possible p-value; For example with 1.000.000 simulations the minimum possible p-value is 1.0e-6; Increase the number of simulations if you need a higher resoultion/precision; Note, that increasing the number of simulations will not result in larger numbers of significant GO categories!
+
+We recommend to start with 100.000 simulations, this should take about 4 minutes (with 8 CPUs).
+When a higher resolution is required the number of simulations may be increased to 1 million (~30 minutes) or 10 million (~5h).
 
 
 == Output ==
