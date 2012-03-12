@@ -5,21 +5,21 @@
 = Introduction =
 
 We validated Gowinda with the following approaches:
-  * first we compared the results of Gowinda with !GoMiner with an unbiased dataset (no gene length bias and no overlapping genes). We found that the p-values reported by Gowinda and !GoMiner are highly correlated (Spearman's rank correlation; rho=0.99).
-  * second we assessed the impact of the gene length bias and estimated whether Gowinda efficiently deals with the bias. We found that with an length biased dataset !GoMiner reports an significant enrichment for ~300 GO categories, whereas Gowinda correctly reports none.
-  * and third we tested whether Gowinda correctly identifies a significant enrichment for 5 preselected GO terms and found that Gowinda correctly identified these targeted GO categories (FDR<0.01).
+  * first we compared the results of Gowinda with !GoMiner using an unbiased dataset (no gene length bias and no overlapping genes). We found that the p-values reported by Gowinda and !GoMiner are highly correlated (Spearman's rank correlation; rho=0.99).
+  * second we assessed the impact of the gene length bias and estimated whether Gowinda efficiently deals with the bias. We found that with a biased dataset !GoMiner reports an significant enrichment for ~300 GO categories, whereas Gowinda correctly reports none.
+  * and third we tested whether Gowinda correctly identifies a significant enrichment for 5 preselected GO terms and found that Gowinda indeed correctly identified these preselected GO categories (FDR<0.01).
 
 == Files ==
-The following file allows repeating of the whole validation of Gowinda:
+The data and scripts of following file allow to repeat the whole validation of Gowinda:
  http://gowinda.googlecode.com/files/validation_files.zip
 
 This archive contains:
-  * the Python scripts used in the validation process (shown below)
+  * the Python scripts used in the validation
   * the annotation of _D. melanogaster_ (v5.43)
   * the GO associations obtained from !GoMiner for 'CG' gene_ids
 
 === Results for validating Gowinda ===
-As our approach for validating Gowinda contains several random drawing steps we provide our results for these random steps below in order to allow an exact reproduction of our results.
+As our approach for validating Gowinda contains several random drawing steps we also provide the results we obtained for these random procedures, in order to allow an exact reproduction of our results.
   * biased dataset: http://gowinda.googlecode.com/files/step1_valGoMiner.zip
   * unbiased dataset: http://gowinda.googlecode.com/files/step2_lengthBias.zip
   * known recovery: http://gowinda.googlecode.com/files/step3_knownRecovery.zip
@@ -32,11 +32,12 @@ As !GoMiner does not correct for the gene length bias nor consider overlapping g
 Subsequently we randomly picked 1000 SNPs and compared the p-values obtained with Gowinda to the p-values obtained with !GoMiner (without FDR correction).
 
 == Obtain a set of genes that are not overlapping and have an associated GO term == 
-First obtain a set of non-overlapping gene_ids
+
+First obtain a set of non-overlapping genes (gene IDs)
 {{{
 python ../scripts/get_nonoverlapping_geneids.py --gtf Flybase.gtf > nonoverlapping_genes.txt
 }}}
-Than filter this set further for gene_ids that have an associated GO term
+Than filter this set for genes that have an associated GO term
 {{{
 python ../scripts/get_geneids_havinggocategory.py --go association_gominer.txt --genelist nonoverlapping_genes.txt > geneids_withgoterm_nooverlap.txt
 }}}
@@ -53,7 +54,7 @@ cat snps_5pgene.txt|perl -ne 'print if rand()<0.03'|head -1000 > rand_snps_1k.tx
 /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Commands/java -Xmx4g -jar /Users/robertkofler/dev/PopGenTools/gowinda/Gowinda.jar --snp-file snps_5pgene.txt  --candidate-snp-file rand_snps_1k.txt --gene-set-file association_gominer.txt --annotation-file Flybase.gtf --simulations 1000000 --min-significance 1 --gene-definition exon --threads 8 --output-file gowinda_res.txt --mode gene --min-genes 5
 }}}
 == Perform GO term analysis with !GoMiner==
-For the analysis with GoMiner we need two lists of gene_ids. One with the total set of gene_ids and one with the subset of gene_ids which should be tested for an enrichment
+For the analysis with GoMiner we need two lists of genes (gene IDs). The first list with must contain the total set of genes and the second list must contain the subset of genes that should be tested for enrichment.
 {{{
 cat snps_5pgene.txt| awk '{print $3}'|sort |uniq > gominer_total.txt
 cat rand_snps_1k.txt| awk '{print $3}'|sort |uniq > gominer_totest.txt
@@ -61,7 +62,7 @@ cat rand_snps_1k.txt| awk '{print $3}'|sort |uniq > gominer_totest.txt
 
 Subsequently use High-Troughput GoMiner: http://discover.nci.nih.gov/gominer/GoCommandWebInterface.jsp
 
-Following you can find the settings that we used with !GoMiner
+Following the settings that we used with !GoMiner
 {{{
 totalfile=gominer_total.txt
 changedfile=gominer_totest.txt
@@ -81,7 +82,7 @@ tf=0
 email=xxx@xxx
 }}}
 
-== Merge the results of Gowinda and !GoMiner into a singel file ==
+== Merge the results of Gowinda and !GoMiner  ==
 From the GoMiner results you need to extract the file: gominer_totest.txt.change
 
 {{{
@@ -92,7 +93,7 @@ join -1 1 -2 1 tm_gominer.txt tm_gowinda.txt > merged_min_win.txt
 The resulting file contains for every GO category (column 1) the p-value obtained with !GoMiner (column 2) and Gowinda (column 3) and may easily be analyzed with R.
 
 == Results for unbiased analysis == 
-With an FDR of <0.05 neither !GoMiner nor Gowinda found any significant GO categories. The p-values (not FDR corrected) for the different GO categories obtained by Gowinda and GoMiner are highly correlated (Spearman's rank correlation; rho=0.9999005; p-value < 2.2e-16), see graph below:
+With an FDR of <0.05 neither !GoMiner nor Gowinda found a significant overrepresentation for any GO categories. The p-values (not FDR corrected) for the different GO categories obtained by Gowinda and GoMiner are highly correlated (Spearman's rank correlation; rho=0.9999005; p-value < 2.2e-16), see graph below:
 
 http://gowinda.googlecode.com/files/cor_gowinda_gominer.png
 
@@ -101,14 +102,14 @@ Our results (including our random SNPs) for the comparision of Gowinda with !GoM
 
 
 = Validating whether Gowinda eliminates the gene length bias =
-In GWAS studies longer genes do typically have more SNPs and thus also have a higher probability of containing a candidate SNP. This potentially higher fraction of candidate SNPs in longer genes may lead to an artefactual overrepresentation of GO categories containing many long genes. To test the effect of this gene length bias and whether Gowinda efficiently corrects for this bias we introduced one SNP every 100bp into genes having an associated GO category. Furthermore overlapping genes were not discarded, thus this dataset contains the biases which usually complicate GO analysis for GWAS. However, finally we randomly picked 1000 SNPs and compared the results obtained with !GoMiner to the results obtained with Gowinda. 
+In GWAS studies longer genes typically have more SNPs and thus also have a higher probability of containing a candidate SNP, which could lead to an overrepresentation of GO categories having longer genes. To test the extent of the bias of GWA datasets and whether Gowinda efficiently corrects for this bias, we introduced one SNP every 100bp into all genes (having a GO category). As overlapping genes may be an additional source of bias in GWA datesets,  overlapping genes were *not* discarded in this analysis. Finally we randomly picked 1000 SNPs and compared the results obtained with !GoMiner to the results obtained with Gowinda. 
 
-== Extract the gene_ids of genes having an associated GO term ==
+== Extract the genes having an associated GO term ==
 {{{
 python ../scripts/extract_geneids_fromgoaassociation.py --go association_gominer.txt > total_genes.txt
 }}}
 
-== Introduce one SNP every 100bp for genes with an associated GO term ==
+== Introduce one SNP every 100 bp ==
 {{{
 python ../scripts/create_length_biased_genes.py --gtf Flybase.gtf --genelist total_genes.txt > snps_lengthbiased.txt
 }}} 
@@ -157,8 +158,9 @@ cat gowinda_res.txt| awk '{print $1,$4}'|sort -k1,1 > merged/tm_gowinda.txt
 cat GoMiner/subset_genes.txt.change |awk 'NF>5{print $1,10^$5}'|perl -pe 's/_[^ ]+//' |sort -k1,1> merged/tm_gominer.txt
 join -1 1 -2 1 tm_gominer.txt tm_gowinda.txt > merged_min_win.txt
 }}}
+
 == Results for length biased analysis==
-Although we randomly drew SNPs and would thus not expect an overrepresentation of any GO term, !GoMiner reports that 341 GO terms have an significant overrepresentation (FDR <0.05), which suggests that the gene length bias has an tremendous influence on GO term analysis. By contrast Gowinda which corrects for the gene length bias (by random permuting the set of candidate SNPs) correctly reports that none of the GO terms show any significant overrepresentation (FDR <0.05). The correlation between the p-values obtained with Gowinda and !GoMiner (Spearman's rank correlation; rho=0.5610065; p-value < 2.2e-16) is much worse as compared to the unbiased data set. Assuming that Gowinda yields reliable results (see validation above), these results clearly demonstrate the tremendous impact of the gene length bias on GO analysis. In fact the length bias results in 341 artefactual overrepresented GO categories.  The following graph shows the correlation of the p-values obtained with Gowinda and !GoMiner using the length biased dataset. 
+Although we randomly drew SNPs and would thus not expect an overrepresentation of any GO term, !GoMiner reports a significant overrepresentation for 341 GO terms  (FDR <0.05). This demonstrates that the biases of GWA datasets substantially affect GO analysis. By contrast, Gowinda correctly reports that none of the GO terms show any significant overrepresentation (FDR <0.05). The correlation between the p-values obtained with Gowinda and !GoMiner (Spearman's rank correlation; rho=0.5610065; p-value < 2.2e-16) is much worse as compared to the unbiased data set. The following graph shows the correlation of the p-values obtained with Gowinda and !GoMiner using the length biased dataset. 
 
 [[http://gowinda.googlecode.com/files/corBiased_Gominer_Gowinda.png]]
 
