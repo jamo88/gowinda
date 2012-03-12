@@ -36,8 +36,12 @@ public class GOCategoryContainer {
 	 */
 	public int size()
 	{
-		return this.goentries.size();
+
+		return this.getAllGOEntries().size();
 	}
+	
+
+
 	
 	/**
 	 * Returns a unique list of all GO categories
