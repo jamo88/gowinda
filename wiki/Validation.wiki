@@ -220,15 +220,11 @@ GO:0031228      0.517   5       0.0000040000    0.0005274545    5       5       
 GO:0006558      0.227   4       0.0000070000    0.0008063077    4       4       4       L-phenylalanine_metabolic_process       cg7399,cg4779,cg9363,cg9362
 GO:0006559      0.227   4       0.0000070000    0.0008063077    4       4       4       L-phenylalanine_catabolic_process       cg7399,cg4779,cg9363,cg9362
 =>GO:0040020      0.622   5       0.0000110000    0.0011997857    5       5       5       regulation_of_meiosis   cg9900,cg13584,cg4727,cg4336,cg7719
-GO:0009072      1.411   8       0.0000230000    0.0024266667    8       18      18      aromatic_amino_acid_family_metabolic_process    cg7399,cg10118,cg1555,cg4779,cg17870,cg9363,cg9362,cg2
-155
-GO:0034637      2.181   9       0.0000870000    0.0094014375    9       21      21      cellular_carbohydrate_biosynthetic_process      cg32220,cg17725,cg8890,cg9485,cg10688,cg3495,cg10924,c
-g8251,cg1516
+GO:0009072      1.411   8       0.0000230000    0.0024266667    8       18      18      aromatic_amino_acid_family_metabolic_process    cg7399,cg10118,cg1555,cg4779,cg17870,cg9363,cg9362,cg2155
+GO:0034637      2.181   9       0.0000870000    0.0094014375    9       21      21      cellular_carbohydrate_biosynthetic_process      cg32220,cg17725,cg8890,cg9485,cg10688,cg3495,cg10924,cg8251,cg1516
 GO:0006572      0.142   3       0.0000970000    0.0096698421    3       3       3       tyrosine_catabolic_process      cg4779,cg9363,cg9362
-GO:0046395      3.068   11      0.0001050000    0.0096698421    11      38      38      carboxylic_acid_catabolic_process       cg7399,cg4586,cg1555,cg4779,cg3626,cg6638,cg9709,cg9527,cg9363
-,cg9362,cg2155
-GO:0016054      3.068   11      0.0001050000    0.0096698421    11      38      38      organic_acid_catabolic_process  cg7399,cg4586,cg1555,cg4779,cg3626,cg6638,cg9709,cg9527,cg9363,cg9362,
-cg2155
+GO:0046395      3.068   11      0.0001050000    0.0096698421    11      38      38      carboxylic_acid_catabolic_process       cg7399,cg4586,cg1555,cg4779,cg3626,cg6638,cg9709,cg9527,cg9363,cg9362,cg2155
+GO:0016054      3.068   11      0.0001050000    0.0096698421    11      38      38      organic_acid_catabolic_process  cg7399,cg4586,cg1555,cg4779,cg3626,cg6638,cg9709,cg9527,cg9363,cg9362,cg2155
 }}}
 
 Our results for this analysis can be found here: http://gowinda.googlecode.com/files/step3_knownRecovery.zip
