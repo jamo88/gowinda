@@ -167,7 +167,7 @@ Although we randomly drew SNPs and would thus not expect an overrepresentation o
 Our results of this analysis can be found here: http://gowinda.googlecode.com/files/step2_lengthBias.zip
 
 = Validating whether Gowinda identifies preselected GO categories =
-To validate that Gowinda correctly identifies overrepresentation of GO terms, we proceeded in two steps. First we randomly picked five GO categories with a small number of genes (between 5 and 10). We choose small GO categories in order to get conservative estimates of the reliability of Gowinda. We than introduced one candidate SNP for ever gene associated with these preselected GO categories. We added randomly drawn candidate SNPs from a length biased SNP dataset (see above) until a total of 1000 candidate SNPs was obtained. Finally we performed an analysis for gene set enrichment using Gowinda and tested whether the five randomly picked GO categories correctly showed a significant overrepresentation.
+To validate that Gowinda correctly identifies overrepresentation of GO terms, we proceeded in two steps. First we randomly picked five GO categories with a small number of genes (between 5 and 10). We choose small GO categories in order to get conservative estimates of the reliability of Gowinda. We than introduced one candidate SNP for ever gene associated with these preselected GO categories. We added randomly drawn candidate SNPs from a length biased SNP dataset (see above) until a total of 1000 candidate SNPs was obtained. Finally we performed an analysis for gene set enrichment using Gowinda and checked whether the five randomly preselected GO categories correctly showed a significant overrepresentation.
 
 == Identify genes having an associated GO term ==
 {{{
@@ -179,6 +179,7 @@ python ../scripts/create_length_biased_genes.py --gtf Flybase.gtf --genelist tot
 }}}  
 
 == Randomly pick five small GO categories ==
+
 We randomly picked five small GO categories having 5 - 10 genes.
 {{{
 python ../scripts/pick_random_gocats.py --input association_gominer.txt > random_gocategories.txt
@@ -194,19 +195,23 @@ cat random_gocategories.txt|awk '{print $2}' |sort |uniq -c
    8 GO:0046364
 }}}
 
-== Introduce SNPs into the genes of target GO categories and add biased random SNPs ==
-We than picked one SNP from every gene in the targeted GO categories and added random SNPs from the length biased dataset until the total number of SNPs amounted to 1000.
+==  Create 1000 candidate SNPs  ==
+
+We than introduce candidate SNPs into the genes associated with the preselected GO categories and add randomly drawn candidate SNPs from the biased dataset until a total of 1000 candidate SNPs was obtained
+
 
 {{{ 
 python ../scripts/pick_random_snps_excepttargetlist.py --snp snps_lengthbiased.txt --genelist random_gocategories.txt > random_targetsnps.txt
 }}}
 
 == Perform GO term analysis with Gowinda ==
+
 {{{
 /System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Commands/java -Xmx4g -jar /Users/robertkofler/dev/PopGenTools/gowinda/Gowinda.jar --snp-file snps_lengthbiased.txt --candidate-snp-file random_targetsnps.txt --gene-set-file association_gominer.txt --annotation-file Flybase.gtf --simulations 1000000 --min-significance 1 --gene-definition exon --threads 8 --output-file gowinda.res --mode gene --min-genes 1
 }}}
-== Results for GO category recovery ==
-With an FDR <0.01 we identified 19 significantly enriched GO categories (see below). All five targeted GO categories were successfully identified (marked with an arrow). However we also found an additional 14 not targeted GO categories with a significant enrichment (FDR<0.01), which is due to the nesting of GO categories. 
+== Results for recovery of preselected GO categories ==
+With an FDR <0.01 we identified 19 significantly enriched GO categories (see below). All five preselected GO categories were successfully identified (marked with an arrow). However we also found an additional 14 not targeted GO categories, which can be explained by the nesting of GO categories.
+For example the not preselected GO category GO:0046165 contains the genes cg32220,cg17725,cg8890,cg10688,cg3495,cg10924,cg8251,cg1516 which are all associated with the preselected GO category: GO:0046364
 {{{
 GO:0046165      1.278   9       0.0000010000    0.0002654000    9       14      14      alcohol_biosynthetic_process    cg32220,cg17725,cg10118,cg8890,cg10688,cg3495,cg10924,cg8251,cg1516
 GO:0019319      0.714   7       0.0000010000    0.0002654000    7       7       7       hexose_biosynthetic_process     cg17725,cg8890,cg10688,cg3495,cg10924,cg8251,cg1516
