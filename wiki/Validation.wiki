@@ -166,8 +166,8 @@ Although we randomly drew SNPs and would thus not expect an overrepresentation o
 
 Our results of this analysis can be found here: http://gowinda.googlecode.com/files/step2_lengthBias.zip
 
-= Validating whether Gowinda identifies overrepresented GO terms =
-To validate that Gowinda correctly identifies significantly overrepresented GO terms, we proceeded in a two step procedure. First we randomly picked five GO categories with a small number of genes (between 5 and 10). We choose small GO categories in order to get conservative estimates of the reliability of Gowinda. We than picked one SNP for ever gene in these GO categories and added randomly drawn SNPs from the length biased SNP dataset until a total of 1000 SNPs was obtained. Finally we performed a GO term enrichment analysis using Gowinda and tested whether the five randomly picked GO categories were correctly identified as significantly overrepresented.
+= Validating whether Gowinda identifies preselected GO categories =
+To validate that Gowinda correctly identifies overrepresentation of GO terms, we proceeded in two steps. First we randomly picked five GO categories with a small number of genes (between 5 and 10). We choose small GO categories in order to get conservative estimates of the reliability of Gowinda. We than introduced one candidate SNP for ever gene associated with these preselected GO categories. We added randomly drawn candidate SNPs from a length biased SNP dataset (see above) until a total of 1000 candidate SNPs was obtained. Finally we performed an analysis for gene set enrichment using Gowinda and tested whether the five randomly picked GO categories correctly showed a significant overrepresentation.
 
 == Identify genes having an associated GO term ==
 {{{
