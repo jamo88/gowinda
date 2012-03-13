@@ -88,7 +88,7 @@ GO:0018345      0.464   8       0.0000100000    0.0014018182    1       5       
 Finally, we have found a significantly enriched GO categories with an FDR <0.05 . For example, for the first GO term (GO:0006497) we find on the average only one candidate SNP, but in our analysis we found 8. Note that we have a significant enrichment for this category although candidate SNPs were only found for a single gene. This could be due to selection acting on a single SNP and the others hitch-hicking along. Therefore results of this analysis mode must be interpreted with care.
 
 
-= Convet a `.gtf` file into a `.gff` =
+= Convet a `.gff` file into a `.gtf` =
 
 In this section we demonstrate how to convert a `.gff` file into a `.gtf` file using the script `Gff2Gtf.py`:
 
