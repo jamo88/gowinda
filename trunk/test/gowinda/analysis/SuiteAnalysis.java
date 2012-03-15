@@ -15,7 +15,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({TestSnp.class, TestAnnotationEntry.class,
-	TestGenomeRepresentationList.class, TestGenomeRepresentationListMultiSNP.class, TestGOSimulationContainer.class,TestFdrAdjuster.class})
+	TestGenomeRepresentationList.class, TestGenomeRepresentationListMultiSNP.class, TestGOSimulationContainer.class,TestFdrAdjuster.class,
+	TestPvalueDistribution.class})
 public class SuiteAnalysis {
 
     @BeforeClass
