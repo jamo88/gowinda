@@ -66,7 +66,7 @@ public class GOSimulationContainer {
 	private final int simulations;
 	private final HashMap<GOEntry,HashMap<Integer,Integer>> simres;
 
-	private GOSimulationContainer(HashMap<GOEntry,HashMap<Integer,Integer>> simres,int simulations)
+	private GOSimulationContainer(HashMap<GOEntry,HashMap<Integer,Integer>> simres, int simulations)
 	{
 		this.simulations=simulations;
 		this.simres=simres;
@@ -153,20 +153,30 @@ public class GOSimulationContainer {
 	 */
 	public double[] getAveragePvalueDistribution()
 	{
-		double[] pvalsum=new double[simulations+1];
+		long[] pvalsum=new long[simulations+1];
 		for(int i=0; i<pvalsum.length; i++)
 		{
 			pvalsum[i]=0;
 		}
 		for(Map.Entry<GOEntry, HashMap<Integer,Integer>> me: this.simres.entrySet())
 		{
-			double[] pvalDistriSingleGoCat=getPvalueDistributionForSingleGOEntry(me.getValue());
+			// Get the pvalue distribution for every GO category
+			long[] pvalDistriSingleGoCat=getPvalueDistributionForSingleGOEntry(me.getValue());
+			// Sum it to the total
 			for(int i=0; i<pvalDistriSingleGoCat.length; i++)
 			{
 				pvalsum[i]+=pvalDistriSingleGoCat[i];
 			}
 		}
-		return pvalsum;
+		// p-values is the distribution of all p-values in the whole simulations (eg 1million times 7000=GO category count) 
+		
+		// build the average per simulation
+		double[] averagePval=new double[this.simulations+1];
+		for(int i=0; i<averagePval.length; i++)
+		{
+			averagePval[i]=((double)pvalsum[i])/((double)this.simulations);
+		}
+		return averagePval;
  	}
 	
 	/**
@@ -175,7 +185,7 @@ public class GOSimulationContainer {
 	 * @param toaggregate
 	 * @return
 	 */
-	private double[] getPvalueDistributionForSingleGOEntry(HashMap<Integer,Integer> toaggregate)
+	private long[] getPvalueDistributionForSingleGOEntry(HashMap<Integer,Integer> toaggregate)
 	{
 		int maxCount=0;
 		for(Map.Entry<Integer,Integer> me: toaggregate.entrySet())
@@ -210,14 +220,9 @@ public class GOSimulationContainer {
 			int encodedPvalue=counterSum;
 			pvalueDistribution[encodedPvalue]+=thisPvalueFrequency;
 		}
- 		assert(checksum==this.simulations);
+ 		if(checksum!=this.simulations) throw new IllegalArgumentException("Error number of pvalues does not agree with the number of simulations");
+ 		return pvalueDistribution;
  		
-		double[] averagePvalForGoCat=new double[this.simulations+1];
-		for(int i=0; i<averagePvalForGoCat.length; i++)
-		{
-			averagePvalForGoCat[i]=((double)pvalueDistribution[i])/((double)this.simulations);
-		}
-		return averagePvalForGoCat;
 	}
 
 
