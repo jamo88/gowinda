@@ -23,7 +23,7 @@ def getMrnaDecoder(mrnalist):
 
 #Author: Robert Kofler
 parser = OptionParser()
-parser.add_option("--input", dest="input", help="The input file; A FlyBase .gff")
+parser.add_option("--input", dest="input", help="The input file; A .gff")
 (options, args) = parser.parse_args()
 exons=[]
 cds=[]
