@@ -155,8 +155,7 @@ python <path-to-conversiontool>/GoMiner2FuncAssociate.py --input work1338826265/
 = Dealing with synonymous gene IDs =
 Many genes have a tremendous amount of aliases i.e.: alternative gene IDs. As a requirement for using Gowinda the gene IDs of the annotation have to match the gene IDs from the gene set file.
 Due to an extensive amount of synonymous gene IDs this may not always be the case.
-Therefore we provide a script which allowes to update a 'gtf' file with the appropriate gene ID (as matching to the gene IDs of the gene set file) given a list of synonymous gene IDs.
-Such a list of synonymous gene IDs may be obtained from a .gff file like in the following example,
+Therefore we provide a script which allowes to synchronized the gene IDs of the annotation and the  gene set file given a list of synonymous gene IDs. The script basically updates the gene IDs of the annotation ('.gtf') with the corresponding gene ID from the gene set. A list of synonymous gene IDs is required. Such a list of synonymous gene IDs may for example be obtained from a .gff file, see next example:
 
 ==  Obtain a list of synonymous gene IDs from a 'gff' file ==
 {{{
