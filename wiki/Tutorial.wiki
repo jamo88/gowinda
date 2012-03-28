@@ -88,7 +88,7 @@ GO:0018345      0.464   8       0.0000100000    0.0014018182    1       5       
 Finally, we have found a significantly enriched GO categories with an FDR <0.05 . For example, for the first GO term (GO:0006497) we find on the average only one candidate SNP, but in our analysis we found 8. Note that we have a significant enrichment for this category although candidate SNPs were only found for a single gene. This could be due to selection acting on a single SNP and the others hitch-hicking along. Therefore results of this analysis mode must be interpreted with care.
 
 
-= Convet a `.gff` file into a `.gtf` =
+= Convert a `.gff` file into a `.gtf` =
 
 In this section we demonstrate how to convert a `.gff` file into a `.gtf` file using the script `Gff2Gtf.py`:
 
@@ -151,3 +151,28 @@ Finally convert the resulting `.gce` file into the file format compatible with G
 {{{
 python <path-to-conversiontool>/GoMiner2FuncAssociate.py --input work1338826265/total_genes.txt1338826265.dir/total_genes.txt.dir/total_genes.txt.change.gce > association_gominer.txt
 }}}
+
+= Dealing with synonymous gene IDs =
+Many genes have a tremendous amount of aliases i.e.: alternative gene IDs. As a requirement for Gowinda the gene IDs of the annotation have to match the gene IDs from the gene set file.
+As this may not always be the case we provide a script which allowes to update a 'gtf' file with the appropriate gene ID given a list of synonymous gene IDs.
+Such a list of synonymous gene IDs may be obtained from a .gff file like in the following example,
+==  Obtain a list of synonymous gene IDs from a 'gff' file ==
+{{{
+python ExtractGeneAliasesFromGff.py --input annotation.gff > synonymous.genids.txt
+}}}
+
+Which should result in a file similar to the following example
+{{{
+FBgn0259968	Sfp60F	CG42478	Seminal fluid protein 60F	Seminal fluid protein 60F
+FBgn0011694	PebII	PEB	PEBmeII	CG2665	PEBII	PEB2	Protein ejaculatory bulb II
+FBgn0004181	Peb	FBgn0028493	FBgn0044740	CG2668	PEB-me	PEB	P38	peb	cDNA:GH06048	anon-WO0140519.140	ejaculatory bulb protein	Protein ejaculatory bulb
+FBgn0035094	CG9380
+FBgn0001325	Kr	FBgn0001251	FBgn0015732	Kuppel	kruppel	kr	CG3340	Krpple	If	Irregular facets	Kruppel	Dm-Kr	krueppel	Lruppel	KR	KRUPPEL	Krueppel	Kruppel
+FBgn0050429	CG30429
+FBgn0053680	CG33680
+FBgn0050428	CG30428	FBgn0064772	BcDNA:SD21514
+}}}
+
+Every line contains all synonymous gene IDs for a single gene
+
+== Synchronize the gene IDs of the annotation with the gene sets ==
