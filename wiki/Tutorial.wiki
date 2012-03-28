@@ -153,9 +153,11 @@ python <path-to-conversiontool>/GoMiner2FuncAssociate.py --input work1338826265/
 }}}
 
 = Dealing with synonymous gene IDs =
-Many genes have a tremendous amount of aliases i.e.: alternative gene IDs. As a requirement for Gowinda the gene IDs of the annotation have to match the gene IDs from the gene set file.
-As this may not always be the case we provide a script which allowes to update a 'gtf' file with the appropriate gene ID given a list of synonymous gene IDs.
+Many genes have a tremendous amount of aliases i.e.: alternative gene IDs. As a requirement for using Gowinda the gene IDs of the annotation have to match the gene IDs from the gene set file.
+Due to an extensive amount of synonymous gene IDs this may not always be the case.
+Therefore we provide a script which allowes to update a 'gtf' file with the appropriate gene ID (as matching to the gene IDs of the gene set file) given a list of synonymous gene IDs.
 Such a list of synonymous gene IDs may be obtained from a .gff file like in the following example,
+
 ==  Obtain a list of synonymous gene IDs from a 'gff' file ==
 {{{
 python ExtractGeneAliasesFromGff.py --input annotation.gff > synonymous.genids.txt
@@ -176,3 +178,24 @@ FBgn0050428	CG30428	FBgn0064772	BcDNA:SD21514
 Every line contains all synonymous gene IDs for a single gene
 
 == Synchronize the gene IDs of the annotation with the gene sets ==
+
+The following example used the file 'converted.gtf' from a previous tutorial. Converted.gtf contains the gene IDs as FBGN. After updating they will be replaced with the corresponding 'CG' gene IDs. 
+{{{
+python SynchronizeGtfGeneIDs.py --gtf converted.gtf --gene-set goassociations_cg.txt --gene-aliases synonymous.genids.txt > converted_cg.gtf
+}}}
+
+Example of the '.gtf' before updating:
+{{{
+2R      FlyBase exon    209942  210220  .       -       .       gene_id "FBgn0260798";
+2R      FlyBase exon    210281  210443  .       -       .       gene_id "FBgn0260798";
+2R      FlyBase exon    223882  224088  .       -       .       gene_id "FBgn0260798";
+}}}
+
+Example of the '.gtf' after updating:
+{{{
+2R      FlyBase exon    209942  210220  .       -       .       gene_id "CG40129";
+2R      FlyBase exon    210281  210443  .       -       .       gene_id "CG40129";
+2R      FlyBase exon    223882  224088  .       -       .       gene_id "CG40129";
+}}}
+
+Note that the IDs of genes not having a synonymous gene ID will not be updated!
