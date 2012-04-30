@@ -143,7 +143,7 @@ SNP to gene mapping refers to the assignment of genes to SNPs. For example it is
   * `updownstreamDDDD`: in addition to  exons and introns also the DDDD bases upstream the start of a gene and the DDDD bases downstream of the end of a gene are considered for mapping a SNP to a gene. DDDD must be replaced with an arbitrary number. This method does NOT require strand information. 
 
 
-*NOTE:* we found examples where exons from a single gene are on opposite strands, in this case Gowinda uses the majority vote, i.e.: the strand being supported by the most exons
+*NOTE:* We found examples (in the annotation of _D. melanogaster_) where different exons from the same gene are located on opposite strands, in this case Gowinda uses the majority vote, i.e.: the strand being supported by the most exons
 
 
 === simulations ===
@@ -160,7 +160,7 @@ When a higher resolution is required the number of simulations may be increased 
 We recommend this mode only when SNPs are in linkage equilibrium.
 Gowinda randomly samples the same number of SNPs as candidate SNPs. Subsequently the genes corresponding to the sampled SNPs are identified. Overrepresentation of candidate SNPs is estimated from the empirical null distribution. In this mode, the number of SNPs is thus constant (=number of candidate SNPs) in each simulation. However the number of genes associated with this randomly sampled SNPs may vary between the simulations. This may, for example, be a problem when LD between the candidate SNPs is expected. LD will entail a clustering of candidate SNPs, which will result in few candidate genes having disproportionally large numbers of candidate SNPs. By contrast the randomly drawn SNPs will mostly be distributed evenly in the genome (no clustering) thus the number of corresponding randomly sampled genes may be consistently higher than candidate genes. This could introduce a bias in the analysis when LD exists, thus use the mode `gene` when LD between candidate SNPs is expected (see next section). 
 
-Furthermore genes will be counted multiple times according to the number of candidate/random SNPs, as we assume (in this mode) that SNPs are independent observations. 
+Furthermore, when using this mode, genes will be counted multiple times according to the number of candidate/random SNPs, as we assume that every SNP constitutes an independent observations. 
 
 
 
