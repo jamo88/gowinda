@@ -183,7 +183,7 @@ Let the number of simulations be `S`, the gene set for which the p-value should 
 
 http://gowinda.googlecode.com/files/equation_pvalue.png
 
-In the example shown above c^g^,,cand,, would be 18 genes, `S` would be 1 million simulations and the sum of c^g^,,s,, about 47.000 simulations. Thus the p-value p^g^ would be 47.000/1.000.000 = 0.047
+In the example shown above c^g^,,cand,, would be 18 genes, `S` would be 1 million simulations and the sum of c^g^,,s,, larger or equal than c^g^,,cand,, about 47.000 simulations. Thus the p-value p^g^ would be 47.000/1.000.000 = 0.047
 
 
 
