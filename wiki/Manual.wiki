@@ -155,15 +155,22 @@ When a higher resolution is required the number of simulations may be increased 
 
 == Algorithm ==
 
+=== Analysis mode `snp` ===
+
+We recommend this mode only when SNPs are in linkage equilibrium.
+Gowinda randomly samples the same number of SNPs as candidate SNPs. Subsequently the genes corresponding to the sampled SNPs are identified. Overrepresentation of candidate SNPs is estimated from the empirical null distribution. In this mode, the number of SNPs is thus constant (=number of candidate SNPs) in each simulation. However the number of genes associated with this randomly sampled SNPs may vary between the simulations. This may, for example, be a problem when LD between the candidate SNPs is expected. LD will entail a clustering of candidate SNPs, which will result in few candidate genes having disproportionally large numbers of candidate SNPs. By contrast the randomly drawn SNPs will mostly be distributed evenly in the genome (no clustering) thus the number of corresponding randomly sampled genes may be consistently higher than candidate genes. This could introduce a bias in the analysis when LD exists, thus use the mode `gene` when LD between candidate SNPs is expected (see next section). 
+
+Furthermore genes will be counted multiple times according to the number of candidate/random SNPs, as we assume (in this mode) that SNPs are independent observations. 
+
+
+
+
 === Analysis mode `gene` ===
 We recommend this mode when SNPs are in linkage disequilibrium. 
 Gowinda randomly samples SNPs until the corresponding number of genes is identical to the number of genes obtained with the candidate SNPs and finally the significance of overrepresentation is estimated from the empirical null distribution. Note that the number of randomly sampled genes is kept constant in the permutations  and that every gene is only considered once even when containing several candidate SNPs This approach does however only account for LD within genes not for LD between genes.
 
 We generally recommend this mode.
 
-=== Analysis mode `snp` ===
-
-We recommend this mode when SNPs are in linkage equilibrium. Gowinda randomly samples SNPs until the number of SNPs equals the number of candidate SNPs. Subsequently the corresponding genes are identified and overrepresentation is estimated from the empirical null distribution. The number of SNPs is thus constant in each round of random sampling but the number of corresponding genes may differ between rounds. Furthermore genes will be counted multiple times according to the number of contained candidate/random SNPs. 
 
 === FDR correction ===
 We used the empirical FDR correction described in 'Elements of Statistical Learning' (2009): Trevor Hastie, Robert Tibshirani and Jerome Friedman, 2nd edition, pp687-690, (http://www-stat.stanford.edu/~tibs/ElemStatLearn/)
