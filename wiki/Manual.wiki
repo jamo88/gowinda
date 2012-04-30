@@ -132,6 +132,8 @@ Gowinda has the following input parameters
   * `--threads`: the simulations of Gowinda utilize multi-threading. Adjust the number of threads to use. Optional parameter; default=1
   * `--help`: show the help for Gowinda; Optional parameter
 
+== Algorithm ==
+
 === Analysis mode `gene` ===
 We recommend this mode when SNPs are in linkage disequilibrium. 
 Gowinda randomly samples SNPs until the corresponding number of genes is identical to the number of genes obtained with the candidate SNPs and finally the significance of overrepresentation is estimated from the empirical null distribution. Note that the number of randomly sampled genes is kept constant in the permutations  and that every gene is only considered once even when containing several candidate SNPs This approach does however only account for LD within genes not for LD between genes.
@@ -141,6 +143,8 @@ We generally recommend this mode.
 === Analysis mode `snp` ===
 
 We recommend this mode when SNPs are in linkage equilibrium. Gowinda randomly samples SNPs until the number of SNPs equals the number of candidate SNPs. Subsequently the corresponding genes are identified and overrepresentation is estimated from the empirical null distribution. The number of SNPs is thus constant in each round of random sampling but the number of corresponding genes may differ between rounds. Furthermore genes will be counted multiple times according to the number of contained candidate/random SNPs. 
+
+=== FDR correction ===
 
 === SNP to gene mapping ===
 SNP to gene mapping refers to the assignment of genes to SNPs. For example it is possible to associate only genes where an exon is overlapping with a SNP or as another example, when regulatory regions should be considered, a SNP may be considered as associated with a gene when it's position is less than 500 bp upstream of the gene. Gowinda only reads the `.gtf` features `exon` and `cds`, all other features are ignored. The following features are thus internally derived from the annotation `exon` and `cds`:
