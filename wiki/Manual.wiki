@@ -178,10 +178,12 @@ Dependent on the analysis mode (see above) Gowinda derives an empirical null dis
 
 http://gowinda.googlecode.com/files/gowinda_edist.png
 
-Let the number of simulations be 'S', the gene set for which the p-value should be calculated be 'g', the number of genes found in a single simulation be c^^g^^,,s,, and the number of found candidate genes be c^^g^^,,cand,, than the p-value of enrichment (p^^g^^) for a single gene set can be calculated according to the following equation:
+Let the number of simulations be 'S', the gene set for which the p-value should be calculated be 'g', the number of genes found in a single simulation be c^g^,,s,, and the number of found candidate genes be c^g^,,cand,, than the p-value of enrichment (p^g^) for a single gene set can be calculated according to the following equation:
 
 
 http://gowinda.googlecode.com/files/equation_pvalue.png
+
+In the example shown above c^g^,,cand,, would be 18, S is 1 million and the sum of c^g^,,s,, about 
 
 
 
