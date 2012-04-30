@@ -42,7 +42,7 @@ http://gowinda.googlecode.com/files/Gff2Gtf.py
 
 The user may thus assure that the annotation is correctly converted before providing it to Gowinda. 
 
-== gene set  ==
+== Gene set  ==
 The gene set file for Gene Ontology terms may be directly obtained from the download section of !FuncAssociate2 (http://llama.mshri.on.ca/funcassociate/download_go_associations) or indirectly from !GoMiner (see tutorial: http://code.google.com/p/gowinda/wiki/Tutorial)
 
 Following an example of a gene set file for Gene Ontology
