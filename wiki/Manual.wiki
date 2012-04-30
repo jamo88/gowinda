@@ -178,7 +178,9 @@ Dependent on the analysis mode (see above) Gowinda derives an empirical null dis
 
 http://gowinda.googlecode.com/files/gowinda_edist.png
 
-Assuming that the candidate SNPs correspond to 'C' genes (eg.: 18) in the gene set `intracellular protein transport`, than the p-value can be calculated according to the following equations:
+Assuming that the candidate SNPs correspond to a gene count of `c,,g,,` genes (eg.: 18) in the gene set `intracellular protein transport`, than the p-value can be calculated according to the following equations:
+
+http://gowinda.googlecode.com/files/equation_pvalue.png
 
 
 
