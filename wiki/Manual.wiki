@@ -132,6 +132,27 @@ Gowinda has the following input parameters
   * `--threads`: the simulations of Gowinda utilize multi-threading. Adjust the number of threads to use. Optional parameter; default=1
   * `--help`: show the help for Gowinda; Optional parameter
 
+=== SNP to gene mapping ===
+SNP to gene mapping refers to the assignment of genes to SNPs. For example it is possible to associate only genes where an exon is overlapping with a SNP or as another example, when regulatory regions should be considered, a SNP may be considered as associated with a gene when it's position is less than 500 bp upstream of the gene. Gowinda only reads the `.gtf` features `exon` and `cds`, all other features are ignored. The following features are thus internally derived from the annotation `exon` and `cds`:
+  * `exon`: SNPs within exons are associated with genes
+  * `cds`: SNPs within CDS are associated with genes
+  * `utr`: SNPs within 5'-UTR and 3'-UTR are associated with genes. Caluclated as `exon - cds`
+  * `gene`: SNPs within exons or introns are associated with genes. Internally the distance from the start position of the first exon to the end position of the last exon is computed
+  * `upstreamDDDD`: in addition to exons and introns also the DDDD bases upstream the start of a gene are considered for mapping a SNP to a gene. DDDD must be replaced with an arbitrary number. This method requires the strand information.
+  * `downstreamDDDD`: in addition to exons and introns also the DDDD bases downstream of the end of the gene are considered for mapping a SNP to a gene. DDDD must be replaced with an arbitrary number. This method requires the strand information.
+  * `updownstreamDDDD`: in addition to  exons and introns also the DDDD bases upstream the start of a gene and the DDDD bases downstream of the end of a gene are considered for mapping a SNP to a gene. DDDD must be replaced with an arbitrary number. This method does NOT require strand information. 
+
+
+*NOTE:* we found examples where exons from a single gene are on opposite strands, in this case Gowinda uses the majority vote, i.e.: the strand being supported by the most exons
+
+
+=== simulations ===
+The number of simulations has an direct influence on the minimum possible p-value; For example with 1.000.000 simulations the minimum possible p-value is 1.0e-6; Increase the number of simulations if you need a higher resoultion/precision; Note, that increasing the number of simulations will not result in larger numbers of significant GO categories!
+
+We recommend to start with 100.000 simulations, this should take about 4 minutes (with 8 CPUs).
+When a higher resolution is required the number of simulations may be increased to 1 million (~30 minutes) or 10 million (~5h).
+
+
 == Algorithm ==
 
 === Analysis mode `gene` ===
@@ -152,27 +173,6 @@ Let G be the number of gene sets and S the number of simulations. Than an observ
 
 
 http://gowinda.googlecode.com/files/fdr_equations.png
-
-
-=== SNP to gene mapping ===
-SNP to gene mapping refers to the assignment of genes to SNPs. For example it is possible to associate only genes where an exon is overlapping with a SNP or as another example, when regulatory regions should be considered, a SNP may be considered as associated with a gene when it's position is less than 500 bp upstream of the gene. Gowinda only reads the `.gtf` features `exon` and `cds`, all other features are ignored. The following features are thus internally derived from the annotation `exon` and `cds`:
-  * `exon`: SNPs within exons are associated with genes
-  * `cds`: SNPs within CDS are associated with genes
-  * `utr`: SNPs within 5'-UTR and 3'-UTR are associated with genes. Caluclated as `exon - cds`
-  * `gene`: SNPs within exons or introns are associated with genes. Internally the distance from the start position of the first exon to the end position of the last exon is computed
-  * `upstreamDDDD`: in addition to exons and introns also the DDDD bases upstream the start of a gene are considered for mapping a SNP to a gene. DDDD must be replaced with an arbitrary number. This method requires the strand information.
-  * `downstreamDDDD`: in addition to exons and introns also the DDDD bases downstream of the end of the gene are considered for mapping a SNP to a gene. DDDD must be replaced with an arbitrary number. This method requires the strand information.
-  * `updownstreamDDDD`: in addition to  exons and introns also the DDDD bases upstream the start of a gene and the DDDD bases downstream of the end of a gene are considered for mapping a SNP to a gene. DDDD must be replaced with an arbitrary number. This method does NOT require strand information. 
-
-
-*NOTE:* we found examples where exons from a single gene are on opposite strands, in this case Gowinda uses the majority vote, i.e.: the strand being supported by the most exons
-
-
-=== simulations ===
-The number of simulations has an direct influence on the minimum possible p-value; For example with 1.000.000 simulations the minimum possible p-value is 1.0e-6; Increase the number of simulations if you need a higher resoultion/precision; Note, that increasing the number of simulations will not result in larger numbers of significant GO categories!
-
-We recommend to start with 100.000 simulations, this should take about 4 minutes (with 8 CPUs).
-When a higher resolution is required the number of simulations may be increased to 1 million (~30 minutes) or 10 million (~5h).
 
 
 == Output ==
