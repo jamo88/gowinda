@@ -148,7 +148,7 @@ We recommend this mode when SNPs are in linkage equilibrium. Gowinda randomly sa
 We used the empirical FDR correction described in 'Elements of Statistical Learning' (2009): Trevor Hastie, Robert Tibshirani and Jerome Friedman, 2nd edition, pp687-690, (http://www-stat.stanford.edu/~tibs/ElemStatLearn/)
 
 In detail, Gowinda implements the following algorithm for calculating the FDR:
-Let G be the number of gene sets and S the number of simulations. Than an observed (Robs) and an expected (Rexp) count of gene sets having p-values smaller or equal than a threshold (the p-value for which FDR correction should be calculated) can be computed. The FDR can subsequently simply be calculated by dividing Rexp by Robs. 
+Let G be the number of gene sets and S the number of simulations. Than an observed (Robs) and an expected (Rexp) count of gene sets having p-values smaller or equal than a threshold (P = the p-value which should be FDR corrected) can be computed.  The FDR can subsequently simply be calculated by dividing Rexp by Robs. 
 
 
 http://gowinda.googlecode.com/files/fdr_equations.png
