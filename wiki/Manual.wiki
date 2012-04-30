@@ -175,6 +175,7 @@ We generally recommend this mode.
 === Calculate the p-value for a single gene set ===
 
 Dependent on the analysis mode (see above) Gowinda derives an empirical null distribution of gene abundance for every gene set after the simulations have been completed. An example of such an empirical null distribution for a single gene set and 1 million simulations may look like in the following example:
+
 http://gowinda.googlecode.com/files/gowinda_edist.png
 
 This distribution for example states that for the gene set `intracellular protein transport` 4 or 5 genes are found in 140.000 of the 1 million simulations. As another example 20 or 21 genes are found in 12.000 of the 1 million simulations. From this distribution the empirical p-value for the candidate SNPs can be calculated. Assuming that the candidate SNPs correspond to 18 genes in the gene set `intracellular protein transport` than the p-value can be calculated according to the following equation
