@@ -283,3 +283,16 @@ category_C    description of category C    gene10 gene11 gene12
   * column2: description of the custom categories
   * column3: list of genes associated with the custom category
 *Note* that columns are separated by a tab whereas entries within columns need to be separated by a space!
+
+= Links =
+Several tools have been developed for the analysis of pathway enrichement in GWA. For an excellent review see Wang et. al. (2010); Analysisng biological pathways in genome-wide association studies (http://www.nature.com/nrg/journal/v11/n12/abs/nrg2884.html)
+
+  * ALIGATOR http://www.ncbi.nlm.nih.gov/pubmed/19539887
+  * i-GSEA4GWAS http://www.ncbi.nlm.nih.gov/pubmed/20435672
+  * GenGen http://www.ncbi.nlm.nih.gov/pubmed/17966091
+  * GeSBAP http://www.ncbi.nlm.nih.gov/pubmed/19502494/
+  * GRASS http://www.ncbi.nlm.nih.gov/pubmed/20560206
+  * GSA-SNP http://www.ncbi.nlm.nih.gov/pubmed/20501604
+  * GSEA-SNP http://www.ncbi.nlm.nih.gov/pubmed/18854360
+  * PLINK set-test http://www.ncbi.nlm.nih.gov/pubmed/17701901
+  * SNP ratio test http://www.ncbi.nlm.nih.gov/pubmed/19620097
