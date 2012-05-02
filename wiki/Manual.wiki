@@ -161,11 +161,8 @@ When a higher accuracy is required the number of simulations may be increased to
 
 === Analysis mode `snp` ===
 
-We recommend this mode only when SNPs are in linkage equilibrium.
-Gowinda randomly samples the same number of SNPs as candidate SNPs. Subsequently the genes corresponding to the sampled SNPs are identified. Finally the significance of enrichment is estimated from the empirical null distribution and FDR is calculated (see below). In this mode, the number of SNPs is thus constant (=number of candidate SNPs) in each simulation. However the number of genes associated with the randomly sampled SNPs may vary between the simulations. This may, for example, be a problem when some candidate SNPs are in linkage disequilibrium. LD will cause a clustering of candidate SNPs, which will result in a few candidate genes having disproportionally large numbers of candidate SNPs. By contrast the randomly drawn SNPs will mostly be distributed evenly in the genome (no clustering) thus the number of corresponding randomly sampled genes may be consistently higher than the number of candidate genes which could lead to a bias in the analysis. Thus use this mode only when SNPs are in linkage equilibrium. 
-
-Furthermore, when using this mode, genes will be counted multiple times according to the number of candidate/random SNPs. This is based on the rationale that -when SNPs are in linkage equilibrium - every candidate SNP constitutes an independent observation.
-
+We recommend this mode when SNPs are in linkage equilibrium.
+Gowinda randomly samples the same number of SNPs as candidate SNPs. Subsequently the genes corresponding to the sampled SNPs are identified. Finally the significance of enrichment is estimated from the empirical null distribution and FDR is calculated (see below). In this mode, the number of SNPs is thus constant (=number of candidate SNPs) in each simulation. However the number of genes associated with the randomly sampled SNPs may vary between the simulations. Furthermore, when using this mode, genes will be counted multiple times according to the number of candidate/random SNPs. This is based on the rationale that - when SNPs are in linkage equilibrium - every candidate SNP constitutes an independent observation. This assumption of independent observations of SNPs is violated when the SNPs are in LD, which may lead to the artifactual identification of variants that are linked to the causative variant as candidate SNPs. Thus use this mode only when SNPs are in linkage equilibrium. 
 
 
 
