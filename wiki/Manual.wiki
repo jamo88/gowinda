@@ -159,9 +159,10 @@ When a higher accuracy is required the number of simulations may be increased to
 
 == Algorithm ==
 
-=== Analysis mode `snp` ===
+Gowinda offers two strategies for analysis of gene set enrichment, which are based on two extreme assumptions about linkage. The first strategie (mode SNP) is based on the assumption that all variants are independent and the second that all SNPs within a gene are completely linked (mode gene).
 
-We recommend this mode when SNPs are in linkage equilibrium.
+=== Analysis mode `snp` ===
+This mode is based on the extreme assumption that all SNPs are independent, i.e.: in linkage equilibrium (fo
 Gowinda randomly samples the same number of SNPs as candidate SNPs. Subsequently the genes corresponding to the sampled SNPs are identified. Finally the significance of enrichment is estimated from the empirical null distribution and FDR is calculated (see below). In this mode, the number of SNPs is thus constant (=number of candidate SNPs) in each simulation. However the number of genes associated with the randomly sampled SNPs may vary between the simulations. Furthermore, when using this mode, genes will be counted multiple times according to the number of candidate/random SNPs. This is based on the rationale that - when SNPs are in linkage equilibrium - every candidate SNP constitutes an independent observation. This assumption of independent observations of SNPs is violated when the SNPs are in LD, which may lead to the artifactual identification of variants that are linked to the causative variant as candidate SNPs. Thus use this mode only when SNPs are in linkage equilibrium. 
 
 
