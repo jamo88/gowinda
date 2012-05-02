@@ -116,6 +116,7 @@ the same applies as for the total SNP file, except that the candidate SNPs must 
 For an example of how to use Gowinda with a sample dataset please see the tutorial: http://code.google.com/p/gowinda/wiki/Tutorial
 
 == Parameters ==
+
 Gowinda has the following input parameters
 
   * `--annotation-file`: a file containing the annotation for the species of interest. Only the `.gtf` format is accepted (see above). Mandatory parameter
@@ -133,6 +134,7 @@ Gowinda has the following input parameters
   * `--help`: show the help for Gowinda; Optional parameter
 
 === SNP to gene mapping ===
+
 SNP to gene mapping refers to the assignment of genes to SNPs. For example it is possible to associate only genes with a SNP, when an exon is overlapping with the SNP. As another example - when regulatory regions should be considered - a SNP may be considered as associated with a gene when it's position is less than 500 bp upstream of the gene. Gowinda only loads the `.gtf` features `exon` and `cds`, all other features are ignored. The following features are thus internally computed from the features `exon` and `cds`:
   * `exon`: SNPs within exons are associated with genes
   * `cds`: SNPs within CDS are associated with genes
@@ -168,10 +170,16 @@ Furthermore, when using this mode, genes will be counted multiple times accordin
 
 
 === Analysis mode `gene` ===
-We recommend this mode when SNPs are in linkage disequilibrium. 
-Gowinda randomly samples SNPs until the corresponding number of genes is identical to the number of genes obtained with the candidate SNPs and finally the significance of overrepresentation is estimated from the empirical null distribution. Note that the number of randomly sampled genes is kept constant in the permutations  and that every gene is only considered once even when containing several candidate SNPs This approach does however only account for LD within genes not for LD between genes.
 
-We generally recommend this mode.
+We recommend this mode when SNPs are in linkage disequilibrium (or when information about linkage is not available). 
+First Gowinda computes the number of genes that are corresponding to the candidate SNPs. Than Gowinda randomly samples SNPs until the corresponding number of genes equals the number of candidate genes . Finally the significance of overrepresentation is estimated from the empirical null distribution and FDR is calculated (see below). In this mode the number of randomly sampled genes is thus constant in each simulation whereas the number of sampled SNPs may vary.  This strategy is based on the assumption that candidate genes usually contain only one causative variant but they may contain several linked variants.
+Thus by basically treating every gene as a large haplotype block, Gowinda takes into account linkage disequilibrium of SNPs within genes.  
+
+*Note*: This mode only considers linkage disequilibrium within genes and not between genes.
+
+*Note*: It is however possible to extent the size of the haplotype block around genes by using the SNP-to-gene mapping `updownstreamDDDD`
+
+We recommend this mode per default.
 
 
 === Calculate the p-value of gene set enrichment ===
@@ -224,7 +232,9 @@ GO:0005759      0.348   3       0.0031100000    0.3813620000    3       9       
 
 
 = Scripts =
+
 == !Gff2Gtf.py ==
+
 The script `Gff2Gtf.py` may be used to convert a `.gff` file into a `.gtf` file. The script scans the `.gff` file for the features exon, cds, and mRNA all other features are ignored. These features require the fields 'ID=' and 'Parent='. The ID of the corresponding gene will be  infered for every exon/cds from the hierarchy exon->mRNA->gene.
 Exons not having a parent mRNA will be ignored. Furthermore if exons have several parent mRNAs only the first one will be used.
 
@@ -268,6 +278,7 @@ The parameters of this script are:
   * --help: Display help for the script
 
 = Use a custom pathway database =
+
 Although Gowinda will probably mostly be used to test for overrepresentation of genes in GO categories, it is also possible to use different databases. In this case it is only necessary to provide a custom 'gene set' file like in the following example:
 {{{
 category_A    description of category A    gene1 gene2 gene3 gene4 gene5
