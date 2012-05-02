@@ -169,8 +169,7 @@ Gowinda randomly samples the same number of SNPs as candidate SNPs. Subsequently
 === Analysis mode `gene` ===
 
 We recommend this mode when SNPs are in linkage disequilibrium (or when information about linkage is not available). 
-First Gowinda computes the number of genes that are corresponding to the candidate SNPs. Than Gowinda randomly samples SNPs until the corresponding number of genes equals the number of candidate genes . Finally the significance of overrepresentation is estimated from the empirical null distribution and FDR is calculated (see below). In this mode the number of randomly sampled genes is thus constant in each simulation whereas the number of sampled SNPs may vary.  This strategy is based on the assumption that candidate genes usually contain only one causative variant but they may contain several linked variants.
-Thus by basically treating every gene as a large haplotype block, Gowinda takes into account linkage disequilibrium of SNPs within genes.  
+Gowinda computes the number of genes that are corresponding to the candidate SNPs (=candidate genes). Subsequently, Gowinda randomly samples SNPs until the corresponding number of genes equals the number of candidate genes. Finally the significance of overrepresentation is estimated from the empirical null distribution and FDR is calculated (see below). In this strategy the number of randomly sampled genes is constant in each simulation whereas the number of randomly sampled SNPs may vary.  This strategy is based on the assumption that candidate genes usually contain a single causative variant but they may contain several linked variants. Thus by basically treating every gene as a large haplotype block, Gowinda takes into account linkage disequilibrium within genes.  
 
 *Note*: This mode only considers linkage disequilibrium within genes and not between genes.
 
