@@ -285,7 +285,7 @@ category_C    description of category C    gene10 gene11 gene12
 *Note* that columns are separated by a tab whereas entries within columns need to be separated by a space!
 
 = Links =
-Several tools have been developed for the analysis of pathway enrichement in GWA. For an excellent review see Wang et. al. (2010) "Analysing biological pathways in genome-wide association studies (http://www.nature.com/nrg/journal/v11/n12/abs/nrg2884.html)
+Several tools have been developed for the analysis of pathway enrichement in GWA. For an excellent review see Wang et. al. (2010) "Analysing biological pathways in genome-wide association studies" (http://www.nature.com/nrg/journal/v11/n12/abs/nrg2884.html)
 
   * ALIGATOR http://www.ncbi.nlm.nih.gov/pubmed/19539887
   * i-GSEA4GWAS http://www.ncbi.nlm.nih.gov/pubmed/20435672
