@@ -177,7 +177,7 @@ Thus by basically treating every gene as a large haplotype block, Gowinda takes 
 
 *Note*: This mode only considers linkage disequilibrium within genes and not between genes.
 
-*Note*: It is however possible to extent the size of the haplotype block around genes by using the SNP-to-gene mapping `updownstreamDDDD`
+*Note*: It is however possible to extent the size of the haplotype block of genes by using the SNP-to-gene mapping `updownstreamDDDD`
 
 We recommend this mode per default.
 
