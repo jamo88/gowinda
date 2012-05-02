@@ -159,22 +159,20 @@ When a higher accuracy is required the number of simulations may be increased to
 
 == Algorithm ==
 
-Gowinda offers two strategies for analysis of gene set enrichment, which are based on two extreme assumptions about linkage. The first strategy (`--mode snp`) is based on the assumption that all variants are independent and the second strategy on the opposite extreme assumption that all SNPs within a gene are in complete linkage disequilibrium (`--mode gene`).
+Gowinda offers two strategies for analysis of gene set enrichment, which are based on two extreme assumptions about linkage. The first strategy (`--mode snp`) is based on the assumption that all SNPs are independent and the second strategy on the opposite extreme assumption that all SNPs within a gene are in completely linked (`--mode gene`).
 
 === Analysis mode SNP ===
-This mode is based on the extreme assumption that all SNPs are independent, i.e.: in linkage equilibrium. In this mode of operation, Gowinda randomly samples the same number of SNPs as candidate SNPs. Subsequently the genes corresponding to the sampled SNPs are identified. Finally the significance of enrichment is estimated from the empirical null distribution and FDR is calculated (see below). The number of SNPs is thus constant (=number of candidate SNPs) in each simulation. However the number of genes associated with the randomly sampled SNPs may vary between the simulations. Furthermore, when using this strategy, genes will be counted multiple times according to the number of candidate/random SNPs. This is based on the rationale that - when SNPs are in linkage equilibrium - every candidate SNP constitutes an independent observation. However any remaining linkage between variants will cause a bias in this strategy, as linkage will lead to a clustering of candidate SNPs which may in turn result in overestimating the significance of enrichment.
+This strategy is based on the extreme assumption that all SNPs are independent, i.e.: in linkage equilibrium. In this mode of operation, Gowinda randomly samples the same number of SNPs as candidate SNPs. Subsequently the genes corresponding to the sampled SNPs are identified. Finally the significance of enrichment is estimated from the empirical null distribution and FDR is calculated (see below). The number of SNPs is thus constant (=number of candidate SNPs) in each simulation. However the number of genes associated with the randomly sampled SNPs may vary between the simulations. Furthermore, when using this strategy, genes will be counted multiple times according to the number of candidate/random SNPs. This is based on the rationale that - when SNPs are in linkage equilibrium - every candidate SNP constitutes an independent observation. However any remaining linkage between variants will cause a bias in this strategy, as linkage will lead to a clustering of candidate SNPs which may in turn result in overestimating the significance of enrichment.
 
 
 === Analysis mode gene ===
+This strategy is based on the extreme assumption that all SNPs within a gene are completely linked. In this mode of operation, Gowinda first computes the number of genes that are corresponding to the candidate SNPs (=candidate genes). Subsequently, Gowinda randomly samples SNPs until the corresponding number of genes equals the number of candidate genes. Finally the significance of overrepresentation is estimated from the empirical null distribution and FDR is calculated (see below). In this strategy the number of randomly sampled genes is constant in each simulation whereas the number of randomly sampled SNPs may vary. In this strategy a gene is basically treated as a large haplotype block, containing only a single causative variant and a variable number of linked variants. However, if SNPs are not in complete linkage and a gene, for example, contains several causative variants this analysis strategy may result in underestimating the significance of enrichment. 
 
-We recommend this mode when SNPs are in linkage disequilibrium (or when information about linkage is not available). 
-Gowinda computes the number of genes that are corresponding to the candidate SNPs (=candidate genes). Subsequently, Gowinda randomly samples SNPs until the corresponding number of genes equals the number of candidate genes. Finally the significance of overrepresentation is estimated from the empirical null distribution and FDR is calculated (see below). In this strategy the number of randomly sampled genes is constant in each simulation whereas the number of randomly sampled SNPs may vary.  This strategy is based on the assumption that candidate genes usually contain a single causative variant but they may contain several linked variants. Thus by basically treating every gene as a large haplotype block, Gowinda takes into account linkage disequilibrium within genes.  
+*Note*: This mode only considers linkage disequilibrium within genes and not between genes. 
 
-*Note*: This mode only considers linkage disequilibrium within genes and not between genes.
+*Note*: It is however possible to extent the size of the haplotype block of genes by using the option `updownstreamDDDD` for SNP-to-gene mapping (see above).
 
-*Note*: It is however possible to extent the size of the haplotype block of genes by using the SNP-to-gene mapping `updownstreamDDDD`
-
-We recommend this mode per default.
+We recommend this mode per default as it yields rather conservative estimates.
 
 
 === Calculate the p-value of gene set enrichment ===
