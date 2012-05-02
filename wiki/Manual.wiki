@@ -147,10 +147,12 @@ SNP to gene mapping refers to the assignment of genes to SNPs. For example it is
 
 
 === simulations ===
-The number of simulations has an direct influence on the minimum possible p-value; For example with 1.000.000 simulations the minimum possible p-value is 1.0e-6; Increase the number of simulations if you need a higher resoultion/precision; Note, that increasing the number of simulations will not result in larger numbers of significant GO categories!
+The number of simulations has a direct influence on the minimum achievable p-value; For example with 1.000.000 simulations the minimum achievable p-value is 1.0e-6; Increase the number of simulations if you need a higher accuracy. 
+
+*Note* increasing the number of simulations will not result in higher numbers of significant GO categories! It will just increase the accuracy.
 
 We recommend to start with 100.000 simulations, this should take about 4 minutes (with 8 CPUs).
-When a higher resolution is required the number of simulations may be increased to 1 million (~30 minutes) or 10 million (~5h).
+When a higher accuracy is required the number of simulations may be increased to 1 million (~30 minutes) or 10 million (~5h).
 
 
 == Algorithm ==
