@@ -164,7 +164,7 @@ When a higher accuracy is required the number of simulations may be increased to
 We recommend this mode only when SNPs are in linkage equilibrium.
 Gowinda randomly samples the same number of SNPs as candidate SNPs. Subsequently the genes corresponding to the sampled SNPs are identified. Overrepresentation of candidate SNPs is estimated from the empirical null distribution. In this mode, the number of SNPs is thus constant (=number of candidate SNPs) in each simulation. However the number of genes associated with this randomly sampled SNPs may vary between the simulations. This may, for example, be a problem when LD between the candidate SNPs is expected. LD will entail a clustering of candidate SNPs, which will result in few candidate genes having disproportionally large numbers of candidate SNPs. By contrast the randomly drawn SNPs will mostly be distributed evenly in the genome (no clustering) thus the number of corresponding randomly sampled genes may be consistently higher than candidate genes. This could introduce a bias in the analysis when LD exists, thus use the mode `gene` when LD between candidate SNPs is expected (see next section). 
 
-Furthermore, when using this mode, genes will be counted multiple times according to the number of candidate/random SNPs, as we assume that every SNP constitutes an independent observations. 
+Furthermore, when using this mode, genes will be counted multiple times according to the number of candidate/random SNPs, as we assume that for SNPs in linkage equilibrium every candidate SNP constitutes an independent observations. 
 
 
 
