@@ -166,13 +166,13 @@ This strategy is based on the extreme assumption that all SNPs are independent, 
 
 
 === Analysis mode gene ===
-This strategy is based on the extreme assumption that all SNPs within a gene are completely linked. In this mode of operation, Gowinda first computes the number of genes that are corresponding to the candidate SNPs (=candidate genes). Subsequently, Gowinda randomly samples SNPs until the corresponding number of genes equals the number of candidate genes. Finally the significance of overrepresentation is estimated from the empirical null distribution and FDR is calculated (see below). In this strategy the number of randomly sampled genes is constant in each simulation whereas the number of randomly sampled SNPs may vary. In this strategy a gene is basically treated as a large haplotype block, containing only a single causative variant and a variable number of linked variants. However, if SNPs are not in complete linkage and a gene, for example, contains several causative variants this analysis strategy may result in underestimating the significance of enrichment. 
+This strategy is based on the assumption that all SNPs within a gene are completely linked. In this mode of operation, Gowinda first computes the number of genes that are corresponding to the candidate SNPs (=candidate genes). Subsequently, Gowinda randomly samples SNPs until the corresponding number of genes equals the number of candidate genes. Finally the significance of overrepresentation is estimated from the empirical null distribution and FDR is calculated (see below). In this strategy the number of randomly sampled genes is constant in each simulation whereas the number of randomly sampled SNPs may vary. This strategy basically treats genes as large haplotype blocks. However, if SNPs are not in complete linkage this analysis strategy may result in underestimating the significance of enrichment. 
 
-*Note*: This mode only considers linkage disequilibrium within genes and not between genes. 
+*Note*: This mode assumes complete linkage of SNPs within genes and does not account for LD between genes.
 
-*Note*: It is however possible to extent the size of the haplotype block of genes by using the option `updownstreamDDDD` for SNP-to-gene mapping (see above).
+*Note*: It is however possible to extent the size of the haplotype block of genes by using the option `--gene-definition updownstream`  (see above).
 
-We recommend this mode per default as it yields rather conservative estimates.
+We recommend this mode per default.
 
 
 === Calculate the p-value of gene set enrichment ===
