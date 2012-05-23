@@ -85,7 +85,7 @@ GO:0016409      0.640   8       0.0000100000    0.0014018182    1       6       
 GO:0007349      4.461   16      0.0000100000    0.0014018182    8       24      91      cellularization cg9506,cg13263,cg14472,cg10728,cg8049,cg5020,cg17161,cg6137
 GO:0018345      0.464   8       0.0000100000    0.0014018182    1       5       22      protein palmitoylation  cg18810
 }}}
-Finally, we have found a significantly enriched GO categories with an FDR <0.05 . For example, for the first GO term (GO:0006497) we find on the average only one candidate SNP, but in our analysis we found 8. Note that we have a significant enrichment for this category although candidate SNPs were only found for a single gene. This could be due to selection acting on a single SNP and the others hitch-hicking along. Therefore results of this analysis mode must be interpreted with care.
+Finally, we have found a significantly enriched GO categories with an FDR <0.05 . For example, for the first GO term (GO:0006497) we find on the average only one candidate SNP, but in our analysis we found 8. Note that we have a significant enrichment for this category although candidate SNPs were only found for a single gene. In this mode we assume that selection is acting on all 8 SNPs independently. However this could also be due to selection acting on a single SNP and the others hitch-hicking along. Therefore results of this analysis mode must be interpreted with care.
 
 
 = Convert a `.gff` file into a `.gtf` =
